@@ -2,6 +2,35 @@
 layout: default
 ---
 
+# [](#header-1)2017 Year in Review
+
+This is it for the year. Here's a look back at my 2017, by the numbers [1]:
+
+Papers <a href="http://tuvalu.santafe.edu/~aaronc/research.htm">published or accepted</a>: 6 (journals or equivalent)
+Number that were <a href="https://en.wikipedia.org/wiki/Open_access#Journals:_gold_open_access">"gold" open access</a>: 2
+Number coauthored with students: 3
+Cumulative fraction of my papers available online, for free: 0.88 (-0.03 over 2016) <!-- 2017: 50/57 -->
+Pre-prints posted on the <a href="http://arxiv.org/find/all/1/all:+AND+aaron+clauset/0/1/0/all/0/1">arxiv</a> or <a href="http://biorxiv.org/search/%20author1%3Aaaron%2Bclauset%20numresults%3A100">biorxiv</a>: 1
+Other publications: 3 (including 1 <a href="http://science.sciencemag.org/content/355/6324/477">invited Perspective in <i>Science</i></a>)
+Patents: 1 (the first)
+Number of student coinventors: 2
+Papers currently under review: 5
+Manuscripts near completion: 6
+Rejections: 7 (+600% over 2016)
+Number of papers making up those rejections: 3
+New <a href="https://scholar.google.com/citations?user=e7VI_HcAAAAJ&hl=en">citations</a> to past papers: 2830 (+21% over 2016)
+Projects in-the-works: too many to count
+Half-baked projects unlikely to be completed: already forgotten
+Oldest project I still intend to finish: project started in 2009
+Any progress in 2017 on said project: sadly, no <!-- Oldest project completed this year: project started in 2013 (progress!) -->
+Papers read: >290 (about 5.5 per week)
+Number of open browser tabs containing papers to read, right now: 10
+Number of Dropbox folders created for research projects: 6
+
+Tenure dossiers submitted: 1
+Sabbatical proposals submitted: 1
+
+
 Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 [Link to another page](another-page).
