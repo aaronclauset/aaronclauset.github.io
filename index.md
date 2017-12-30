@@ -1,177 +1,107 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <title>Aaron Clauset on GitHub</title>
+---
+layout: default
+---
 
-    <link rel="stylesheet" href="/minimal/assets/css/style.css?v=9e102a46e313396641d3edf9d7a56d49f9d60fa1">
-    <meta name="viewport" content="width=device-width">
+Text can be **bold**, _italic_, or ~~strikethrough~~.
 
-  </head>
+[Link to another page](another-page).
 
-  <body>
-    <div class="wrapper">
-      <header>
-        <a href="https://aaronclauset.github.io/minimal"> <h1>Structure+Strangeness</h1> </a>
-        <p>Non-periodic updates by <a href="https://santafe.edu/~aaronc/">Aaron Clauset</a>.</p>
-        
-          <ul>
-            <li><a href="http://tuvalu.santafe.edu/~aaronc/research.htm">Research</a></li>
-            <li><a href="http://tuvalu.santafe.edu/~aaronc/labgroup.htm">People</a></li>
-            <li><a href="http://tuvalu.santafe.edu/~aaronc/teaching.htm">Teaching</a></li>
-            <li><a href="http://tuvalu.santafe.edu/~aaronc/datacode.htm">Data and Code</a></li>
-            <li><a href="http://tuvalu.santafe.edu/~aaronc/aclauset-cv.pdf">Vitae</a></li>
-            <li><a href="https://twitter.com/aaronclauset">Twitter</a></li>
-          </ul>
-        
-      </header>
-      <section>
+There should be whitespace between paragraphs.
 
-      <p>Text can be <strong>bold</strong>, <em>italic</em>, or <del>strikethrough</del>.</p>
+There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
 
-<p><a href="another-page">Link to another page</a>.</p>
+# [](#header-1)Header 1
 
-<p>There should be whitespace between paragraphs.</p>
+This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
 
-<p>There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.</p>
+## [](#header-2)Header 2
 
-<h1 id="header-1"><a href="#header-1"></a>Header 1</h1>
+> This is a blockquote following a header.
+>
+> When something is important enough, you do it even if the odds are not in your favor.
 
-<p>This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.</p>
+### [](#header-3)Header 3
 
-<h2 id="header-2"><a href="#header-2"></a>Header 2</h2>
+```js
+// Javascript code with syntax highlighting.
+var fun = function lang(l) {
+  dateformat.i18n = require('./lang/' + l)
+  return true;
+}
+```
 
-<blockquote>
-  <p>This is a blockquote following a header.</p>
+```ruby
+# Ruby code with syntax highlighting
+GitHubPages::Dependencies.gems.each do |gem, version|
+  s.add_dependency(gem, "= #{version}")
+end
+```
 
-  <p>When something is important enough, you do it even if the odds are not in your favor.</p>
-</blockquote>
+#### [](#header-4)Header 4
 
-<h3 id="header-3"><a href="#header-3"></a>Header 3</h3>
+*   This is an unordered list following a header.
+*   This is an unordered list following a header.
+*   This is an unordered list following a header.
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Javascript code with syntax highlighting.</span>
-<span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">lang</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">dateformat</span><span class="p">.</span><span class="nx">i18n</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./lang/'</span> <span class="o">+</span> <span class="nx">l</span><span class="p">)</span>
-  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
+##### [](#header-5)Header 5
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Ruby code with syntax highlighting</span>
-<span class="no">GitHubPages</span><span class="o">::</span><span class="no">Dependencies</span><span class="p">.</span><span class="nf">gems</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">gem</span><span class="p">,</span> <span class="n">version</span><span class="o">|</span>
-  <span class="n">s</span><span class="p">.</span><span class="nf">add_dependency</span><span class="p">(</span><span class="n">gem</span><span class="p">,</span> <span class="s2">"= </span><span class="si">#{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div></div>
+1.  This is an ordered list following a header.
+2.  This is an ordered list following a header.
+3.  This is an ordered list following a header.
 
-<h4 id="header-4"><a href="#header-4"></a>Header 4</h4>
+###### [](#header-6)Header 6
 
-<ul>
-  <li>This is an unordered list following a header.</li>
-  <li>This is an unordered list following a header.</li>
-  <li>This is an unordered list following a header.</li>
-</ul>
+| head1        | head two          | three |
+|:-------------|:------------------|:------|
+| ok           | good swedish fish | nice  |
+| out of stock | good and plenty   | nice  |
+| ok           | good `oreos`      | hmm   |
+| ok           | good `zoute` drop | yumm  |
 
-<h5 id="header-5"><a href="#header-5"></a>Header 5</h5>
+### There's a horizontal rule below this.
 
-<ol>
-  <li>This is an ordered list following a header.</li>
-  <li>This is an ordered list following a header.</li>
-  <li>This is an ordered list following a header.</li>
-</ol>
+* * *
 
-<h6 id="header-6"><a href="#header-6"></a>Header 6</h6>
+### Here is an unordered list:
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">head1</th>
-      <th style="text-align: left">head two</th>
-      <th style="text-align: left">three</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good swedish fish</td>
-      <td style="text-align: left">nice</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">out of stock</td>
-      <td style="text-align: left">good and plenty</td>
-      <td style="text-align: left">nice</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="highlighter-rouge">oreos</code></td>
-      <td style="text-align: left">hmm</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="highlighter-rouge">zoute</code> drop</td>
-      <td style="text-align: left">yumm</td>
-    </tr>
-  </tbody>
-</table>
+*   Item foo
+*   Item bar
+*   Item baz
+*   Item zip
 
-<h3 id="theres-a-horizontal-rule-below-this">There’s a horizontal rule below this.</h3>
+### And an ordered list:
 
-<hr />
+1.  Item one
+1.  Item two
+1.  Item three
+1.  Item four
 
-<h3 id="here-is-an-unordered-list">Here is an unordered list:</h3>
+### And a nested list:
 
-<ul>
-  <li>Item foo</li>
-  <li>Item bar</li>
-  <li>Item baz</li>
-  <li>Item zip</li>
-</ul>
+- level 1 item
+  - level 2 item
+  - level 2 item
+    - level 3 item
+    - level 3 item
+- level 1 item
+  - level 2 item
+  - level 2 item
+  - level 2 item
+- level 1 item
+  - level 2 item
+  - level 2 item
+- level 1 item
 
-<h3 id="and-an-ordered-list">And an ordered list:</h3>
+### Small image
 
-<ol>
-  <li>Item one</li>
-  <li>Item two</li>
-  <li>Item three</li>
-  <li>Item four</li>
-</ol>
+![](https://assets-cdn.github.com/images/icons/emoji/octocat.png)
 
-<h3 id="and-a-nested-list">And a nested list:</h3>
+### Large image
 
-<ul>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item
-        <ul>
-          <li>level 3 item</li>
-          <li>level 3 item</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-    </ul>
-  </li>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-    </ul>
-  </li>
-  <li>level 1 item</li>
-</ul>
+![](https://guides.github.com/activities/hello-world/branching.png)
 
-<h3 id="small-image">Small image</h3>
 
-<p><img src="https://assets-cdn.github.com/images/icons/emoji/octocat.png" alt="" /></p>
-
-<h3 id="large-image">Large image</h3>
-
-<p><img src="https://guides.github.com/activities/hello-world/branching.png" alt="" /></p>
-
-<h3 id="definition-lists-can-be-used-with-html-syntax">Definition lists can be used with HTML syntax.</h3>
+### Definition lists can be used with HTML syntax.
 
 <dl>
 <dt>Name</dt>
@@ -184,25 +114,10 @@
 <dd>Green</dd>
 </dl>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-</code></pre></div></div>
+```
+Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+```
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The final element.
-</code></pre></div></div>
-
-
-      </section>
-      <footer>
-        
-        <p>This project is maintained by <a href="https://github.com/pages-themes">pages-themes</a></p>
-        
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="/minimal/assets/js/scale.fix.js"></script>
-
-
-  
-  </body>
-</html>
-
+```
+The final element.
+```
