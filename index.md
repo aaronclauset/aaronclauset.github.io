@@ -8,6 +8,9 @@ My group's research activities are broad and multidisciplinary, and we are activ
 
 -----
 
-# [](#header-1)2017 Year in Review
+# [](#header-1)Non-periodic Updates:
+
+# [](#header-2)2017 Year in Review
+```30 December 3017```
 
 This is it for the year. [Here's a look back at my 2017, by the numbers.](2017_YiR)
