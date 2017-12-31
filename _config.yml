@@ -13,11 +13,11 @@
 title: Structure+Strangeness
 #email: your-email@example.com
 description: #>- # this means to ignore newlines until "baseurl:"
-  By Aaron Clauset
-  Assistant Professor of Computer Science, 
-  Core Faculty in the BioFrontiers Institute,
-  University of Colorado Boulder and,
-  External Faculty at the Santa Fe Institute
+  By Aaron Clauset<br/>
+  Assistant Professor of Computer Science, <br/>
+  Core Faculty in the BioFrontiers Institute, <br/>
+  University of Colorado Boulder and, <br/>
+  External Faculty at the Santa Fe Institute <br/>
 #baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://santafe.edu/~aaron/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: aaronclauset
