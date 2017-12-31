@@ -13,7 +13,7 @@
 title: Structure+Strangeness
 #email: your-email@example.com
 description: #>- # this means to ignore newlines until "baseurl:"
-  <img src="_img/aaron_sfi_close_sm.jpg"><br/>
+  <img src="aaron_sfi_close_sm.jpg" alt="Aaron Clauset" height="159" width="144"><br/>
   By Aaron Clauset<br/>
   Assistant Professor of Computer Science, <br/>
   Core Faculty in the BioFrontiers Institute, <br/>
