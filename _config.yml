@@ -19,7 +19,7 @@ description: #>- # this means to ignore newlines until "baseurl:"
   University of Colorado Boulder and, <br/>
   External Faculty at the Santa Fe Institute <br/>
 #baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://santafe.edu/~aaron/" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://santafe.edu/~aaronc/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: aaronclauset
 github_username: aaronclauset
 
