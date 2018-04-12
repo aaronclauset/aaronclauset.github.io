@@ -14,7 +14,7 @@ With the closing of my original [*Structure+Strangeness* blog](http://www.cs.unm
 ## Data on Paid Parental Leave Policies
 ```11 April 2018```
 
-An [open data set of paid parental leave policies](https://aaronclauset.github.io/parental-leave/) for 205 universities in the U.S. and Canada, along with a neat interactive visualization, and a few quick analyses. Joint work with [Allison C. Morgan](https://allisonmorgan.github.io), [Samuel F. Way](http://samfway.com), [Mirta Galesic](https://sites.google.com/site/mirtagalesic/), and [Daniel B. Larremore](http://danlarremore.com).
+We assembled an [open data set of paid parental leave policies](https://aaronclauset.github.io/parental-leave/) for 205 universities in the U.S. and Canada. To facilitate exploration and comparison, we put together a neat interactive visualization, and did a few quick statistical analyses. Joint work with [Allison C. Morgan](https://allisonmorgan.github.io), [Samuel F. Way](http://samfway.com), [Mirta Galesic](https://sites.google.com/site/mirtagalesic/), and [Daniel B. Larremore](http://danlarremore.com).
 
 ## 2017 Year in Review
 ```30 December 2017```
