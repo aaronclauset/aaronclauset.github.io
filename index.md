@@ -11,6 +11,11 @@ With the closing of my original [*Structure+Strangeness* blog](http://www.cs.unm
 
 # Non-periodic Updates:
 
+## 2018 Year in Review
+```28 December 2017```
+
+This is it for the year. [Here's a look back at my 2018, by the numbers.](2018_YiR)
+
 ## Data on Paid Parental Leave Policies
 ```11 April 2018```
 
