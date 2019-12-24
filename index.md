@@ -11,6 +11,11 @@ With the closing of my original [*Structure+Strangeness* blog](http://www.cs.unm
 
 # Non-periodic Updates:
 
+## 2019 Year in Review
+```28 December 2018```
+
+Another year wrapped up. [Here's a look back at my 2019, by the numbers.](2019_YiR)
+
 ## 2018 Year in Review
 ```28 December 2017```
 
