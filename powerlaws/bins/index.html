@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Power-law Distributions</title>
+	<link rel="stylesheet" href="../../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-r" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b>Power-law Distributions in Binned Empirical Data</b></p>
+
+<p><img src="http://www.santafe.edu/~aaronc/powerlaws/bins/powerlaw_example_binned.jpg" width="274" height="197" align="right">This page is a companion for the paper on 
+power-law distributions in binned empirical data, written by 
+Yogesh Virkar and 
+<a href="http://www.santafe.edu/~aaronc/">Aaron Clauset</a> (me). It presents 
+a version of the power-law tools from <a href="http://tuvalu.santafe.edu/~aaronc/powerlaws/">here</a> that work with data that are binned.
+This page hosts our implementations of the methods we describe in the article, 
+including several by developers other than us. Our goal is for the methods to 
+be widely accessible to the community.<br/>
+<i>NOTE: we cannot provide technical support for code not written by us, and 
+we are busy with other projects now and so may not provide support for our own 
+code.</i>
+</p>
+
+<p><b>Journal Reference</b><br/>
+Y. Virkar and A. Clauset, <a href="http://arxiv.org/abs/1208.3524">Power-law distributions in binned empirical data.</a> 
+<i>Annals of Applied Statistics</i> <b>8</b>(1), 89 - 119 (2014). (arXiv:<a href="http://arxiv.org/abs/1208.3524">1208.3524</a>). <br/><br/></p>
+
+<p><b> Fitting a binned power-law distribution </b><br/>
+This function fits a power-law model to binned data using maximum likelihood estimator discussed 
+in the paper. It uses a goodness-of-fit based method to estimate the lower bound for the scaling 
+region. Additional information can be obtained by typing 'help bplfit' at the Matlab command window.<br/>
+<a href="bplfit.m">bplfit.m</a> (Matlab, by Yogesh Virkar)</p>
+<p></p>
+
+<p><b>Visualizing the plotting function</b><br/>
+This function plots (on log-log axes) the binned empirical data along with the 
+fitted power-law model. Additional information can be obtained by typing 'help 
+bplplot' at the Matlab command window.<br/>
+<a href="bplplot.m">bplplot.m</a> (Matlab, by Yogesh Virkar)</p>
+<p></p>
+
+<p><b>Estimating uncertainty in the fitted parameters</b><br/>
+This function estimates the uncertainty in estimated parameters for the 
+power-law model using nonparametric bootstrap approach. Additional information 
+can be obtained by typing 'help bplvar' at the Matlab command window.<br/>
+<a href="bplvar.m">bplvar.m</a> (Matlab, by Yogesh Virkar)</p>
+<p></p>
+
+<p><b>Calculating <i>p</i>-value for the fitted power-law model</b><br/>
+Using the Kolmogorov-Smirnov statistic as a distance measure between data and 
+fitted model and semi-parametric bootstrap for resampling of data, this 
+function calculates the plausibility of the fitted power-law model. Additional 
+information can be obtained by typing 'help bplpva' at the Matlab command 
+window. <br/>
+<a href="bplpva.m">bplpva.m</a> (Matlab, by Yogesh Virkar)</p>
+<p></p>
+
+<p><b>Comparing to alternative distributions</b><br/>
+Using maximum likelihood estimator found for each alternative distribution 
+(exponential, stretched exponential, lognormal and power law with exponential 
+cut off), these functions fit the corresponding alternative distribution to 
+binned data. Additional information about usage can be obtained by typing 
+<q>help <i>name_of_function</i></q>. <br/>
+<a href="bexpnfit.m">bexpnfit.m</a> (Matlab, by Yogesh Virkar)<br/>
+<a href="bstexpfit.m">bstexpfit.m</a> (Matlab, by Yogesh Virkar)<br/>
+<a href="blgnormfit.m">blgnormfit.m</a> (Matlab, by Yogesh Virkar)<br/>
+<a href="bplcutfit.m">bplcutfit.m</a> (Matlab, by Yogesh Virkar)</p>
+<p></p>
+
+<p><b>Calculating likelihood ratio</b><br/>
+This function implements the log likelihood ratio test explained in the paper 
+to compare between different fitted models. Additional information about usage 
+can be obtained by typing 'help blrtest'. <br/>
+<a href="blrtest.m">blrtest.m</a> (Matlab, by Yogesh Virkar)</p>
+<p></p>
+
+<p><b>Calculating probability density functions</b><br/>
+This function calculates the probability density function for specified type 
+of model. Finding PDFs can be useful for model comparison (See 'blrtest.m'). 
+Additional information about usage can be obtained by typing 'help getPDF'. 
+<br/>
+<a href="getPDF.m">getPDF.m</a> (Matlab, by Yogesh Virkar)</p>
+
+<p><b>Download all files</b><br/>
+All the functions implemented above are available as a single downloadable zip 
+file here. <br/>
+<a href="plbinnedcode_v1.0.1-2015-06-08.zip">Full Matlab package</a> (by Yogesh 
+Virkar)</p>
+</p></p>
+
+<p><b>A note about bugs and alternative implementations</b><br/>
+The code provided here is provided as-is, with no warranty, with no 
+guarantees of technical support or maintenance, etc. If you experience 
+problems while using the code, please let us know via email. We are also happy 
+to host (or link to) 
+implementations of any of these functions in other programming languages, 
+in the interest of facilitating their more widespread use. That being said, 
+all such code also comes with no warranties, etc. If you do have questions 
+about any of the implementations, please contact the respective function's 
+author.<br/>
+
+Finally, if you use our code in an academic publication, it would be courteous 
+of you to thank Yogesh in your acknowledgements for providing you with 
+implementations of the methods.</p>
+
+<p><b>Data sets used</b><br/>
+All data sets used in the paper are either previously published or are available online.
+
+<ol>
+<p><li>Estimated number of personnel in a terrorist organization, binned by 
+powers of ten, except that the first two bins are merged. <br/>
+<a href="http://www.albany.edu/pvc/data.shtml">Link to the data</a> (<a href="http://dvn.iq.harvard.edu/dvn/dv/start/faces/study/StudyPage.xhtml?globalId=hdl:1902.1/16062&studyListingIndex=0_5ad32be44d3c864c156aa37873a4">mirror</a>).
+<p>V. Asal and R. K. Rethemeyer. "<a href="http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=1818164">The Nature of the Beast: Organizational structures and the lethality of terrorist attacks</a>." <i>Journal of Politics</i> <b>70</b>(2):437-449 (2008). </p>
+</p>
+
+<p><li>Diameter of branches in the plant species <i>Cryptomeria</i>, binned 
+in 30mm intervals. <br/>
+<a href="cryptomeria.txt">Download the data</a>.
+<p>K. Shinokazi, K. Yoda, K. Hozumi, and T. Kira, "<a href="http://ci.nii.ac.jp/naid/110001881234">A quantitative analysis of plant form-The Pipe Model Theory II: Further evidence of the theory and its application in forest ecology</a>." <i>Japanese Journal of Ecology</i> <b>14</b>(2):133-139 (1964).</p>
+</p>
+
+<p><li>Volume of ice in an iceberg calving event. <br/>
+Contact authors for data.
+<p>A. Chapuis and T. Tetzlaff, "<a href="http://arxiv.org/abs/1205.1640">The variability of tidewater-glacier calving: origin of event-size and interval distributions</a>." E-print, arXiv:1205.1640 (2012).</p>
+</p>
+
+<p><li>Length of a patient's hospital stay within a year.<br/>
+Contact authors for data.
+<p>Heritage Provider Network. <a href="http://bit.ly/wG8Psl">Health Heritage Prize Data Files, HHP_release3</a> (2012).</p>
+</p>
+
+<p><li>Wind speed (mph) of a tornado in the United States from 2007 to 2011, binned into categories according to the Enhanced Fujita (EF) scale, a roughly logarithmic binning scheme.<br/>
+<a href="http://1.usa.gov/Lj7cC9">Link to the data</a>.
+<p>Storm Prediction Center, <a href="http://1.usa.gov/Lj7cC9">Severe Weather Database Files (1950-2011)</a> (2011).</p>
+</p>
+
+<p><li>Maximum wind speed (knots) of tropical storms and hurricanes in the 
+United States between 1949 and 2010.<br/>
+<a href="http://1.usa.gov/cCcwTg">Link to the data</a>.
+<p>B. Jarvinen, C. Neumann, and M.A.S. Davis, <a href="http://1.usa.gov/cCcwTg">NHC Data Archive</a>. <a href="http://www.nhc.noaa.gov/">National Hurricane Center</a> (2012).</p>
+</p>
+
+<p><li>The human population of U.S. cities in the 2000 U.S. Census.<br/>
+<a href="../data/cities.txt">Download the data</a>.
+</p>
+
+<p><li>The sizes in acres of wildfires occurring on US federal land between 1986 and 1996.<br/>
+<a href="../data/fires.txt">Download the data</a>.
+<p>M. E. J. Newman, "<a href="http://arxiv.org/abs/cond-mat/0412004">Power laws, Pareto distributions and Zipf's law.</a>" <i>Contemporary Physics</i> <b>46</b>, 323 (2005).</p>
+</p>
+
+<p><li>The intensities of earthquakes occurring in California between 1910 and 1992, measured as the maximum amplitude of motion during the quake.<br/>
+<a href="../data/quakes.txt">Download the data</a>. (Magnitudes on the Gutenberg-Richter scale.)
+<p>M. E. J. Newman, "<a href="http://arxiv.org/abs/cond-mat/0412004">Power laws, Pareto distributions and Zipf's law.</a>" <i>Contemporary Physics</i> <b>46</b>, 323 (2005).</p>
+</p>
+
+<p><li>Area (sq. km) of glaciers in Scandinavia.<br/>
+<a href="http://bit.ly/MhLdt6">Link to the data</a>.
+<p> World Glacier Monitoring Service and National Snow and Ice Data Center. 
+<a href="http://bit.ly/MhLdt6">World Glacier Inventory</a> (2012).
+</p>
+
+<p><li>Number of cases per 100,000 of various rare disease.<br/>
+<a href="http://bit.ly/MezSZ6">Link to the data</a>.
+<p>Orphanet Report Series, Rare Diseases collection. <a href="http://bit.ly/MezSZ6">Prevalence of rare diseases: Bibliographic data</a> (2011).
+</p>
+
+<p><li>Number of genes associated with a disease.<br/>
+<a href="http://www.pnas.org/content/104/21/8685/suppl/DC1">Link to the data</a> (Table 1).
+<p>K. Goh, M. Cusick, D. Valle, B. Childs, M. Vidal, and A. L. Barabasi, "<a href="http://www.pnas.org/content/104/21/8685.long">The human disease network</a>." <i>Proc. Nat. Acad. Sci. USA</i> <b>104</b>(21), 8685-8690 (2007).
+</p>
+
+</ol>
+<p><b>Updates</b><br/>
+<i>8 June 2015</i>: corrected a small bug in the final calculation of the likelihood of the fit in bplfit; this bug did not impact any other aspects of the calculation. Thanks to Babak Fotouhi for finding it</br>
+<i>5 September 2012</i>: data information posted.</br>
+<i>3 September 2012</i>: v1.0 of code posted.</br>
+<i>16 July 2012</i>: initial page created.</p>
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../../research.htm">Research</a><br>
+<a href="../../labgroup.htm">Lab Group</a><br>
+<a href="../../datacode.htm">Data and Code</a><br>
+<a href="../../teaching.htm">Teaching</a><br>
+<a href="../../aclauset-cv.pdf">Vitae</a><br>
+<a href="http://www.cs.unm.edu/~aaron/blog/">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../../aboutme.htm">About Me</a><br>
+<a href="../../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2015, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

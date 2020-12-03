@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Inference, Models and Simulation for Complex Systems (CSCI 7000, Fall 2010)</title>
+	<link rel="stylesheet" href="../../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-t" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b><big>Inference, Models and Simulation for Complex Systems<br/>CSCI 7000, Fall 2010</big></b><br/>
+<img src="http://www.santafe.edu/~aaronc/hierarchy/hierarchy_ex_sm.jpg" width="200" height="313" align="right">
+Time: Tuesday and Thursday, 11:00am - 12:15pm<br/>
+Room: <a href="http://www.cs.colorado.edu/department/maps/muen.html">MUEN E114</a><br/><br/>
+Instructor: Aaron Clauset<br/>
+Office: <a href="http://www.cs.colorado.edu/department/maps/ecot7.html">ECOT 743</a><br/>
+Office hours: Tuesday, 1:30-3:00pm<br/>
+Email: <a href="http://www.cs.colorado.edu/cgi-bin/em?id=aaron_clauset">look it up</a><br/>
+<a href="csci7000-003_2010_syllabus.pdf">Syllabus</a>
+</p>
+
+<p><b><a href="#Description">Description</a></b><br/>
+<b><a href="#CourseWork">Course work and grading</a></b><br/>
+<b><a href="#Schedule">Schedule and lecture notes</a></b><br/>
+<b><a href="#Readings">Supplemental readings</a></b><br/>
+<b><a href="#ProblemSets">Problem sets and class project</a></b><br/>
+</p>
+
+<p><b><big><a name="Description">Description</a></big></b><br/>
+Computers are fundamentally changing how science is done by allowing us to record enormous amounts of data on social, biological, technological and physical systems. This data glut should allow us both to address old questions about complex systems in new ways and to answer fundamentally new kinds of questions. But, our ability to do this relies on the development of new algorithms to automatically extract information about patterns in these huge data sets and to reliably test complex scientific hypotheses. Examples include understanding the evolution of the Internet (at various levels), social behavior on the Web (Facebook, Wikipedia, Twitter, etc.), the role of networks in structuring complex social behaviors and biological functions, the emergence of population-scale patterns from seemingly random individual-level behavior, and forecasting rare but important events in the future.
+<br/><br/>
+
+This graduate-level topics course will cover a selection of recent developments in computational approaches to doing science with complex systems. It is not a scientific computing course. Topics will include statistical inference, the structure of complex networks, macro-phenomena in biological evolution and in wars and terrorism, simple mathematical models, and simulation techniques for more complicated models. The focus will be on using computational tools (algorithms) to do science (work with data; test hypotheses; build understanding; make predictions). </p>
+
+<p><b><big>Prerequisites</big></b><br/>
+No biological or social science background is necessary. A quantitative background is required, for instance, familiarity with basic statistics, calculus (integration and differentiation), and programming (including basic data structures and algorithms). If you don't have such a background, please see me.
+</p>
+
+<p><b><big>Text</big></b><br/>
+No textbook is required. <br/>
+<a href="http://www.amazon.com/Networks-Introduction-Mark-Newman/dp/0199206651">Networks: An Introduction</a> by M.E.J. Newman, 
+<a href="http://www.stat.cmu.edu/~larry/all-of-statistics/index.html">All of Statistics</a> by L. Wasserman, and 
+<a href="http://www.nrbook.com/nr3/">Numerical Recipes</a> are recommended. 
+The first two of these are being held on reserve for this course at the CU Library.
+
+<p><b><big><a name="CourseWork">Course work and grading</a></big></b><br/>
+Attendance to the lectures is required.
+<br/><br/>
+The first half of the course will be lecture and problem-set driven. The four problem 
+sets will each have some mathematical and some programming problems. 
+(The programming can be done in any language, but some solutions will require plots 
+of data. I recommend using <a href="http://en.wikipedia.org/wiki/Matlab">Matlab</a>, but 
+other solutions will also work.)
+<br/><br/>
+Problem sets will be due roughly two weeks after they are assigned. Solutions should in 
+PDF format (e.g., typeset using <a href="http://en.wikipedia.org/wiki/LaTeX">LaTeX</a>), should include all necessary details for me to follow the logic, and should be submitted via email by 11:59pm the day they are due. No late assignments will be accepted. Collaboration is allowed on the problem sets, but you're not allowed to simply copy solutions from another student. You must cite your collaborators in your solutions. Copying from any source, including the Web, is not allowed. 
+<br/><br/>
+The second half of the class will revolve around crowd-sourced lectures on more advanced 
+topics and an independent project. For the lectures, students will team up in small 
+groups, choose a paper or topic related to inference, models or simulations for complex 
+systems, and give a lecture describing the technique and/or results. We'll set the 
+schedule for these early in the semester. Students should form their groups by the end 
+of September and should meet with me soon afterward to choose a paper or topic.
+<br/><br/>
+
+Some lectures will have an accompanying reading assignment. I'll post the readings here 
+prior to the lecture.
+<br/><br/>
+
+The grade for the course will be 30% attendance, 30% problem sets, and 40% class project.
+
+<p><b><big><a name="Schedule">Tentative Schedule</a></big></b><br/>
+Week  1: Overview, probability distributions, likelihood functions, the Poisson process 
+(<a href="csci7000-003_2010_L1.pdf">Lecture 1</a>)
+<br/>
+Week  2: Power-law distributions and power-law tails
+(<a href="csci7000-003_2010_L2.pdf">Lecture 2</a> and 
+<a href="csci7000-003_2010_L3.pdf">Lecture 3</a>)
+<br/>
+Week  3: Hypothesis tests, model plausibility, model comparison, the Bayesian fallacy 
+(<a href="csci7000-003_2010_L4.pdf">Lecture 4</a>)
+<br/>
+Week  4: Time series analysis, random walks
+(<a href="csci7000-003_2010_L5.pdf">Lecture 5</a> and <a href="csci7000-003_2010_L6.pdf">Lecture 6</a>)
+<br/>
+Week  5: Measures of network structure, algorithms (<a href="csci7000-003_2010_L7.pdf">Lecture 7</a> and <a href="csci7000-003_2010_L8.pdf">Lecture 8</a>)
+<br/>
+Week  6: Random graph models, citation networks (<a href="csci7000-003_2010_L9.pdf">Lecture 9</a> and <a href="csci7000-003_2010_L10.pdf">Lecture 10</a>)
+<br/>
+Week  7: Modular and hierarchical structure, missing information, link prediction <br/>(<a href="csci7000-003_2010_L11.pdf">Lecture 11</a> and <a href="csci7000-003_2010_L12.pdf">Lecture 12</a>)
+<br/>
+Week  8: Macroevolution (<a href="csci7000-003_2010_L13.pdf">Lecture 13</a> and <a href="csci7000-003_2010_L14.pdf">Lecture 14</a>)
+<br/>
+Week  9: Terrorism and wars (<a href="csci7000-003_2010_L15.pdf">Lecture 15</a> and <a href="csci7000-003_2010_L16.pdf">Lecture 16</a>)
+<br/>
+Week 10: Crowdsource lectures
+<br/>
+Week 11: Crowdsource lectures
+<br/>
+Week 12: Crowdsource lectures
+<br/>
+Week 13: Crowdsource lectures
+<br/>
+Week 14: Fall break
+<br/>
+Week 15: Project presentations
+<br/>
+Week 16: Project presentations
+
+<p><b><big><a name="ProblemSets">Problem Sets</a></big></b><br/>
+<b><a href="csci7000-003_2010_PS1.pdf">Problem set 1</a></b> (assigned August 26; due September 15)
+<ul>
+ <li>
+ <a href="http://tuvalu.santafe.edu/~aaronc/powerlaws/data/surnames.txt">data set 1A</a>: 
+the frequencies of occurrence of US family names in the 1990 US Census. <br/>
+(From A. Clauset, C.R. Shalizi and M.E.J. Newman (2009) <i>SIAM Review</i> <b>51</b>, 
+661.)
+ <li>
+ <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/wars.txt">data set 1B</a>: 
+the intensity of wars from 1816-1980 measured as the number of battle deaths per 
+10,000 of the combined populations of the warring nations. <br/>
+(From M. Small and J.D. Singer (1982) Sage Publications).
+ <li>
+ <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/wealth.txt">data set 1C</a>: 
+the aggregate net worth in US dollars of the richest individuals in the United States 
+in October 2003. <br/>
+(From M.E.J. Newman (2005) <i>Contemporary Physics</i> <b>46</b>, 323).
+ <li>
+ <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/religions.txt">data set 1D</a>: 
+the numbers of adherents of religious denominations, bodies, and sects, as compiled and 
+published on the web site adherents.com. <br/> 
+(From A. Clauset, C.R. Shalizi and M.E.J. Newman (2009) <i>SIAM Review</i> <b>51</b>, 
+661.)
+ <li>
+ <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/ecoli.txt">data set 1E</a>: 
+the degrees of metabolites in the metabolic network of the bacterium <i>Escherichia 
+coli</i>. <br/> 
+(From M. Huss and P. Holme (2007) <i>IET Systems Biology</i> <b>1</b>, 280.)
+</ul>
+</p>
+<p><b><a href="csci7000-003_2010_PS2.pdf">Problem set 2</a></b> (assigned September 16; due September 29)</p>
+<ul>
+ <li> <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/random_walk_2A.txt">data set 2A</a>
+ <li> <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/random_walk_2B.txt">data set 2B</a>
+ <li> <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/random_walk_2C.txt">data set 2C</a>
+ <li>
+ <a href="http://tuvalu.santafe.edu/~aaronc/courses/7000/data/NA_mammals_2D.txt">data set 2D</a>: 
+estimated masses of North American mammal species, in descendent-ancestor pairs. <br/> 
+(From J. Alroy (1998) <i>Science</i> <b>280</b>, 731.)
+</ul>
+<p><b><a href="csci7000-003_2010_PS3.pdf">Problem set 3</a></b> (assigned September 30; due October 13)</p>
+<p><b><a href="csci7000-003_2010_PS4.pdf">Problem set 4</a></b> (assigned October 14; due October 27)</p>
+
+<p><b><big>Potential Crowdsource Lecture Topics</big></b><br/>
+Students are free to choose any topic for their crowdsource lecture that is related to the general class topic. I'm happy to make specific suggestions of papers on any of the following topics:
+<br/><br/>
+
+<i>Statistical inference</i>: the bootstrap, cross-validation, model averaging, model 
+comparison and selection, regression models, non-parametric models, statistical 
+power.<br/>
+<i>Structure of complex networks</i>: Internet topology evolution, metabolic networks,
+genetic regulatory networks, road networks, river networks and circulation networks, 
+graph alignment, signaling networks, network epidemiology, densification, social 
+networks on the Web.<br/>
+<i>Macro-phenomena</i>: Google Insights, patterns in biological diversity, human 
+population growth, Zipf's law, Levy models of animal foraging, social dynamics of 
+populations, social behavior on the Web.<br/>
+<i>Mathematical models</i>: diffusion processes, branching processes, percolation, 
+self-organized criticality, highly-optimized tolerance, power-law mechanisms.<br/>
+<i>Simulations</i>: complex models of data, error bars and uncertainty, model 
+comparison, sensitivity analysis, parameter spaces, parametric vs. non-parametric 
+models, Occam's Razor.
+
+<p><b><big>Class Project</big></b><br/>
+The assignment is to develop and complete a small research-style project based around 
+the tools and concepts developed in the course. The project should focus on either 
+inference, modeling or simulation. Students will work independently and will turn in a 
+10-page writeup of their project results at the end of the semester. Students should 
+meet with me outside of class in the first few weeks of October (but no later than Oct. 
+21) to finalize the project topic. The final writeup is due December 10.
+
+<p><b><big><a name="Readings">Supplemental Readings</a></big></b>
+<p>Week  1: <br/>
+<ul>
+ <li> L. Breiman, "<a href="readings/Breiman_01_StatisticalModeling_TheTwoCultures.pdf">Statistical Modeling: The Two Cultures</a>." <i>Statistical Science</i> <b>16</b>, 199-231 (2001).
+ <li> R.D. Malmgren, D.B. Stouffer, A.E. Motter and L.A.N. Amaral, "<a href="readings/Malmgren_etal_08_PoissonianExplanationOfHeavyTailsInResponseTimes.pdf">A Poissonian explanation for heavy tails in e-mail communication</a>." <i>PNAS</i> <b>105</b>, 18153-18158 (2008).
+</ul></p>
+<p>Week  2: <br/>
+<ul>
+ <li> M.E.J. Newman, "<a href="readings/Newman_05_PowerLawsParetoDistributionsAndZipfsLaw.pdf">Power laws, Pareto distributions and Zipf's law</a>." <i>Contemporary Physics</i> <b>46</b>(5), 323-351 (2005).
+ <li> M. Mitzenmacher, "<a href="readings/Mitzenmacher_04_BriefHistoryGenerativeModelsLognormAndPowerlaw.pdf">A Brief History of Generative Models for Power Law and Lognormal Distributions</a>." <i>Internet Mathematics</i> <b>1</b>(2), 226-251 (2004).
+ <li> A. Clauset, C.R. Shalizi and M.E.J. Newman, "<a href="readings/Clauset_Shalizi_Newman_09_PowerlawDistributionsInEmpiricalData.pdf">Power-law distributions in empirical data</a>." <i>SIAM Review</i> <b>51</b>(4), 661-703 (2009).
+ <li> S. Goel, A. Broder, E. Gabrilovich and B. Pang, "<a href="readings/Goel_Broder_Gabrilovich_Pang_10_AnatomyOfTheLongTail_OrdinaryPeopleWithExtraordinaryTastes.pdf">Anatomy of the Long Tail: Ordinary People with Extraordinary Tastes</a>." Proc. 3rd ACM Workshop on Web Search and Data Mining, New York City (2010).
+</ul></p>
+<p>Week  3: <br/>
+<ul>
+ <li> A. Gelman and C.R. Shalizi, "<a href="http://www.stat.columbia.edu/~gelman/research/unpublished/philosophy.pdf">Philosophy and the practice of Bayesian statistics</a>." Preprint (2010).
+ <li> D.G. Mayo, <i><a href="http://www.amazon.com/Experimental-Knowledge-Science-Conceptual-Foundations/dp/0226511987">Error and the Growth of Experimental Knowledge</a>.</i> Chicago Press (1996).
+</ul></p>
+<p>Week  4: <br/>
+<ul>
+ <li> S. Redner, "<a href="readings/Redner_90_MultiplicativeProcesses.pdf">Random multiplicative processes: An elementary tutorial</a>." <i>American Journal of Physics</i> <b>58</b>(3), 267-273 (1990).
+ <li> J. Alroy, "<a href="readings/Alroy_00_UnderstandingDynamicsOfTrendsInEvolvingLineages.pdf">Understanding the dynamics of trends within evolving lineages</a>." <i>Paleobiology</i> <b>26</b>(3), 319-329 (2000).
+</ul></p>
+<p>Week  5: <br/>
+<ul>
+ <li> M.E.J. Newman, "<a href="http://arxiv.org/abs/cond-mat/0303516">The structure and function of complex networks</a>." 
+<i>SIAM Review</i> <b>45</b>, 167-256 (2003).
+ <li> S.N. Dorogovtsev and J.F.F. Mendes, "<a href="http://arxiv.org/abs/cond-mat/0106144">Evolution of networks</a>."
+<i>Adv. Phys.</i> <b>51</b>, 1079 (2002).
+</ul></p>
+<p>Week  6: <br/>
+<ul>
+ <li> M.E.J. Newman, S.H. Strogatz and D.J. Watts, "<a href="readings/Newman_Strogatz_Watts_01_RandomGraphsWithArbitraryDegreeDistributionsAndTheirApplications.pdf">Random graphs with arbitrary degree distributions and their applications</a>." 
+<i>Physical Review E</i> <b>64</b>, 026118 (2001).
+ <li> D.S. Callaway, J.E. Hopcroft, J.M. Kleinberg, M.E.J. Newman and S.H. Strogatz, "<a href="readings/Callaway_etal_01_AreRandomlyGrownGraphsReallyRandom.pdf">Are randomly grown graphs really random?</a>."
+<i>Physical Review E</i> <b>64</b>, 041902 (2001).
+ <li> M.E.J. Newman, "<a href="readings/Newman_09_FirstMoverAdvantageInScientificPublication.pdf">The first-mover advantage in scientific publication</a>."
+<i>European Physics Letters</i> <b>86</b>, 68001 (2009).
+ <li> S. Redner, "<a href="readings/Redner_05_CitationStatisticsFrom110YearsOfPhysicalReview.pdf">Citation statistics from 110 years of <i>Physical Review</i></a>."
+<i>Physics Today</i> <b>58</b>, 49-54 (2005).
+</ul></p>
+<p>Week  7: <br/>
+<ul>
+ <li> B.H. Good, Y.-A. de Montjoye and A. Clauset, "<a href="readings/Good_Montjoye_Clauset_10_PerformanceOfModularityMaximizationInPracticalContexts.pdf">Performance of modularity maximization in practical contexts</a>." 
+<i>Physical Review E</i> <b>81</b>, 046106 (2010).
+ <li> A. Clauset, M.E.J. Newman and C. Moore, "<a href="readings/Clauset_Newman_Moore_04_FindingCommunityStructureInVeryLargeNetworks.pdf">Finding community structure in very large networks</a>."
+<i>Physical Review E</i> <b>70</b>, 066111 (2004).
+ <li> A. Clauset, C. Moore and M.E.J. Newman, "<a href="readings/Clauset_Moore_Newman_08_HierarchicalStructureAndThePredictionOfMissingLinks.pdf">Hierarchical structure and the prediction of missing links in networks</a>."
+<i>Nature</i> <b>453</b>, 98-101 (2008).
+</ul></p>
+<p>Week  8: <br/>
+<ul>
+ <li> G. Hunt, "<a href="readings/Hunt_10_EvolutionInFossilLineages_PaleontologyAndTheOriginOfSpecies.pdf">Evolution in Fossil Lineages: Paleontology and <i>The Origin of Species</i></a>." 
+<i>The American Naturalist</i> <b>176</b>, Supplement S61-S75 (2010).
+ <li> A. Clauset and D.H. Erwin, "<a href="readings/Clauset_Erwin_08_DistributionEvolutionSpeciesBodySize.pdf">The Evolution and Distribution of Species Body Size</a>."
+<i>Science</i> <b>321</b>, 399-401 (2008).
+ <li> J. Alroy, "<a href="readings/Alroy_00_UnderstandingDynamicsOfTrendsInEvolvingLineages.pdf">Understanding the dynamics of trends within evolving lineages</a>." <i>Paleobiology</i> <b>26</b>(3), 319-329 (2000).
+</ul></p>
+<p>Week  9: <br/>
+<ul>
+ <li> A. Clauset, M. Young and K.S. Gleditsch, "<a href="readings/Clauset_Young_Gleditsch_07_FrequencyOfSevereTerroristEvents.pdf">On the Frequency of Severe Terrorist Events</a>." 
+<i>Journal of Conflict Resolution</i> <b>51</b>, 58-87 (2007).
+ <li> A. Clauset and K.S. Gleditsch, "<a href="readings/Clauset_Gleditsch_09_DevelopmentalDynamicsOfTerroristOrganizations_arxiv.pdf">The developmental dynamics of terrorist organizations</a>." Preprint, arxiv:0906.3287 (2009).
+</ul></p>
+
+<p><b><big>Resources</big></b><br/>
+<a href="http://www.amazon.com/Networks-Introduction-Mark-Newman/dp/0199206651">Networks: An Introduction</a> (by <a href="http://www-personal.umich.edu/~mejn/">Mark Newman</a>)<br/>
+<a href="http://cscs.umich.edu/~crshalizi/notebooks/learning-inference-induction.html">Machine Learning, Statistical Inference and Induction Notebook</a> (by <a href="http://cscs.umich.edu/~crshalizi/">Cosma Shalizi</a>)<br/>
+<a href="http://cscs.umich.edu/~crshalizi/notebooks/power-laws.html">Power Law distributions, etc. Notebook</a> (by <a href="http://cscs.umich.edu/~crshalizi/">Cosma Shalizi</a>)<br/>
+<a href="http://www.stat.cmu.edu/~cshalizi/757/process.html">Some Advice on Process for 
+[Research Projects]</a><br/>
+<a href="http://www.cytoscape.org/">Cytoscape</a>, network 
+visualization software<br/>
+<a href="http://www.yworks.com/en/products_yed_about.html">yEd Graph Editor</a>, network 
+visualization software<br/>
+<a href="http://www.research.att.com/projects/IV_GRAPHVIZ/index.html">Graphviz</a>, 
+network visualization software</br>
+
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../../research.htm">Research</a><br>
+<a href="../../labgroup.htm">Lab Group</a><br>
+<a href="../../teaching.htm">Teaching</a><br>
+<a href="../../aclauset-cv.pdf">Vitae</a><br>
+<a href="http://www.cs.unm.edu/~aaron/blog/">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../../aboutme.htm">About Me</a><br>
+<a href="../../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2011, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

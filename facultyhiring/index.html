@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Faculty Hiring Networks</title>
+	<link rel="stylesheet" href="../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-r" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<h2>Faculty Hiring Networks</h2>
+
+<p><img src="http://www.santafe.edu/~aaronc/facultyhiring/hiring_network2.png" width="235" height="438" align="right">This page is a companion for the 
+<i>Science Advances</i> article on faculty hiring networks, written by 
+<a href="http://santafe.edu/~aaronc/">Aaron Clauset</a> (me), 
+<a href="http://www.arbesman.net">Samuel Arbesman</a>, and 
+<a href="http://danlarremore.com">Daniel B. Larremore</a>. 
+This page hosts an implementation of the network ranking methods, the complete 
+faculty hiring data sets analyzed in the paper, and links to interactive 
+visualizations of that data.
+</p>
+
+<p><b>Journal reference</b><br/>
+A. Clauset, S. Arbesman, and D. B. Larremore,
+"<a href="http://advances.sciencemag.org/content/1/1/e1400005">Systematic inequality and hierarchy in faculty hiring networks</a>." 
+<i>Science Advances</i> <b>1</b>(1), e1400005 (2015).<br/>
+<a href="http://advances.sciencemag.org/content/advances/suppl/2015/02/11/1.1.e1400005.DC1/1400005_SM.pdf">Supplementary Materials</a> file (PDF)<br/>
+<a href="http://www.slate.com/articles/life/education/2015/02/university_hiring_if_you_didn_t_get_your_ph_d_at_an_elite_university_good.single.html">Perspective piece</a> in <i>Slate</i>, with <a href="http://www.joelwarner.com">Joel Warner</a>
+</p>
+
+
+<p><b>Network ranking code</b><br/>
+This function takes as input an adjacency matrix representing a directed 
+network and runs a zero-temperature Markov Chain Monte Carlo algorithm to 
+sample all minimum violation rankings (MVRs) of the input network. Usage 
+information is included in the file; type 'help mvrsample' at the Matlab 
+prompt for more information.
+<br/><i>NOTE: we cannot provide technical support for code not written by us, and we are busy with other projects now and so may not provide support for our own code.</i>
+<br/>
+<a href="mvrsample.m">mvrsample.m</a> (Matlab, by Aaron Clauset)<br/>
+<a href="mvrsample_in_C.html">mvrsample.m</a> (C, by Huanshen Wei)</p>
+
+<p><b>Faculty hiring data</b><br/>
+Data on 18,924 tenure or tenure-track faculty was collected between May 2011 
+and August 2013 for the disciplines of Computer Science, Business, and 
+History. All data was collected and validated by hand from primary sources 
+(mainly departmental webpages and faculty homepages). The following table 
+gives a brief sketch of the data included in the study, which represents the 
+16,316 faculty at the within-sample institutions who received their doctorates 
+from another within-sample institution. (About 14% of faculty received their 
+doctorates from outside our sample, mainly from foreign universities.) These 
+data represent the largest and most comprehensive survey of faculty placements 
+collected at the time of publication in 2015.
+
+<center>
+<table style="width:80%">
+  <tr>
+    <th></th>
+    <th align="left">computer science</th> 
+    <th align="left">business</th>
+    <th align="left">history</th>
+  </tr>
+  <tr>
+    <td>institutions</td>
+    <td>205</td> 
+    <td>112</td>
+    <td>144</td>
+  </tr>
+  <tr>
+    <td>regular faculty</td>
+    <td>4388</td> 
+    <td>7856</td>
+    <td>4072</td>
+  </tr>
+  <tr>
+    <td>mean size</td>
+    <td>21.4</td> 
+    <td>70.1</td>
+    <td>28.6</td>
+  </tr>
+  <tr>
+    <td>collection period</td>
+    <td>5/2011-3/2012</td>
+    <td>3/2012-12/2012</td>
+    <td>1/2013-8/2013</td>
+  </tr>
+</table>
+</center>
+
+
+<p>These data are provided separately for each discipline. One file contains 
+the directed edges <i>(u,v)</i>, each of which denotes a person who received 
+their doctorate from institution <i>u</i> and was faculty at institution 
+<i>v</i> during the collection period. Each 
+edge is annotated with the faculty rank of that individual at <i>v</i> and 
+that person's gender. A second file contains vertex attribute information, 
+including the prestige score assigned by the MVR sampling algorithm, its 
+USNews rank and the National Research Council rank (if available) most recent 
+to the collection period, its geographic region (generally US Census), and 
+the institution's name. Missing values are denoted by a period '.'. All files 
+are plain text. No personally identifying information is included in the files 
+(but these data are by no means anonymous). Additional details of the data 
+can be found in the paper's Supplementary Materials.
+</p>
+
+<p>
+Computer Science faculty hiring network and departmental attribute files:<br/>
+<b><a href="ComputerScience_edgelist.txt">ComputerScience_edgelist.txt</a></b> (68 KB)<br/>
+<b><a href="ComputerScience_vertexlist.txt">ComputerScience_vertexlist.txt</a></b> (11 KB)<br/><br/>
+
+Business School faculty hiring network and departmental attribute files:<br/>
+<b><a href="Business_edgelist.txt">Business_edgelist.txt</a></b> (119 KB)<br/>
+<b><a href="Business_vertexlist.txt">Business_vertexlist.txt</a></b> (5 KB)<br/><br/>
+
+History faculty hiring network and departmental attribute files:<br/>
+<b><a href="History_edgelist.txt">History_edgelist.txt</a></b> (60 KB)<br/>
+<b><a href="History_vertexlist.txt">History_vertexlist.txt</a></b> (7 KB)<br/><br/>
+
+All the data:<br/>
+<b><a href="replicationData_all.zip">replicationData_all.zip</a></b> (51 KB) <br/>
+</p>
+
+<p><b>Interactive visualizations</b><br/>
+Dan Larremore has put together <a href="http://danlarremore.com/faculty/">an 
+interactive visualization of these data</a>. 
+Within each discipline, you can explore different aspects of the network, 
+examine individual institutions, and inspect the flows of faculty between 
+specific pairs of institutions within the prestige hierarchy. <br/>
+
+<center>
+<table style="width:80%">
+  <tr>
+    <td><a href="http://danlarremore.com/faculty/"><img src="http://www.santafe.edu/~aaronc/facultyhiring/visual_CS.png" width="160" height="160" align="center"></a></td> 
+    <td><a href="http://danlarremore.com/faculty/"><img src="http://www.santafe.edu/~aaronc/facultyhiring/visual_BS.png" width="160" height="160" align="center"></a></td>
+    <td><a href="http://danlarremore.com/faculty/"><img src="http://www.santafe.edu/~aaronc/facultyhiring/visual_HS.png" width="160" height="160" align="center"></a></td>
+  </tr>
+</table>
+</center>
+
+</p>
+
+
+<p><b>A note on the software and data</b><br/>
+The Matlab code for mvrsample.m was designed to be compatible with Matlab 
+v7.13 (2011). It is not necessarily compatible with older versions of Matlab; 
+it should be compatible with newer versions (for the foreseeable future).<br/>
+
+The code and data are provided as-is, with no warranty, express or implied, 
+no guarantee of correctness, no guarantees of technical support or 
+maintenance, etc. The code is released under <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</a> and the data under the 
+<a href="http://creativecommons.org/licenses/by-nc/2.0/">CC-BY-NC license</a>
+ attached to the paper. If you experience problems while using the code or 
+data, please let me know via email. I am happy to host (or link to) 
+implementations of the mvrsample program in other programming languages, but 
+cannot provide any technical support for such code. If you are interested 
+in commercialization of these ideas, code, or data please in contact me.<br/>
+
+Finally, if you use my code in an academic publication, it would be 
+courteous of you to thank me in your acknowledgements for providing you with 
+implementations of the methods. </p>
+
+<p><b>Updates</b><br/>
+<i>15 October 2017</i>: added the C version of mvrsample, by Huanshen Wei<br/>
+<i>12 February 2015</i>: initial page created and posted; including version 1.0 of data,  version 1.0 of mvrsample, and links to interactive visualizations.
+<br/>
+</p>
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../research.htm">Research</a><br>
+<a href="../labgroup.htm">Lab Group</a><br>
+<a href="../datacode.htm">Data and Code</a><br>
+<a href="../teaching.htm">Teaching</a><br>
+<a href="../aclauset-cv.pdf">Vitae</a><br>
+<a href="https://aaronclauset.github.io">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../aboutme.htm">About Me</a><br>
+<a href="../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2017, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

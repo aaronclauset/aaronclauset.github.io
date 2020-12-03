@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Hierarchical Random Graphs</title>
+	<link rel="stylesheet" href="../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-r" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b>Hierarchical Random Graphs</b></p>
+
+<p>
+<img src="http://www.santafe.edu/~aaronc/hierarchy/hierarchy_ex_sm.jpg" width="200" height="313" align="right">
+This page is a companion for the article on hierarchical random 
+graphs (HRGs), written by 
+<a href="http://www.santafe.edu/~aaronc/">Aaron Clauset</a> (me), 
+<a href="http://www.santafe.edu/~moore/">Cris Moore</a> and 
+<a href="http://www-personal.umich.edu/~mejn/">Mark E.J. Newman</a>. This page 
+hosts our implementation of the basic HRG fitting procedures described in the 
+paper. The code is implemented in ANSI C++ and requires no non-standard libraries. 
+The basic code for (1) running the MCMC procedure, (2) using HRGs to predict 
+missing connections, and (3) constructing the consensus dendrogram, is provided 
+as-is below. (Note: thanks to <a href="http://cneuro.rmki.kfki.hu/people/csardi">
+Gabor Csardi</a>, the 
+<a href="http://igraph.sourceforge.net/">igraph library</a> now includes both 
+a <a href="http://igraph.sourceforge.net/doc-0.6/html/igraph-HRG.html">C implementation</a> and an <a href="http://igraph.sourceforge.net/doc-0.6/R/hrg.html">R implementation</a> of many of these functions. 
+<a href="https://github.com/ndronen/">Nick Dronen</a> also provides a <a href="https://github.com/ndronen/PyHRG">Python implementation</a>.)</p>
+
+<p>Each program is relatively straight-forward to use, and omits some of 
+the more complex experimental things mentioned in the paper. On the other hand, 
+it should be relatively clear to an intermediate-level programmer how to adapt 
+this code for more complex tasks. The code runs as a command-line application, 
+provides no graphical interface, and reads/writes plain text files. The code has 
+been tested under Mac OS X 10.{4,5}.x and Ubuntu Linux 7.04.
+</p>
+
+<p><b>Journal References</b><br/>
+<ol>
+<p><li>
+<a href="http://www.nature.com/nature/journal/v453/n7191/abs/nature06830.html">
+Hierarchical structure and the prediction of missing links in networks</a>.<br/> 
+A. Clauset, C. Moore, and M.E.J. Newman. <br/>
+<i>Nature</i> <b>453</b>, 98 - 101 (2008). (<a href="http://arxiv.org/abs/0811.0484">preprint version</a>)</p>
+
+<p><li>
+<a href="http://arxiv.org/abs/physics/0610051">Structural Inference of Hierarchies in Networks</a>.<br/>
+A. Clauset, C. Moore, and M.E.J. Newman. <br/>
+In E. M. Airoldi et al. (Eds.): <i>ICML 2006 Ws, Lecture Notes in Computer Science</i> <b>4503</b>, <br/> 
+1 - 13. Springer-Verlag, Berlin Heidelberg (2007).</p>
+</ol>
+</p>
+
+<p><b>HRG file format</b><br/>
+In order to support the i/o of dendrogram models, the code uses a special text format 
+to describe a hierarchical random graph model. The format is basically an explicit 
+representation of the dendrogram (binary tree) with probability annotations at the 
+internal nodes. An example of such a model, for the <a href="http://links.jstor.org/sici?sici=0091-7710%28197724%2933%3A4%3C452%3AAIFMFC%3E2.0.CO%3B2-G">Zachary's karate club</a> network 
+is <a href="karate_best-dendro.hrg">here</a>. The corresponding edge list file 
+is <a href="karate.pairs">here</a>. Both of these files are included in the 
+packages below.
+
+<p><b>Fitting HRGs to data using MCMC</b><br/>
+This code runs our Markov chain Monte Carlo (MCMC) algorithm for sampling the space 
+of dendrogram models. The input format is a standard one (tab-delimited edge list); 
+this code will take the input graph and run the MCMC forever. Each time it samples a 
+dendrogram model with a new highest likelihood, it writes the corresponding model out 
+as a text file (.hrg file) along with some additional information about the model 
+(.info file). The .hrg file can be passed back to fitHRG to restart the sampling later, 
+or to generate a graph instance drawn from the ensemble defined by the given model 
+(-make flag). A makefile is included with the code, and can be used for standard 
+compilation. Run the program with no arguments to get usage information. If the 
+input text files are not formatted correctly, the program will crash.<br/>
+<a href="hrg_20090116_fitHRG_v1.0.2.tgz">fitHRG code</a> (C++)</p>
+
+<p><b>Predicting missing edges using HRGs</b><br/>
+This code runs the MCMC algorithm on a particular input graph and outputs the list
+of possible missing connections, in descending order of their likelihood under the 
+sampled models. The MCMC has a built-in convergence criteria to decide when to start 
+sampling (easy to modify), and the MCMC can be seeded with an HRG model (derived 
+from fitHRG, perhaps). The basic code is almost identical to fitHRG, but 
+with a few additional methods for making predictions.<br/>
+<a href="hrg_20120527_predictHRG_v1.0.4.zip">predictHRG code</a> (C++)</p>
+
+<p><b>Consensus dendrograms</b><br/>
+This code runs the MCMC algorithm from a seed HRG model (derived from fitHRG, perhaps) 
+and outputs a consensus dendrogram file (-consensus.tree) which contains only the 
+dendrogram features that appear in the majority of the sampled models. The basic code 
+is almost identical to fitHRG, but with a few additional methods for constructing the 
+consensus dendrogram.<br/>
+<a href="hrg_20080521_consensusHRG_v1.0.tgz">consensusHRG code</a> (C++)</p>
+<img src="http://www.santafe.edu/~aaronc/hierarchy/karate_hrg.png" align="right">
+
+<p><b>Visualizing HRG models</b><br/>
+This matlab function draws radial dendrogram figures like the one shown here for the 
+karate club network (generated by fitHRG). I cobbled this together from examining other 
+dendrogram-plotting routines, and it is sufficient for visualizing .hrg files produced 
+by the fitHRG code. This code can also annotate the leaf nodes with group information. 
+Place this file somewhere in your Matlab path and type 'help hrgplot' for more 
+information.<br/>
+<a href="hrgplot.m">hrgplot.m</a> (Matlab)</p>
+
+<p><b>Visualizing consensus dendrograms</b><br/>
+This matlab function draws radial dendrogram figures generated by the consensusHRG
+code. Just like the hrgplot function above, this function can also annotate the leaf 
+nodes with group information. Place this file somewhere in your Matlab path and type 
+'help consensusplot' for more information.<br/>
+<a href="consensusplot.m">consensusplot.m</a> (Matlab)</p>
+
+<p><b>A note about bugs and your use of this code</b><br/>
+The code located here is provided as-is, with no warranty, etc. (It's under GPL v2.)
+But, if you do experience problems using the code, please let me know via email. I'm 
+not actively maintaining this code anymore (it's research code, so you're largely on 
+your own both to understand what it does and adapt it to your needs). That being 
+said, there are copious comments in the code files in case you want to modify them, 
+and if you ask a short question very nicely over email, I may be able to help you out.</p>
+
+<p>Finally, if you use this code in an academic publication, it would be courteous of 
+you to thank me in your acknowledgements for providing the code.</p>
+
+<p><b>A note about network data</b><br/>
+The three network data sets we used in the <i>Nature</i> paper were drawn from the 
+literature. For the two we provide here, please use the original citations (given below) 
+if you use them in a paper.
+<ol>
+
+<li>Metabolic network for the spirochaete <i>Triponema pallidum</i>: contact authors for data.
+<p>M. Huss and P. Holme, "<a href="http://arxiv.org/abs/q-bio/0603038">Currency and commodity metabolites: their identification and relation to the modularity of metabolic networks.</a>" <i>IET Systems Biology</i> <b>1</b>, 280 (2007).</p>
+
+<li>Network of associations between terrorists (<a href="terrorists.zip">network, vertex labels, node names</a>).
+<p>V. Krebs, "<a href="http://insna.org/PDF/Connections/v24/2001_I-3-7.pdf">Mapping networks of terrorist cells</a>." <i>Connections</i> <b>24</b>, 43-52 (2002).</p>
+
+<li>Food web of grassland species (<a href="grass_web.zip">network and vertex labels</a>).
+<p>H. A. Dawah, B. A. Hawkins and M. F. Claridge, "<a href="http://www.jstor.org/stable/info/5850?seq=1">Structure of the parasitoid communities of grass-freeding chalcid wasps</a>." <i>Journal of Animal Ecology</i> <b>64</b>, 708-720 (1995).</p>
+</ol>
+
+<p><b>Updates</b><br/>
+<i>27 May 2012</i>: added a workaround for predictHRG for when the program seg faults while sorting candidate edges by their likelihoods; workaround writes out the unsorted list before sorting; if sorting is successful, this file is overwritten with the sorted list.<br/>
+<i>19 August 2011</i>: fixed a small issue with consensusplot.m that would cause it break when vertex labels were not contiguous integers starting at 1.<br/>
+<i>13 August 2009</i>: added links to and information about the three network data sets used in the <i>Nature</i> paper.<br/>
+<i>30 January 2009</i>: fixed internal indexing issue in consensusplot.m when input 
+file contained a leaf node with name 0.<br/>
+<i>16 January 2009</i>: fixed issue with output file from fitHRG when -make is invoked.<br/>
+<i>5 December 2008</i>: moved all the files from /randomgraphs to /hierarchy.<br/>
+<i>22 September 2008</i>: fixed a small problem in consensusplot.m that caused it to 
+throw an error when reading in .group files.<br/>
+<i>18 August 2008</i>: fixed a small problem with the recordPredictions() function in 
+predictHRG that prevented it from writing out the last prediction.<br/>
+<i>10 June 2008</i>: fixed an error in sizing an array which would sometimes cause a 
+segmentation fault in predictHRG just before writing the predictions to file. <br/>
+<i>21 May 2008</i>: minor tweaks to fitHRG and predictHRG code (mainly cleaning up the 
+code a little more, making header information standard, etc.). Fixed a memory 
+deallocation issue in predictHRG that effects some users. <br/>
+<i>21 May 2008</i>: Placed initial version of consensus HRG and consensusplot.m code 
+online. <br/>
+<i>29 April 2008</i>: placed initial version of hrgplot.m code online. <br/>
+<i>1 January 2008</i>: placed initial versions (1.0) of fitHRG and predictHRG online. <br/>
+</p>
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../research.htm">Research</a><br>
+<a href="../labgroup.htm">Lab Group</a><br>
+<a href="../datacode.htm">Data and Code</a><br>
+<a href="../teaching.htm">Teaching</a><br>
+<a href="../aclauset-cv.pdf">Vitae</a><br>
+<a href="https://aaronclauset.github.io">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../aboutme.htm">About Me</a><br>
+<a href="../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2015, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

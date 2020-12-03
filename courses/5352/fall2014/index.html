@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Network Analysis and Modeling (CSCI 5352, Fall 2014)</title>
+	<link rel="stylesheet" href="../../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-t" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b><big>Network Analysis and Modeling<br/>CSCI 5352, Fall 2014</big></b><br/>
+<img src="http://www.santafe.edu/~aaronc/hierarchy/hierarchy_ex_sm.jpg" width="200" height="313" align="right">
+Time: Tuesday and Thursday, 12:30pm - 1:45pm<br/>
+Room: ECCS 1B12<br/><br/>
+Instructor: Aaron Clauset<br/>
+Office: <a href="http://www.santafe.edu/~aaronc/courses/ECOT_7.png">ECOT 743</a><br/>
+Office hours: Tuesday, 2:00-3:30pm<br/>
+Email: <a href="http://www.cs.colorado.edu/cgi-bin/em?id=aaron_clauset">look it up</a><br/>
+Teaching Assistant: Henry Romero<br/>
+TA Office Hours: Monday, 9:30-10:30am in ECEE 150<br/>
+<a href="csci5352_2014_syllabus.pdf">Syllabus</a>
+</p>
+
+<p><b><a href="#Description">Description</a></b><br/>
+<b><a href="#CourseWork">Course work and grading</a></b><br/>
+<b><a href="#Schedule">Schedule and lecture notes</a></b><br/>
+<b><a href="#ProblemSets">Problem sets</a></b><br/>
+<b><a href="#Readings">Supplemental readings</a></b><br/>
+</p>
+
+<p><b><big><a name="Description">Description</a></big></b><br/>
+Network science is a thriving and increasingly important cross-disciplinary 
+domain that focuses on the representation, analysis and modeling of complex 
+social, biological and technological systems as networks or graphs. Modern 
+data sets often include some kind of network. Nodes can have locations, 
+directions, memory, demographic characteristics, content, and preferences. 
+Edges can have lengths, directions, capacities, costs, durations, and types. 
+And, these variables and the network structure itself can vary, with edges and 
+nodes appearing, disappearing and changing their characteristics over time. 
+Capturing, modeling and understanding networks and rich data requires 
+understanding both the mathematics of networks and the computational tools for 
+identifying and explaining the patterns they contain.
+<br/><br/>
+
+This graduate-level course will examine modern techniques for analyzing and 
+modeling the structure and dynamics of complex networks. The focus will be on 
+statistical algorithms and methods, and both lectures and assignments will 
+emphasize model interpretability and understanding the processes that 
+generate real data. Applications will be drawn from computational biology and 
+computational social science. No biological or social science training is 
+required. (Note: this is not a scientific computing course, but there will be 
+plenty of computing for science.)
+</p>
+
+<p><b><big>Prerequisites</big></b><br/>
+Recommended: CSCI 3104 (undergraduate algorithms) and APPM 3570 (applied 
+probability), or equivalent preparation.<br/><br/>
+
+Note: An adequate mathematical and programming background is mandatory. The 
+concepts and techniques covered in this course depend heavily on basic 
+statistics (distributions, Monte Carlo techniques), scientific programming, 
+and calculus (integration and differentiation). Students without sufficient 
+preparation will struggle to keep up with the lectures and assignments. 
+Students without proper preparation may audit the course.
+</p>
+
+<p><b><big>Text</big></b><br/>
+Required (available at the CU Bookstore):<br/>
+1. <a href="http://www.amazon.com/Networks-Introduction-Mark-Newman/dp/0199206651">Networks: An Introduction</a> by M.E.J. Newman<br/>
+2. <a href="http://www.amazon.com/Pattern-Recognition-Learning-Information-Statistics/dp/0387310738">Pattern Recognition and Machine Learning</a> by C.M. Bishop.<br/><br/>
+
+Optional:<br/>
+1. <a href="http://www.stat.cmu.edu/~larry/all-of-statistics/index.html">All of Statistics</a> by L. Wasserman <br/>
+2. <a href="http://www.nrbook.com/nr3/">Numerical Recipes</a><br/> 
+3. <a href="http://www.amazon.com/Networks-Crowds-Markets-Reasoning-Connected/dp/0521195330/">Networks, Crowds and Markets</a> by D. Easley and J. Kleinberg<br/>
+4. <a href="http://www.amazon.com/Experimental-Knowledge-Science-Conceptual-Foundations/dp/0226511987/">Error and the Growth of Experimental Knowledge</a> by D.G. Mayo.
+
+<p><b><big><a name="CourseWork">Course work and grading</a></big></b><br/>
+Attendance to the lectures is required.
+<br/><br/>
+
+Most of the class will be standard graduate-style lectures by the instructor. 
+These will be supplemented by guest lectures on special or advanced topics, 
+and class discussions of selected papers drawn from the networks literature.
+
+Problem sets will develop and extend topics presented in class, and will 
+introduce additional topics not covered in class. Performance on the problem 
+sets will be the major component of evaluation. There are no written 
+examinations in the course, and thus students are expected to spend serious 
+quality time on the problem sets. Additional details are given in the syllabus.
+<br/><br/>
+
+<i>Problem sets</i>: There will be 6 problem sets. Each will include some 
+mathematical and some computational problems. Problem sets will be due roughly 
+every two weeks. Programming components of the problem sets may be completed 
+in any reasonable imperative language, and students are not expected to code 
+everything from scratch (using available network libraries is okay).
+<br/><br/>
+
+See the syllabus for more details about formatting and submitting your 
+solutions, for advice about how to get maximum points, and for the class 
+policies on collaboration and on late submissions.
+<!-- Collaboration on the problem sets between enrolled students is encouraged.
+However, students may not copy (in any way) from their collaborators and they 
+must respect University academic policies on academic honesty at all times. 
+To be clear: you may discuss the problems verbally and even work together on 
+the solution, but you must write up your solutions separately. Student 
+collaborators must be listed on the submission. Copying from any source, in 
+any way, including the Web but especially from another student (past or 
+present), is strictly forbidden and I will not hesitate to fail students who 
+display ignorance or disregard for norms of academic honesty. -->
+Students that are 
+unsure about whether something is permitted under the policies described in 
+the syllabus should consult with the instructor well before a particular 
+deadline.
+<br/><br/>
+
+
+<i>Class project</i>:  The purpose of the class project is to 
+formulate and explore a research question of the student's devising related 
+to network analysis and modeling. Students may work in teams of 1-2 people.
+The deliverables are a short (10 minute) in-class presentation of the project 
+results, and a 10-page writeup. See the syllabus for more details.
+<br/><br/>
+
+<i>Grading</i>  Grades will be assigned based on (section 001) attendance 
+(20%), problem sets (50%), and class project (30%), or (section 740) 
+problem sets (63%) and class project (37%).
+
+<p><b><big><a name="Schedule">Tentative Schedule</a></big></b><br/>
+Week 1 : Introduction and overview (<a href="csci5352_2014_L1.pdf">Lecture 1</a>)
+<br/>
+Week 2 : Random graphs I: the Erdos-Renyi model (<a href="csci5352_2014_L2.pdf">Lecture 2</a>)
+<br/>
+Week 3 : Measures of centrality (<a href="csci5352_2014_L3.pdf">Lecture 3</a>)
+<br/>
+Week 4 : Random graphs II: the configuration model (<a href="csci5352_2014_L4.pdf">Lecture 4</a>)
+<br/>
+Week 5 : Large-scale structure I: assortativity and modularity (<a href="csci5352_2014_L5.pdf">Lecture 5</a>)
+<br/>
+Week 6 : Large-scale structure II: stochastic block models (<a href="csci5352_2014_L6.pdf">Lecture 6</a>)
+<br/>
+Week 7 : Large-scale structure III: more block models  (<a href="csci5352_2014_L7a.pdf">Lecture 7</a> and <a href="csci5352_2014_L7b.pdf">Lecture 7 supplement</a>)
+<br/>
+Week 8 : Wrangling network data I: from raw data to networks (<a href="csci5352_2014_L8.pdf">Lecture 8</a>)
+<br/>
+Week 9 : Wrangling network data II: sampled networks (<a href="csci5352_2014_L9.pdf">Lecture 9</a>)
+<br/>
+Week 10 : Spatial networks (<a href="csci5352_2014_L10.pdf">Lecture 10</a>)
+<br/>
+Week 11 : Growing networks (<a href="csci5352_2014_L11.pdf">Lecture 11</a>)
+<br/>
+Week 12 : Dynamic networks (<a href="csci5352_2014_L12.pdf">Lecture 12</a>) 
+<br/>
+Week 13 : Advanced topics
+<!-- (<a href="csci5352_2014_L13.pdf">Lecture 13</a> -->
+<br/>
+Week 14 : Fall break <br/>
+Weeks 15-16 : Project presentations and Wrap up<br/>
+
+
+<p><b><big><a name="ProblemSets">Problem Sets</a></big></b><br/>
+<b><a href="csci5352_2014_PS1.pdf">Problem set 1</a></b> (assigned Aug 28; due Sept 10) [data files: see class Dropbox]</p>
+<p><b><a href="csci5352_2014_PS2.pdf">Problem set 2</a></b> (assigned Sept 11; due Sept 24) [data file: see class Dropbox] </p>
+<p><b><a href="csci5352_2014_PS3.pdf">Problem set 3</a></b> (assigned Sept 25; due Oct 8) [data files: see class Dropbox]</p>
+<p><b><a href="csci5352_2014_PS4.pdf">Problem set 4</a></b> (assigned Oct 9; due Oct 22) [data files; see class Dropbox] </p>
+<p><b><a href="csci5352_2014_PS5.pdf">Problem set 5</a></b> (assigned Oct 25; due Nov 5) <!-- [<a href="data_karate_club.txt">data file</a>] --> </p>
+<p><b><a href="csci5352_2014_PS6.pdf">Problem set 6</a></b> (assigned Nov 9; due Nov 19) <!-- [<a href="data_karate_labels.txt">data file</a>] --> </p>
+
+<p><b><big><a name="Readings">Supplemental Readings</a></big></b>
+
+<p>Week  1: <br/>
+<ul>
+ <li> M.E.J. Newman, "<a href="readings/Newman_03_StructureFunctionofNets_review.pdf">The structure and function of complex networks</a>." <i>SIAM Review</i> <b>45</b>, 167-256 (2003).
+ <li> L. Breiman, "<a href="readings/Breiman_01_StatisticalModeling_TheTwoCultures.pdf">Statistical Modeling: The Two Cultures</a>." <i>Statistical Science</i> <b>16</b>, 199-231 (2001).
+</ul></p>
+
+
+<p>Week 2: <br/>
+<ul>
+ <li> M.E.J. Newman, "<a href="readings/Newman_05_PowerLawsParetoDistributionsAndZipfsLaw.pdf">Power laws, Pareto distributions and Zipf's law</a>." <i>Contemporary Physics</i> <b>46</b>(5), 323-351 (2005).
+ <li> M. Mitzenmacher, "<a href="readings/Mitzenmacher_04_BriefHistoryGenerativeModelsLognormAndPowerlaw.pdf">A Brief History of Generative Models for Power Law and Lognormal Distributions</a>." <i>Internet Mathematics</i> <b>1</b>(2), 226-251 (2004).
+ <li> A. Clauset, C.R. Shalizi and M.E.J. Newman, "<a href="readings/Clauset_Shalizi_Newman_09_PowerlawDistributionsInEmpiricalData.pdf">Power-law distributions in empirical data</a>." <i>SIAM Review</i> <b>51</b>(4), 661-703 (2009).
+</ul></p>
+
+
+<p>Week  3: <br/>
+<ul>
+ <li> S. Borgati, "<a href="readings/Borgatti_2005_CentralityAndNetworkFlow.pdf">Centrality and network flow</a>." <i>Social Networks</i> <b>27</b>, 55-71 (2005).
+ <li> B. Ball and M.E.J. Newman, "<a href="http://arxiv.org/abs/1205.6822">Friendship networks and social status</a>." <i>Network Science</i> <b>1</b>, 16-30 (2013).
+</ul></p>
+
+
+<p>Week 4: <br/>
+<ul>
+ <li> M.E.J. Newman, S.H. Strogatz and D.J. Watts, "<a href="readings/Newman_Strogatz_Watts_01_RandomGraphsWithArbitraryDegreeDistributionsAndTheirApplications.pdf">Random graphs with arbitrary degree distributions and their applications</a>." 
+<i>Physical Review E</i> <b>64</b>, 026118 (2001).
+ <li> D.S. Callaway et al., "<a href="readings/Callaway_etal_01_AreRandomlyGrownGraphsReallyRandom.pdf">Are randomly grown graphs really random?</a>."
+<i>Physical Review E</i> <b>64</b>, 041902 (2001).
+<!-- <li> B. Karrer and M.E.J. Newman, "<a href="http://arxiv.org/abs/1005.1659">Random graphs containing arbitrary distributions of subgraphs</a>."
+<i>Physical Review E</i> <b>82</b>, 066118 (2010). -->
+</ul></p>
+
+
+<p>Week  5: <br/>
+<ul>
+ <li> M. McPherson, L. Smith-Lovin and J.M. Cook, "<a href="readings/McPherson_Smith-Lovin_Cook_01_BirdsOfAFeature_HomophilyInSocialNetworks.pdf">Birds of a Feather: Homophily in Social Networks</a>."
+<i>Annual Reviews of Sociology</i> <b>27</b>, 415-444 (2001).
+ <li> M.E.J. Newman, "<a href="http://arxiv.org/abs/cond-mat/0209450">Mixing patterns in networks</a>."
+<i>Physical Review E</i> <b>67</b>, 026126 (2003).
+ <li> A. Clauset, M.E.J. Newman and C. Moore, "<a href="readings/Clauset_Newman_Moore_04_FindingCommunityStructureInVeryLargeNetworks.pdf">Finding community structure in very large networks</a>."
+<i>Physical Review E</i> <b>70</b>, 066111 (2004).
+ <li> B.H. Good, Y.-A. de Montjoye and A. Clauset, "<a href="readings/Good_Montjoye_Clauset_10_PerformanceOfModularityMaximizationInPracticalContexts.pdf">Performance of modularity maximization in practical contexts</a>." 
+<i>Physical Review E</i> <b>81</b>, 046106 (2010).
+</ul></p>
+
+
+<p>Weeks 6-7: <br/>
+<ul>
+ <li> B. Karrer and M.E.J. Newman, "<a href="http://arxiv.org/abs/1008.3926">Stochastic blockmodels and community structure in networks</a>."
+<i>Physical Review E</i> <b>83</b>, 016107 (2011).
+ <li> A. Clauset, C. Moore, and M.E.J. Newman, "<a href="http://arxiv.org/abs/0811.0484">
+Hierarchical structure and the prediction of missing links in networks</a>."
+<i>Nature</i> <b>453</b>, 98 - 101 (2008).
+ <li> B. Ball, B. Karrer and M.E.J. Newman, "<a href="http://arxiv.org/abs/1104.3590">An efficient and principled method for detecting communities in networks</a>."
+<i>Physical Review E</i> <b>84</b>, 036103 (2011).
+</ul></p>
+
+
+<p>Week 10: <br/>
+<ul>
+ <li> S. Milgram, "<a href="readings/Milgram_1967_TheSmallWorldProblem.pdf">The Small-World Problem</a>." <i>Psychology Today</i> <b>1</b>(1), 61-67 (1967).
+ <li> D. Watts and S. Strogatz, "<a href="readings/Watts_Strogatz_1998_CollectiveDynamicsOfSmallWorldNetworks.pdf">Collective dynamics of 'small-world' networks</a>." <i>Nature</i> <b>393</b>, 440-442 (1998).
+ <li> J. Kleinberg, "<a href="readings/Kleinberg_2000_TheSmallWorldPhenomenon_AnAlgorithmicPerspective.pdf">The Small-World Phenomenon, an Algorithmic Perspective</a>." <i>Proc. 32nd ACM Symposium on Theory of Computing</i> (2000).
+ <li> D. Liben-Nowell et al., "<a href="readings/Liben-Nowell_etal_2005_GeographicRoutingInSocialNetworks.pdf">Geographic routing in social networks</a>." <i>PNAS</i> <b>102</b>(33), 11623-11628 (2005).
+ <li> V. Kalapala et al., <a href="http://arxiv.org/abs/physics/0510198">Scale invariance in road networks</a>. <i>Physical Review E</i> <b>73</b>, 026130 (2006).
+</ul></p>
+
+
+<p>Week  11: <br/>
+<ul>
+ <li> S. Redner, "<a href="readings/Redner_05_CitationStatisticsFrom110YearsOfPhysicalReview.pdf">Citation statistics from 110 years of <i>Physical Review</i></a>."
+<i>Physics Today</i> <b>58</b>, 49-54 (2005).
+ <li> M.E.J. Newman, "<a href="readings/Newman_09_FirstMoverAdvantageInScientificPublication.pdf">The first-mover advantage in scientific publication</a>."
+<i>European Physics Letters</i> <b>86</b>, 68001 (2009).
+ <li> A. Vazquez, A. Flammini, A. Maritan, and A. Vespignani, 
+"<a href="http://arxiv.org/abs/cond-mat/0108043">Modeling of protein interaction networks</a>." <i>Complexus</i> <b>1</b>, 38-44 (2003).
+ <li> M. Middendorf, E. Ziv, and C. H. Wiggins,
+"<a href="http://www.pnas.org/content/102/9/3192.full">Inferring network mechanisms: The Drosophila melanogaster protein interaction network.</a>"
+<i>PNAS</i> <b>102</b>, 3192–3197 (2005).
+</ul></p>
+
+<!--
+
+<p>Week  12: <br/>
+<ul>
+ <li> C.J. Geyer, "<a href="http://projecteuclid.org/euclid.ss/1177011137">Practical Markov Chain Monte Carlo</a>." <i>Statistical Science</i> <b>7</b>(4), 473-483 (1992).
+ <li> A. Clauset, C. Moore and M.E.J. Newman, "<a href="readings/Clauset_Moore_Newman_2008_HierarchicalStructureAndPredictionOfMissingLinks.pdf">Hierarchical structure and the prediction of missing links in networks</a>."
+<i>Nature</i> <b>453</b>, 98-101 (2008).
+</ul></p>
+
+-->
+
+<p><b><big>Network Tools</big></b><br/>
+<a href="http://networkx.lanl.gov/index.html">NetworkX</a>, network analysis package (Python)</br>
+<a href="http://igraph.org">igraph</a>, network analysis tools (Python, C++, R)<br/>
+<a href="http://graph-tool.skewed.de">graph-tool</a>, network analysis and visualization software (Python, C++)</br>
+<a href="http://graphlab.com">GraphLab</a>, scalable network analysis (Python, C++)</br>
+
+<p><b><big>Network Visualization</big></b><br/>
+<a href="http://www.cytoscape.org/">Cytoscape</a>, network 
+visualization software<br/>
+<a href="http://www.yworks.com/en/products_yed_about.html">yEd Graph Editor</a>, network visualization software<br/>
+<a href="http://www.research.att.com/projects/IV_GRAPHVIZ/index.html">Graphviz</a>, 
+network visualization software</br>
+<a href="https://gephi.org">Gephi</a>, network visualization software</br>
+<a href="http://graph-tool.skewed.de">graph-tool</a>, network analysis and visualization software</br>
+<a href="http://danlarremore.com/webweb/">webweb</a>, network visualization tool joining Matlab and d3<br/>
+<a href="http://muxviz.net">MuxViz</a>, multilayer analysis and visualization platform<br/>
+
+
+<p><b><big>Network Data Sets</big></b><br/>
+<a href="http://www-personal.umich.edu/~mejn/netdata/">Mark Newman's network data sets</a> (social, biological, technological)<br/>
+<a href="http://snap.stanford.edu/data/index.html">Stanford Network Analysis Project repository</a> (social and online networks)<br/>
+<a href="http://konect.uni-koblenz.de">KONECT, The Koblenz Network Collection</a> (social, biological, online networks)<br/>
+<a href="https://www.nceas.ucsb.edu/interactionweb/resources.html">Interaction Web DataBase</a> (ecological networks)<br/>
+<a href="http://openconnecto.me/data/public/graphs/">Open Connectome database</a> (brain networks)<br/>
+<a href="http://www.stats.ox.ac.uk/~snijders/siena/Lazega_lawyers_data.htm">Lazega lawyers network</a> (social)<br/>
+<a href="http://www.census.gov/dataviz/visualizations/stem/stem-html/">US Census Education-Employment network</a> (social, bipartite, weighted)<br/>
+<a href="http://journals.aps.org/datasets">APS Physical Review bibliographic network</a> (informational, directed, acyclic)<br/>
+<a href="http://www.imdb.com/interfaces">Internet Movie Database</a> (social, bipartite, temporal)<br/>
+<a href="http://en.wikipedia.org/wiki/Wikipedia:Database_download#English-language_Wikipedia">Wikipedia</a> (informational, temporal, big)
+<br/>
+
+<p><b><big>Other Courses on Networks</big></b><br/>
+<a href="http://www-personal.umich.edu/~mejn/courses/2015/cscs535/index.html">Network Theory</a> (University of Michigan)<br/>
+<a href="https://www.cs.purdue.edu/homes/neville/courses/ST598T.html">Statistical Network Analysis</a> (Purdue University)<br/>
+<a href="https://courses.cit.cornell.edu/info2040_2015fa/">Networks</a> (Cornell University)<br/>
+<a href="http://networksatharvard.com">Networks</a> (Harvard University)<br/>
+<a href="https://www.coursera.org/course/networksonline">Social and Economic Networks: Models and Analysis</a> (Coursera / Stanford)<br/>
+<a href="https://www.coursera.org/course/sna">Social Network Analysis</a> (Coursera / University of Michigan)<br/>
+<a href="http://web.stanford.edu/class/cs224w/">Social and Information Network Analysis</a> (Stanford)<br/>
+<a href="https://sites.google.com/a/yale.edu/462-562-graphs-and-networks/">Graphs and Networks</a> (Yale)<br/>
+<a href="http://www.cs.yale.edu/homes/spielman/561/">Spectral Graph Theory</a> (Yale)<br/>
+<a href="http://web.stanford.edu/~jugander/mse334/">The Structure of Social Data</a> (Stanford)</br>
+
+<p><b><big>Resources</big></b><br/>
+<a href="http://www.latex-project.org/">LaTeX (general)</a> and <a href="http://pages.uoregon.edu/koch/texshop/">TeXShop (Mac)</a><br/>
+<a href="http://oit.colorado.edu/software-hardware/site-licenses/matlab">Matlab license for CU staff</a> (includes student employees)<br/>
+<a href="http://oit.colorado.edu/software-hardware/site-licenses/mathematica">Mathematica license for CU students</a><br/>
+<a href="http://www.scipy.org/NumPy_for_Matlab_Users">NumPy/SciPy libraries for Python</a> (similar to Matlab)<br/>
+<a href="http://www.gnu.org/software/octave/">GNU Octave</a> (similar to Matlab)<br/>
+<a href="http://www.wolframalpha.com/">Wolfram Alpha</a> (Web interface for simple integration and differentiation)<br/>
+<a href="http://textbooks.opensuny.org/introduction-to-the-modeling-and-analysis-of-complex-systems/">Introduction to the Modeling and Analysis of Complex Systems</a>, by <a href="http://bingweb.binghamton.edu/~sayama/">Hiroki Sayama</a> (free online textbook)<br/>
+
+<p><b><big>Things Worth Reading</big></b><br/>
+<a href="http://arxiv.org/abs/1210.3781">Everything you wanted to know about Data Analysis and Fitting but were afraid to ask</a>, by Peter Young<br/>
+<a href="http://cscs.umich.edu/~crshalizi/notebooks/learning-inference-induction.html">Machine Learning, Statistical Inference and Induction Notebook</a> (by <a href="http://cscs.umich.edu/~crshalizi/">Cosma Shalizi</a>)<br/>
+<a href="http://cscs.umich.edu/~crshalizi/notebooks/power-laws.html">Power Law distributions, etc. Notebook</a> (by <a href="http://cscs.umich.edu/~crshalizi/">Cosma Shalizi</a>)<br/>
+<a href="http://www.refsmmat.com/statistics/">Statistics Done Wrong, The woefully complete guide</a> (by <a href="http://www.refsmmat.com">Alex Reinhart</a>)<br/>
+<a href="http://www.stat.cmu.edu/~cshalizi/757/process.html">Some Advice on Process for 
+[Research Projects]</a><br/>
+
+
+
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../../research.htm">Research</a><br>
+<a href="../../labgroup.htm">Lab Group</a><br>
+<a href="../../datacode.htm">Data and Code</a><br>
+<a href="../../teaching.htm">Teaching</a><br>
+<a href="../../aclauset-cv.pdf">Vitae</a><br>
+<a href="http://www.cs.unm.edu/~aaron/blog/">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../../aboutme.htm">About Me</a><br>
+<a href="../../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2015, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

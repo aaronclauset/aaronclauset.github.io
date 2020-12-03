@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Rare Events</title>
+	<link rel="stylesheet" href="../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-r" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b>Estimating the probability of rare events</b></p>
+
+<p><img src="http://www.santafe.edu/~aaronc/rareevents/powerlaw_example.jpg" width="250" height="188" align="right">This page is a companion for the 
+article on estimating the historical and future probability of rare events,
+written by 
+<a href="http://www.santafe.edu/~aaronc/">Aaron Clauset</a> (me), and
+<a href="http://www.er.ethz.ch/people/rwoodard">Ryan Woodard</a>.
+
+This page hosts implementations of the methods we describe in the article. 
+For now, these are simply the versions we wrote (in Matlab and Python), but 
+in the future includes those by others.<br/>
+<i>NOTE: that we cannot provide support for any code not written by ourselves.</i></p>
+
+
+<p><b>Journal Reference</b><br/>
+A. Clauset and R. Woodard, 
+"<a href="http://arxiv.org/abs/1209.0089">Estimating the historical and future probabilities of large terrorist events</a>." <i>Annals of Applied Statistics</i> <b>7</b>(4), 1838-1865 (2013).<br/>
+(Subject of a special session at ASA Joint Statistical Meetings, Montreal Canada, 5 August 2013)
+<br/><br/></p>
+
+<p><b>Dependencies</b><br/>
+The Matlab implementation requires access to the plfit.m procedure and an 
+implementation of the zeta function, both of which can be found 
+<a href="http://tuvalu.santafe.edu/~aaronc/powerlaws/">here</a>.<br/><br/>
+
+Python code requires <a href="http://numpy.scipy.org/">numpy</a> and 
+<a href="http://code.google.com/p/mpmath/">mpmath</a> (for the zeta function). 
+Both are available in standard packaging (ubuntu, for example). 
+<a href="http://scipy.org/Download">Scipy</a> is needed for some plotting 
+niceties, but not for the main tasks.
+</p>
+
+<p><b>Power law outlier detection (single variable)</b><br/>
+This function implements both the discrete and continuous power-law 
+outlier detection algorithms described in the paper. Usage information is 
+included in the file; type 'help plout' at the Matlab prompt for more 
+information.<br/>
+<a href="plout.m">plout.m</a> (Matlab)<br/>
+plout.py (Python)</p>
+
+
+<p><b>Power law outlier detection (with discrete covariates)</b><br/>
+This function implements the same method as plout but for integer-valued 
+event covariates. The function applies the method to each of the marginal 
+distributions and combines the results across them. Type 'help ploutm' at the 
+Matlab prompt for more information.<br/>
+<a href="ploutm.m">ploutm.m</a> (Matlab)<br/>
+ploutm.py (Python)</p>
+
+
+<p><b>Visualizing the ensemble of fitted distributions</b><br/>
+This function takes the output of plout (or ploutm) and plots a portion of the 
+ensemble of fitted models against the empirical data on log-log axes. Usage 
+information is included in the file; type 'help pleplot' at the Matlab prompt 
+for more information.<br/>
+<a href="pleplot.m">pleplot.m</a> (Matlab)</p>
+
+
+<p><b>Matlab compatibility issues</b><br/>
+All of the Matlab functions here were designed to be compatible with Matlab 
+v7. They are <i>not</i> necessarily compatible with older versions of Matlab. 
+That being said, it should be possible to make them compatible as the core 
+functionality does not depend on v7 features.
+
+
+<p><b>A note about bugs and alternative implementations</b><br/>
+The code provided here is provided as-is, with no warranty, with no guarantees 
+of technical support or maintenance, etc. If you experience problems while 
+using the code, please let us know via email. We are also happy to host (or 
+link to) implementations of any of these functions in other programming 
+languages. If you have questions about any of the implementations, please 
+contact the respective function's author; the Matlab functions were written 
+by Aaron Clauset and the Python functions were written by Ryan Woodard.
+<br/>
+
+Finally, if you use our code in an academic publication, it would be courteous 
+of you to thank us in your acknowledgements for providing you with 
+implementations of the methods.</p>
+
+
+<p><b>Data for replication purposes</b><br/>
+To facilitate the replication of our results, we are providing access to the 
+empirical data used to make our calculations. (Due to licensing restrictions, 
+we cannot provide access to the original databases.) If you use these data 
+in a publication, please cite the original source. The accompanying README 
+file explains the file format and provides additional information.
+</p>
+
+<p>National Memorial Institute for the Prevention of Terrorism, (2008) "Terrorism Knowledge Base." http://www.tkb.org (accessed 29 January 2008).<br/>
+<a href="RANDMIPT_Events_ClausetWoodard2012_forReplication.zip">
+Download the data</a></p>
+
+<p><b>Updates</b><br/>
+<i>9 March 2012</i>: version 1.0.1 of plout and ploutm (Matlab) functions 
+posted; these versions better document the bootstrap features and describe 
+how to extract confidence intervals from the results.<br/>
+<i>3 January 2012</i>: initial version of Matlab functions posted.<br/>
+
+<!--
+<p><b>Riemann Zeta function</b><br/>
+The discrete estimator needs to calculate the Riemann Zeta function for 
+normalization. Matlab includes this function in the Symbolic Math Toolbox, but 
+there are free versions available if you don't have this toolbox. For 
+instance, Paul Godfrey's 
+<a href="http://www.mathworks.com/matlabcentral/fileexchange/loadFile.do?objectId=978">special functions library</a> 
+(via Matlab Central File Exchange) gives one, which we mirror here (note, you 
+need both these files; tip to Will Tracy).<br/>
+<a href="deta.m">deta.m</a> (Matlab)<br/>
+<a href="zeta.m">zeta.m</a> (Matlab)</p>
+
+<p><b>Download all files</b><br/>
+To make getting the most up-to-date versions of the original files (in Matlab and R) even 
+easier, they're available as a downloadable tgz file here.<br/>
+</p>
+
+<p><b>A note the data sets</b><br/>
+The 24 data sets we studied in the paper were drawn from the literature, and 
+the proper citations are given in the paper. You can find much more detailed 
+information, including links to download many of the data sets, 
+<a href="data.htm">here</a>.
+
+-->
+
+
+</div>
+
+
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../research.htm">Research</a><br>
+<a href="../labgroup.htm">Lab Group</a><br>
+<a href="../datacode.htm">Data and Code</a><br>
+<a href="../teaching.htm">Teaching</a><br>
+<a href="../aclauset-cv.pdf">Vitae</a><br>
+<a href="https://aaronclauset.github.io">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../aboutme.htm">About Me</a><br>
+<a href="../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2015, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

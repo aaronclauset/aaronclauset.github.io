@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>The Weighted Stochastic Block Model (WSBM)</title>
+	<link rel="stylesheet" href="../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-r" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b>The Weighted Stochastic Block Model</b></p>
+
+<p><img src="http://www.santafe.edu/~aaronc/wsbm/wsbm_NFL2009.png" width="150" height="274" align="right">This page is a companion for our papers on 
+the Weighted Stochastic Block Model (WSBM), written by Christopher Aicher, 
+<a href="http://azjacobs.com">Abigail Z. Jacobs</a>, and 
+<a href="http://santafe.edu/~aaronc/">Aaron Clauset</a>. 
+The page hosts an implementation of our Bayesian variational algorithm for 
+inferring the latent block structure.
+Our goal is for the methods to be widely accessible to the community.
+</p>
+
+<p><b>Journal References</b><br/>
+Christopher Aicher, Abigail Z. Jacobs, and Aaron Clauset.<br/>
+"<a href="http://arxiv.org/abs/1404.0431"</a>Learning Latent Block Structure in Weighted Networks</a>."<br/>
+<i>Journal of Complex Networks</i> <b>3</b>(2), 221-248 (2015).<br/><br/>
+
+Christopher Aicher, Abigail Z. Jacobs, and Aaron Clauset.<br/>
+"<a href="http://arxiv.org/abs/1305.5782"</a>Adapting the Stochastic Block Model to Edge-Weighted Networks</a>."<br/>
+ICML Workshop on Structured Learning (2013).
+<br/><br/></p> 
+
+
+<p><b>Download the code</b><br/>
+The full code package contains the core package along with all additional 
+files. The code was written for Matlab, with optional MEX functions that can 
+be installed for additional scalability. Type 'help <filename>' at the Matlab 
+prompt for more information about a particular function.
+<br/>
+<a href="WSBM_v1.2.zip">Full package</a> (Matlab, by Christopher Aicher)
+</p>
+
+<p><b>Core Package</b><br/>
+The implementation of the Bayesian variational algorithm consists of the 
+following files.<br/><br/>
+
+<i>wsbm.m</i> - The main function for inferring community structure.<br/><br/>
+  
+<i>setup_distr.m</i> - A helper function for selecting exponential family 
+distributions to use in the <i>wsbm.m</i> model. This function is required 
+function for <i>wsbm.m</i> to work properly.<br/><br/>
+  
+<i>Adj2Edg.m</i> and <i>Edg2Adj.m</i> - Helper functions for converting 
+between adjacency matrices and edge lists. These functions are required for 
+<i>wsbm.m</i> to work properly.<br/><br/>
+
+<i>/private</i> - A folder containing MATLAB and MEX files that are used 
+privately by <i>wsbm.m</i>. This is a required folder for wsbm.m to work 
+properly.<br/><br/>
+  
+<i>InstallMEXFiles.m</i> - A script file detailing how to install optional 
+(but highly recommended) MEX functions (in the private folder) for wsbm.m to 
+use. 
+
+
+<p><b>Additional tools</b><br/>
+There are several additional tools included in the full package, which provide 
+some demo scripts to help users learn the software, some visualization scripts 
+for displaying the posterior vertex-label probabilities and matrices, and for 
+generating synthetic networks.</br><br/>
+
+<i>plotMu.m</i> - Visualizing the Posterior Vertex-Label Probabilities<br/>
+This function visualizes the posterior label probabilities each vertex.<br/><br/>
+      
+<i>plotWSBM.m</i> - Visualizing Adjacency Matrices<br/>
+This function visualizes the block structure of the network using the labels 
+inferred.<br/><br/>
+	
+<i>generateEdges.m</i> - Generate Synthetic Networks<br/>
+This function generates synthetic networks. For advanced users and 
+requires the helper functions of <i>wsbm.m</i>.<br/><br/>
+
+<i>varInfo.m</i> - Calculates variation of information between two collections 
+of vertex labels.<br/><br/>
+
+<i>nmi.m</i> - Calculates the normalized mutual information between two 
+collections of vertex labels.<br/><br/>
+
+<i>wsbmLooper.m</i> - A helper function that wraps fitting and testing 
+multiple models (recommended for advanced users).<br/><br/>
+
+<i>crossValidEdg.m</i> - Data Partition Function. This function splits an 
+edge list into a training and test set for cross validation.<br/><br/>
+
+
+<p><b>Demonstration scripts</b><br/>
+The following script files provide examples of how to use the package.
+</br><br/>
+
+<i>WSBMDemo.m</i> - Demonstrates examples of how to use <i>wsbm.m</i><br/><br/>
+
+<i>WSBMOptionsDemo.m</i> - Demonstrates examples of how to change default wsbm.m options.<br/><br/>
+
+<i>WSBMAdvancedDemo.m</i> - Demonstrates examples of how to perform model 
+selection and cross valdiation with <i>wsbm.m</i>.<br/><br/>
+
+<i>DegreeCorrectedDemo.m</i> - Demonstrates examples of how to use degree 
+correction in <i>wsbm.m</i>.<br/><br/>
+
+<i>BIWSBMDemo.m</i> - Demonstrates examples of how to use <i>biwsbm.m</i> for 
+bipartite networks.<br/><br/>
+
+
+<p><b>A note Matlab compatibility</b><br/>
+The Matlab functions were designed to be compatible with Matlab v7.13 (2011). 
+They are not necessarily compatible with older versions of Matlab.
+Also see <i>InstallMEXFiles.m</i> for details on how to install optional (but 
+highly recommended) MEX functions for <i>wsbm.m</i> to use.
+
+
+<p><b>A note about bugs and alternative implementations</b><br/>
+The code provided here is provided as-is, with no warranty, with no guarantees 
+of technical support or maintenance, etc. If you experience problems while 
+using the code, please let Christopher know via email. We are happy to host 
+(or link to) implementations of any of these functions in other programming 
+languages, in the interest of facilitating their more widespread use. However, 
+we cannot provide any technical support for that code.<br/>
+
+Finally, if you use our code in an academic publication, it would be 
+courteous of you to thank Christopher Aicher in your acknowledgements for 
+providing you with implementations of the methods. </p>
+
+<p><b>Download the NFL2009 data</b><br/>
+The data for the NFL2009 weighted network, including the weighted edge list, a set of vertex attributes (including community labels) and a readme file containing the appropriate journal reference and data licensing information.
+<br/>
+<a href="NFL2009_network.zip">NFL2009 Network</a> (zip)
+</p>
+
+
+<p><b>Updates</b><br/>
+<i>19 May 2014</i>: version 1.2 posted; minor bug-fixes and additional demos<br/>
+<i>2 May 2014</i>: posted NFL2009 data set<br/>
+<i>3 April 2014</i>: version 1.1 posted; documentation and helper function updated, and added varInfo, nmi, and wsbmLooper functions<br/>
+<i>9 January 2014</i>: version 1.0 posted<br/>
+</p>
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../research.htm">Research</a><br>
+<a href="../labgroup.htm">Lab Group</a><br>
+<a href="../datacode.htm">Data and Code</a><br>
+<a href="../teaching.htm">Teaching</a><br>
+<a href="../aclauset-cv.pdf">Vitae</a><br>
+<a href="https://aaronclauset.github.io">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../aboutme.htm">About Me</a><br>
+<a href="../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2015, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

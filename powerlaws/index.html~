@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Power-law Distributions</title>
+	<link rel="stylesheet" href="../styles.css" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33732967-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-r" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b>Power-law Distributions in Empirical Data</b></p>
+
+<p><img src="http://www.santafe.edu/~aaronc/powerlaws/powerlaw_example.jpg" width="250" height="188" align="right">This page is a companion for the <i>SIAM 
+Review</i> paper on power-law distributions in empirical data, written by 
+<a href="http://www.santafe.edu/~aaronc/">Aaron Clauset</a> (me), 
+<a href="http://www.stat.cmu.edu/~cshalizi/">Cosma R. Shalizi</a> and 
+<a href="http://www-personal.umich.edu/~mejn/">M.E.J. Newman</a>. <br/><br/>
+
+This page hosts implementations of the methods we describe in the article, 
+including several by authors other than us. Our goal is for the methods to 
+be widely accessible to the community.<br/><br/>
+
+Python users should refer to the 
+<a href="http://arxiv.org/abs/1305.0215">powerlaw package</a> by Alstott et al.<br/>
+R users should refer to the <a href="https://github.com/csgillespie/poweRlaw">poweRlaw package</a> by Gillespie<br/><br/>
+<i>NOTE: we cannot provide technical support for code not written by us, and 
+we are busy with other projects now and so may not provide support for our own 
+code.</i>
+</p>
+
+<p><b>Journal References</b><br/>
+A. Clauset, C.R. Shalizi, and M.E.J. Newman, "<a href="http://arxiv.org/abs/0706.1062">Power-law distributions in empirical data</a>" <i>SIAM Review</i> <b>51</b>(4), 661-703 (2009). 
+(arXiv:<a href="http://arxiv.org/abs/0706.1062">0706.1062</a>, doi:<a href="http://dx.doi.org/10.1137/070710111">10.1137/070710111</a>)<br/><br/>
+
+
+Y. Virkar and A. Clauset, <a href="http://arxiv.org/abs/1208.3524">Power-law distributions in binned empirical data.</a> 
+<i>Annals of Applied Statistics</i> <b>8</b>(1), 89 - 119 (2014). (arXiv:<a href="http://arxiv.org/abs/1208.3524">1208.3524</a>; <a href="http://tuvalu.santafe.edu/~aaronc/powerlaws/bins/">get the code</a>)
+<br/><br/></p>
+
+
+<p><b>Random number generators</b><br/>
+This function generates continuous values randomly distributed according to 
+one of the five distributions discussed in the article (power law, 
+exponential, log-normal, stretched exponential, and power law with cutoff). 
+Usage information is included in the file; type 'help randht' at the Matlab 
+prompt for more information.<br/>
+<a href="randht.m">randht.m</a> (Matlab, by Aaron Clauset)<br/>
+<a href="randht.py">randht.py</a> (Python, by Joel Ornstein)</p>
+
+<p><b>Fitting a power-law distribution</b><br/>
+This function implements both the discrete and continuous maximum likelihood 
+estimators for fitting the power-law distribution to data, along with the 
+goodness-of-fit based approach to estimating the lower cutoff for the scaling 
+region. Usage information is included in the file; type 'help plfit' at the 
+Matlab prompt for more information.<br/>
+<a href="plfit.m">plfit.m</a> (Matlab, by Aaron Clauset)<br/>
+<a href="plfit.r">plfit.r</a> (R, by Laurent Dubroca)<br/>
+<a href="http://code.google.com/p/agpy/wiki/PowerLaw?ts=1251337886&updated=PowerLaw">plfit.py</a> (Python, by <a href="http://casa.colorado.edu/~ginsbura/">Adam Ginsburg</a>)<br/>
+<a href="c_plusplus_impl_powerlaw_fit_v1.1.tgz">plfit.c</a> (C++, by Wim Otte; includes plvar.c)<br/>
+<a href="https://github.com/ntamas/plfit">plfit.c</a> (C++, by Tamas Nepusz)<br/>
+<a href="plfit.py">plfit.py</a> (Python, by Joel Ornstein)
+</p>
+
+<p><b>Visualizing the fitted distribution</b><br/>
+After several requests, I've written this function, which plots (on log-log 
+axes) the empirical distribution along with the fitted power-law distribution. 
+Usage information is included in the file; type 'help plplot' at the Matlab 
+prompt for more information.<br/>
+<a href="plplot.m">plplot.m</a> (Matlab, by Aaron Clauset)</br>
+<a href="plplot.py">plplot.py</a> (Python, by Joel Ornstein)</p>
+
+<p><b>Estimating uncertainty in the fitted parameters</b><br/>
+This function implements the nonparametric approach for estimating the 
+uncertainty in the estimated parameters for the power-law fit found by the 
+plfit function. It too implements both continuous and discrete versions. Usage 
+information is included in the file; type 'help plvar' at the Matlab prompt 
+for more information.<br/>
+<a href="plvar.m">plvar.m</a> (Matlab, by Aaron Clauset)<br/>
+<a href="c_plusplus_impl_powerlaw_fit_v1.1.tgz">plvar.c</a> (C++, by Wim Otte; includes plfit.c)<br/>
+<a href="plvar.py">plvar.py</a> (Python, by Joel Ornstein)</p>
+
+<p><b>Calculating <i>p</i>-value for fitted power-law model</b><br/>
+This function implements the Kolmogorov-Smirnov test (which computes a 
+<i>p</i>-value for the estimated power-law fit to the data) for the power-law 
+model. As above, it too implements both continuous and discrete versions of 
+the test. Usage information is included in the file; type 'help plpva' at the 
+Matlab prompt for more information.<br/>
+<a href="plpva.m">plpva.m</a> (Matlab, by Aaron Clauset)<br/>
+<a href="plpva.r">plpva.r</a> (R, by Laurent Dubroca; modified by Neal Walfield)<br/>
+<a href="parplpva2.m">parplpva2.m</a> (Matlab, by <a href="mailto:cazz@diku.dk">Casper Peterson</a>, uses Parallel Toolbox)<br/>
+<a href="plpva.py">plpva.py</a> (Python, by Joel Ornstein)</p>
+
+<p><b>Riemann Zeta function</b><br/>
+The discrete estimator needs to calculate the Hurwitz Zeta function for 
+normalization. Matlab includes this function in the Symbolic Math Toolbox 
+(but be warned that their implementation becomes unstable for large alpha and 
+xmin, e.g., alpha>7 with xmin>150). There are also free versions available if 
+you don't have this toolbox. For instance, Paul Godfrey's 
+<a href="http://www.mathworks.com/matlabcentral/fileexchange/loadFile.do?objectId=978">special functions library</a> (via Matlab Central File Exchange) gives one, which we 
+mirror here (note, you need both these files; tip to Will Tracy).<br/>
+<a href="deta.m">deta.m</a> (Matlab, by Paul Godfrey)<br/>
+<a href="zeta.m">zeta.m</a> (Matlab, by Paul Godfrey)</p>
+
+<p><b>Calculating likelihood-ratio test results</b><br/>
+The functions necessary to compute the log likelihood ratio tests is 
+implemented in the <a href="http://www.r-project.org/">statistical programming 
+language R</a>. Documentation of these functions is given in a separate file, 
+and the R functions themselves are in a downloadable tgz file (note: this is 
+not a proper R package, yet).<br/>
+<a href="Rcode_README.txt">Documentation</a><br/>
+<a href="pli-R-v0.0.3-2007-07-25.tgz">R code</a> (by Cosma Shalizi)</p>
+
+<p><b>Download all files</b><br/>
+Get the most up-to-date versions of the complete implementations.<br/>
+<a href="powerlaws_full_v0.0.10-2012-01-17.zip">Download all Matlab and R files</a> (by Aaron Clauset and Cosma Shalizi)<br/>
+<a href="https://pypi.python.org/pypi/powerlaw">Download Python package</a> (by Jeff Alstott)<br/>
+<a href="https://github.com/jdelmolino/power-law">Download Python (2.6) package</a> (by Javier del Molino Matamala)<br/>
+<a href="https://github.com/pbloem/powerlaws">Download Java package</a> (by Peter Bloem)<br/>
+<a href="https://github.com/csgillespie/poweRlaw">Download R package</a> (by Colin Gillespie)
+<br/></p>
+
+<p><b>A note Matlab compatibility</b><br/>
+For the Matlab functions written by me (Aaron), all of them were designed to 
+be compatible with Matlab v7. They are <i>not</i> necessarily compatible with 
+older versions of Matlab. That being said, it should be possible to make them 
+compatible as the core functionality does not depend on v7 features.
+
+<p><b>A note about bugs and alternative implementations</b><br/>
+The code provided here is provided as-is, with no warranty, with no guarantees 
+of technical support or maintenance, etc. If you experience problems while 
+using the code, please let the author(s) know via email. I am happy to host 
+(or link to) implementations of any of these functions in other programming 
+languages, in the interest of facilitating their more widespread use. 
+However, I cannot provide any technical support for that code.
+The original pl* functions (Matlab) were written by Aaron Clauset and the LRT 
+functions (R) were written by Cosma Shalizi; all other language 
+implementations were written by members of the wider community.<br/>
+
+Finally, if you use our code in an academic publication, it would be 
+courteous of you to thank me (Aaron) and Cosma in your acknowledgements for 
+providing you with implementations of the methods. If you use the 
+implementations by other authors, you should acknowledge them instead.</p>
+
+<p><b>A note the data sets</b><br/>
+The 24 data sets we studied in the paper were drawn from the literature, and 
+the proper citations are given in the paper. You can find much more detailed 
+information, including links to download many of the data sets, 
+<a href="data.htm">here</a>.
+
+<p><b>A note about method tutorials</b><br/>
+We do not currently have any tutorial information for installing or using 
+these methods, beyond what we describe in the paper and what is contained in 
+the help files that go with the Matlab and R files themselves. That being 
+said, the InterSciWiki at UC Irvine has 
+<a href="http://intersci.ss.uci.edu/wiki/index.php/Power-law_distributions">a 
+good overview tutorial page</a> that may be of some use, and Willy Lai has 
+created a <a href="http://www.stat.berkeley.edu/~aldous/Research/Ugrad/Willy_Lai.pdf">
+nice page, with R code, that works through several examples</a>.
+
+<p><b>Updates</b><br/>
+<i>6 December 2012</i>: added a link to the R package by Colin Gillespie.<br/>
+<i>30 November 2012</i>: replaced plpva.r with an updated version by Neal Walfield.<br/>
+<i>2 August 2012</i>: WARNING, the zeta function implementation used here is unstable for large alpha (>7) (thanks to David Gleich for pointing this out). If you need it for this range, consider using a better library function for the Hurwitz Zeta function.<br/>
+<i>17 January 2012</i>: fixed a minor bug in the way plfit, plvar, plpva parse the nowarn and nosmall arguments.<br/>
+<i>24 August 2011</i>: posted updated version of plfit.r, at the request of 
+its author Laurent Dubroca.<br/>
+<i>4 August 2011</i>: posted Joel Ornstein's Python ports of plfit, plvar, plpva and plplot.<br/>
+<i>8 October 2010</i>: replaced plfit.r with new version, at request of its author Laurent Dubroca.<br/>
+<i>24 January 2010</i>: fixed a minor bug in how plfit.m reports the log-likelihood of the fitted data, for the discrete case, after the selection of xmin is done; posted updated version of Wim Otte's code with the same fix.<br/>
+<i>27 November 2009</i>: posted Wim Otte's C++ implementation of plfit and plvar.<br/>
+<i>1 October 2009</i>: added the option in plfit, plvar and plpva to 'lock' xmin to a specific value (thanks to Paul Willems for the suggestion).<br/>
+<i>27 August 2009</i>: posted Adam Ginsburg's Python implementation of plfit.<br/>
+<i>13 August 2009</i>: created a new page with detailed information 
+about obtaining copies of <a href="data.htm">the 24 empirical data sets</a> we studied</a>.<br/>
+<i>12 August 2009</i>: fixed a minor bug in the R version of plfit that would cause its 
+results to disagree slightly with the results from the matlab version (thanks to Naoki 
+Masuda for pointing it out).<br/>
+<i>17 March 2009</i>: fixed a minor bug in the R version of plfit that would cause the 
+returned KS statistic to be incorrect when xmin=1 (thanks to Jeff Stuckman for 
+pointing it out).<br/>
+<i>7 February 2009</i>: try-catch block in integer portion of plfit now defaults to 
+iterative version if the try block ever fails (thanks to Rajiv Das for the 
+suggestion).<br/>
+<i>25 April 2008</i>: changed randht, plpva and plvar to only initialize the 
+pseudo-random number generator on the first time they are called.<br/>
+<i>5 March 2008</i>: in the integer routines, plfit, plvar and plpva now automatically 
+switch to a slower but more memory efficient estimation routine when the vectorized 
+default routine fails (e.g., Out of Memory error when max(x) is extremely large).<br/>
+<i>29 February 2008</i>: posted Laurent Dubroca's R implementation of plfit.<br/>
+<i>17 February 2008</i>: posted the plplot.m function for plotting the fitted 
+ power-law distributions against the empirical data.<br/>
+<i>30 January 2008</i>: corrected typo in plpva when using hidden 'sample' option, and 
+reordered the commands for 'limit' and 'sample' throughout (thanks to Klaas Dellschaft 
+for suggestions).<br/>
+<i>28 September 2007</i>: corrected typo in argument parsing for randht.m, significant 
+efficiency improvements to xmin estimation routine in plfit.m, plpva.m and plvar.m 
+(thanks to Jim Bagrow for suggestions).<br/>
+<i>7 September 2007</i>: corrected interim reporting in plpva.m; changed plfit.m, 
+plvar.m and plpva.m to reshape input vector to column format, and to prevent using 
+continuous approximation in small-sample regime for discrete data.<br/>
+<i>25 July 2007</i>: corrected a typo in plvar.m, typo in pareto.R, typo in 
+log-likelihood for discrete cut-off powerlaw and fixed small bug in a plotting 
+routine.<br/>
+<i>29 June 2007</i>: corrected a typo in plpva.m, typo in pareto.R and updated 
+compilation instructions in discpowerexp.R.</p>
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../research.htm">Research</a><br>
+<a href="../labgroup.htm">Lab Group</a><br>
+<a href="../datacode.htm">Data and Code</a><br>
+<a href="../teaching.htm">Teaching</a><br>
+<a href="../aclauset-cv.pdf">Vitae</a><br>
+<a href="https://aaronclauset.github.io">Blog</a><br>
+<a href="https://twitter.com/aaronclauset">Twitter</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../aboutme.htm">About Me</a><br>
+<a href="../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2017, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>

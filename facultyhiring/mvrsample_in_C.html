@@ -1,0 +1,679 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+<!--
+p.MsoNormal {
+margin:0cm;
+margin-bottom:.0001pt;
+text-align:justify;
+text-justify:inter-ideograph;
+font-size:10.5pt;
+font-family:等线;
+}
+-->
+</style>
+</head>
+
+<body>
+<p class="MsoNormal">/*</p>
+<p class="MsoNormal">%function  [ranks,rho,F,prho,pi,piu]=mvrsample(A, varargin)</p>
+<p class="MsoNormal">% MVRSAMPLE samples the minimum violation  rankings for a directed network.</p>
+<p class="MsoNormal">%     Source: http://santafe.edu/~aaronc/facultyhiring/</p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">%     [ranks,rho,F,prho,pi,piu]=mvrsample(A, varargin)</p>
+<p class="MsoNormal">% </p>
+<p class="MsoNormal">%     MVRSAMPLE(A) samples the minimum violation rankings for a directed </p>
+<p class="MsoNormal">%     network, based method described in Clauset, Arbesman, Larremore (2015).</p>
+<p class="MsoNormal">%     A is a matrix of size N x N representing a directed network. Each</p>
+<p class="MsoNormal">%     element A(i,j) should be a natural number. Self-loops are allowed.</p>
+<p class="MsoNormal">%     MVRSAMPLE automatically detects whether A meets the requirements of</p>
+<p class="MsoNormal">%     the method.</p>
+<p class="MsoNormal">%   </p>
+<p class="MsoNormal">%     The MVR sampling procedure works as follows:</p>
+<p class="MsoNormal">%     1) Initially, nodes are ranked in descreasing order of their out- </p>
+<p class="MsoNormal">%       degree. The score of this ranking 'pi' is  the number of directed </p>
+<p class="MsoNormal">%        edges (u,v) for which pi(v) is better than pi(v).</p>
+<p class="MsoNormal">%     2) We then search over rankings to minimize the number of such </p>
+<p class="MsoNormal">%        violations. The algorithm used is a zero-temperature Markov chain</p>
+<p class="MsoNormal">%        Monte Carlo (MCMC) sampler, which has several user-definable</p>
+<p class="MsoNormal">%        parameters that specify length of burn in, number of samples to</p>
+<p class="MsoNormal">%        take, and spacing between samples.</p>
+<p class="MsoNormal">%     3) By default, this procedure is performed once. Optionally, it can be</p>
+<p class="MsoNormal">%        performed multiple times and the results averaged. Each repetition</p>
+<p class="MsoNormal">%        can be run on a bootstrap of the edges, which would better capture</p>
+<p class="MsoNormal">%        natural variability in the edge generating process (assuming edges </p>
+<p class="MsoNormal">%        can be treated iid).</p>
+<p class="MsoNormal">%     4) The algorithm returns several outputs that capture the results of</p>
+<p class="MsoNormal">%        the sampler: the average ranking and rho across all repetitions, </p>
+<p class="MsoNormal">%        and optionally the individual rankings and rhos for each</p>
+<p class="MsoNormal">%        repetition.</p>
+<p class="MsoNormal">%</p>
+<p class="MsoNormal">%</p>
+<p class="MsoNormal">%     Example: </p>
+<p class="MsoNormal">%        A = rand(100,100)&lt;0.1;</p>
+<p class="MsoNormal">%        names = (1:n)';</p>
+<p class="MsoNormal">%        [ranks,rho,F] = mvrsample(A,'names',names);</p>
+<p class="MsoNormal">%        names(ranks(:,1))</p>
+<p class="MsoNormal">%</p>
+<p class="MsoNormal">%        [ranks,rho,F] = mvrsample(A,'names',names,'bootstrap','reps',10);</p>
+<p class="MsoNormal">%       </p>
+<p class="MsoNormal">%</p>
+<p class="MsoNormal">%     Outputs:</p>
+<p class="MsoNormal">%    'ranks'  is a N x 2 matrix whose rows give the (index, mean pi</p>
+<p class="MsoNormal">%             score) for each node in A, in descending order of mean pi, </p>
+<p class="MsoNormal">%             across repetitions.</p>
+<p class="MsoNormal">%     'rho' is a scalar that gives the fraction of edges in A that violate </p>
+<p class="MsoNormal">%           the ranks ordering.</p>
+<p class="MsoNormal">%     'F' is a N x N matrix that is equivalent to A under the ranking given</p>
+<p class="MsoNormal">%         by ranks.</p>
+<p class="MsoNormal">%     'prho' is a 1 x N vector containing the rho values for each rep</p>
+<p class="MsoNormal">%     'pi' is a reps x N matrix containing the pi vectors for each rep</p>
+<p class="MsoNormal">%    'piu'  is a reps x N matrix containing the stddev of pi for each rep</p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">%     For more information, try 'type mvrsample'</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">% Version 1.0    (2015 February)</p>
+<p class="MsoNormal">% Copyright (C) 2015 Aaron Clauset  (University of Colorado Boulder)</p>
+<p class="MsoNormal">% Distributed under GPL 2.0</p>
+<p class="MsoNormal">% http://www.gnu.org/licenses/gpl-2.0.html</p>
+<p class="MsoNormal">% MVRSAMPLE comes with ABSOLUTELY NO  WARRANTY</p>
+<p class="MsoNormal">% </p>
+<p class="MsoNormal">% Notes:</p>
+<p class="MsoNormal">% </p>
+<p class="MsoNormal">% 1. The default 'move' in the MCMC is to  choose a pair of nodes and</p>
+<p class="MsoNormal">%     propose a ranking in which they are 'rotated'. The number of nodes in</p>
+<p class="MsoNormal">%     the set to be rotated is an adjustable parameter. For instance, this</p>
+<p class="MsoNormal">%     uses 3-node rotations:</p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">%        [ranks,rho,F] = mvrsample(A,'rotate',3);</p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">% 2. Each repetition can be performed on a  simple bootstrap of the edges.</p>
+<p class="MsoNormal">%     The adjacency matrix is interpreted as an unweighted, directed</p>
+<p class="MsoNormal">%     multigraph, in which A(i,j) = g indicates that there are g unweighted</p>
+<p class="MsoNormal">%     edges (i,j) in the network. The bootstrap chooses m=sum(sum(A)) edges</p>
+<p class="MsoNormal">%     with replacement from the set of all such edges (i,j) and builds a new</p>
+<p class="MsoNormal">%     network from these. The default setting is no bootstrap. To turn it</p>
+<p class="MsoNormal">%     on, simply call</p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">%        [ranks,rho,F] = mvrsample(A,'bootstrap');</p>
+<p class="MsoNormal">% </p>
+<p class="MsoNormal">% 3. The parameters of the MCMC can also be  changed: the number of samples </p>
+<p class="MsoNormal">%     to take before stopping, the number of swaps to successfully perform </p>
+<p class="MsoNormal">%     between each sampled ranking, and the number of steps used for 'burn</p>
+<p class="MsoNormal">%     in' before the sampling begins. These can be changed like so</p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">%        [ranks,rho,F] =  mvrsample(A,'samples',1000,'spacing',10000,'burnin',10^6);</p>
+<p class="MsoNormal">%</p>
+<p class="MsoNormal">%     Any subset of these can be omitted, which will leave them at their</p>
+<p class="MsoNormal">%     default settings.</p>
+<p class="MsoNormal">%</p>
+<p class="MsoNormal">% 4. The algorithm writes updates about the  progress of the MCMC to stdout.</p>
+<p class="MsoNormal">%     This can be silenced like so</p>
+<p class="MsoNormal">%    </p>
+<p class="MsoNormal">%        [ranks,rho,F] = mvrsample(A,'quiet');</p>
+<p class="MsoNormal">%</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       The  following code is the mvrsample function in C. It's slightly different to the  MATLAB version considering the input format.</p>
+<p class="MsoNormal">       Here  we use a mvrsample_input.csv file as the input file. The first row contains the  running parameters. Then, the adjacent</p>
+<p class="MsoNormal">       matrix  starts from the second row. ( names = (1:n)' as default. ) By Huanshen Wei (huanshenwei@gmail.com)</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       Example:  mvrsample_input.csv</p>
+<p class="MsoNormal">       bootstrap,reps,20,spacing,100,samples,20,burn_in,10000</p>
+<p class="MsoNormal">       1,2,1</p>
+<p class="MsoNormal">       0,3,1</p>
+<p class="MsoNormal">       1,0,1</p>
+<p class="MsoNormal">&nbsp;	</p>
+<p class="MsoNormal">*/</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">#include &lt;time.h&gt;</p>
+<p class="MsoNormal">#include &lt;stdlib.h&gt;</p>
+<p class="MsoNormal">#include &lt;iostream&gt;</p>
+<p class="MsoNormal">#include &lt;fstream&gt;  </p>
+<p class="MsoNormal">#include &lt;stack&gt;</p>
+<p class="MsoNormal">#include &lt;ctime&gt;</p>
+<p class="MsoNormal">#include &lt;string.h&gt;</p>
+<p class="MsoNormal">#include &lt;vector&gt;</p>
+<p class="MsoNormal">#include &lt;sstream&gt;</p>
+<p class="MsoNormal">#include &lt;math.h&gt;</p>
+<p class="MsoNormal">using namespace std;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">//translate string to other type, eg.:int  or double</p>
+<p class="MsoNormal">template &lt;class Type2&gt;</p>
+<p class="MsoNormal">Type2 string2num(const string &amp;str){</p>
+<p class="MsoNormal">       istringstream  iss(str);</p>
+<p class="MsoNormal">       Type2  num;</p>
+<p class="MsoNormal">       iss  &gt;&gt; num;</p>
+<p class="MsoNormal">       return  num;</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">//for time recording</p>
+<p class="MsoNormal">std::stack&lt;clock_t&gt; tictoc_stack;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">void tic(){</p>
+<p class="MsoNormal">     tictoc_stack.push(clock());</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">int toc(){</p>
+<p class="MsoNormal">       int  a = int(((double)(clock() - tictoc_stack.top())) / CLOCKS_PER_SEC);</p>
+<p class="MsoNormal">     return(a);</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">//for datainput</p>
+<p class="MsoNormal">enum string_code{</p>
+<p class="MsoNormal">       failed,</p>
+<p class="MsoNormal">       Rotate,    </p>
+<p class="MsoNormal">       reps,       </p>
+<p class="MsoNormal">       samples, </p>
+<p class="MsoNormal">       spacing,  </p>
+<p class="MsoNormal">       burn_in,  </p>
+<p class="MsoNormal">       Bootstrap,      </p>
+<p class="MsoNormal">       Nowarn, </p>
+<p class="MsoNormal">       Quiet,</p>
+<p class="MsoNormal">       Names, </p>
+<p class="MsoNormal">};</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">string_code hashit(std::string const&amp;  inString){</p>
+<p class="MsoNormal">       if  (inString == &quot;rotate&quot;) return Rotate;</p>
+<p class="MsoNormal">       if  (inString == &quot;reps&quot;) return reps;</p>
+<p class="MsoNormal">       if  (inString == &quot;samples&quot;) return samples;</p>
+<p class="MsoNormal">       if  (inString == &quot;spacing&quot;) return spacing;</p>
+<p class="MsoNormal">       if  (inString == &quot;burn_in&quot;) return burn_in;</p>
+<p class="MsoNormal">       if  (inString == &quot;bootstrap&quot;) return Bootstrap;</p>
+<p class="MsoNormal">       if  (inString == &quot;nowarn&quot;) return Nowarn;</p>
+<p class="MsoNormal">       if  (inString == &quot;quiet&quot;) return Quiet;</p>
+<p class="MsoNormal">       if  (inString == &quot;names&quot;) return Names;</p>
+<p class="MsoNormal">       return(failed);</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">void Input(int &amp;n, int &amp;m, int*  names, bool &amp;bstrap, int &amp;nr, int &amp;nreps, int &amp;s_rate, int  &amp;n_samp, int &amp;Tb, bool &amp;nowarn, bool &amp;quiet, int** &amp;A,  double* &amp;prho, double** &amp;pi, double** &amp;piu){</p>
+<p class="MsoNormal">       vector&lt;vector&lt;string&gt;&gt;  InputData;</p>
+<p class="MsoNormal">       ifstream  inFile(&quot;mvrsample_input.csv&quot;, ios::in);</p>
+<p class="MsoNormal">       string  lineStr;</p>
+<p class="MsoNormal">       while  (getline(inFile, lineStr)){</p>
+<p class="MsoNormal">              stringstream  ss(lineStr);</p>
+<p class="MsoNormal">              string  str;</p>
+<p class="MsoNormal">              vector&lt;string&gt;  lineArray;</p>
+<p class="MsoNormal">              while  (getline(ss, str, ','))</p>
+<p class="MsoNormal">                     lineArray.push_back(str);</p>
+<p class="MsoNormal">              InputData.push_back(lineArray);</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">       inFile.close();</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       n  = InputData[1].size(); // n either comes from names.size or A[1][].size</p>
+<p class="MsoNormal">       </p>
+<p class="MsoNormal">       //  default settings</p>
+<p class="MsoNormal">       nr  = 2;           // rotation size = pairwise swaps</p>
+<p class="MsoNormal">     for (int i=0; i&lt;n; i++) names[i] = i;             // names = indices</p>
+<p class="MsoNormal">       bstrap  = false;              // bootstrap = false</p>
+<p class="MsoNormal">       nreps  = 1;                //  1 repetition of sampler</p>
+<p class="MsoNormal">       s_rate  = n;            // n steps per sampled  state</p>
+<p class="MsoNormal">       n_samp  = n;                 // n samples stored</p>
+<p class="MsoNormal">       Tb  = n * n;                   // n^2 steps  for burn-in</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       bool  inputnames = false; // whether provide names?</p>
+<p class="MsoNormal">       int  Startln = 1;             // Start line for  matrix-A</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       //  parse command-line parameters; trap for bad input</p>
+<p class="MsoNormal">       int  i = 0, argok;            </p>
+<p class="MsoNormal">       vector&lt;string&gt;  lineArray = InputData[0];</p>
+<p class="MsoNormal">       while  (i &lt; int(lineArray.size())){</p>
+<p class="MsoNormal">              argok  = 1;</p>
+<p class="MsoNormal">           string str = lineArray[i];</p>
+<p class="MsoNormal">           if (str.length() == 0){</p>
+<p class="MsoNormal">                  i++;</p>
+<p class="MsoNormal">                  continue;</p>
+<p class="MsoNormal">           } </p>
+<p class="MsoNormal">            if  (!((string2num&lt;char&gt;(lineArray[i].substr(0,1)) &gt;=48) &amp;&amp;  (string2num&lt;char&gt;(lineArray[i].substr(0,1)) &lt;=57))){</p>
+<p class="MsoNormal">                  switch (hashit(str)){</p>
+<p class="MsoNormal">                      case Rotate: {</p>
+<p class="MsoNormal">                             nr  = string2num&lt;int&gt;(lineArray[i+1]); </p>
+<p class="MsoNormal">                             i++; </p>
+<p class="MsoNormal">                             break;</p>
+<p class="MsoNormal">                      } </p>
+<p class="MsoNormal">                      case reps: {</p>
+<p class="MsoNormal">                               nreps  = string2num&lt;int&gt;(lineArray[i+1]); </p>
+<p class="MsoNormal">                               i++;</p>
+<p class="MsoNormal">                               break;</p>
+<p class="MsoNormal">                        }   </p>
+<p class="MsoNormal">                        case  samples: {</p>
+<p class="MsoNormal">                               n_samp  = string2num&lt;int&gt;(lineArray[i+1]); </p>
+<p class="MsoNormal">                               i++;</p>
+<p class="MsoNormal">                               break;</p>
+<p class="MsoNormal">                        }      </p>
+<p class="MsoNormal">                        case  spacing: {</p>
+<p class="MsoNormal">                             s_rate  = string2num&lt;int&gt;(lineArray[i+1]); </p>
+<p class="MsoNormal">                               i++;</p>
+<p class="MsoNormal">                               break;</p>
+<p class="MsoNormal">                        }     </p>
+<p class="MsoNormal">                        case  burn_in: {</p>
+<p class="MsoNormal">                            Tb = string2num&lt;int&gt;(lineArray[i+1]); </p>
+<p class="MsoNormal">                               i++;</p>
+<p class="MsoNormal">                               break;</p>
+<p class="MsoNormal">                        } </p>
+<p class="MsoNormal">                        case  Bootstrap:     {</p>
+<p class="MsoNormal">                               bstrap  = true; </p>
+<p class="MsoNormal">                               break;</p>
+<p class="MsoNormal">                        }</p>
+<p class="MsoNormal">                        case  Nowarn: {</p>
+<p class="MsoNormal">                               nowarn  = true;</p>
+<p class="MsoNormal">                             break;</p>
+<p class="MsoNormal">                        }  </p>
+<p class="MsoNormal">                        case  Quiet:   {</p>
+<p class="MsoNormal">                                   quiet   = true;     </p>
+<p class="MsoNormal">                             break;</p>
+<p class="MsoNormal">                        }</p>
+<p class="MsoNormal">                        case  Names:  {</p>
+<p class="MsoNormal">                               inputnames  = true;</p>
+<p class="MsoNormal">                               break;</p>
+<p class="MsoNormal">                        }      </p>
+<p class="MsoNormal">                        default:  argok = 0; </p>
+<p class="MsoNormal">                  }</p>
+<p class="MsoNormal">           }</p>
+<p class="MsoNormal">           if (!argok)</p>
+<p class="MsoNormal">                  printf(&quot;(MVRSAMPLE) Ignoring  invalid argument #%d\n&quot;,i+1);</p>
+<p class="MsoNormal">           i++;</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       //  load names</p>
+<p class="MsoNormal">       if  (inputnames){</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;int(InputData[1].size()); i++)</p>
+<p class="MsoNormal">                     names[i]  = string2num&lt;int&gt;(InputData[1][i]);</p>
+<p class="MsoNormal">              Startln  = 2;</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       //  load adjacentmatrix A</p>
+<p class="MsoNormal">       m  = 0;</p>
+<p class="MsoNormal">       A  = (int**) malloc(sizeof(int*) * n);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) A[i] = (int*) malloc(sizeof(int) * n);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">              for  (int j=0; j&lt;n; j++){</p>
+<p class="MsoNormal">                     A[i][j]  = string2num&lt;int&gt;(InputData[i + Startln][j]);</p>
+<p class="MsoNormal">                     m  += A[i][j];</p>
+<p class="MsoNormal">              }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       vector&lt;string&gt;  tstr; tstr.push_back(&quot;off&quot;); tstr.push_back(&quot;on&quot;);</p>
+<p class="MsoNormal">       if  (!quiet){</p>
+<p class="MsoNormal">           printf(&quot;Minimum violation ranking  sampler\n&quot;);</p>
+<p class="MsoNormal">           printf(&quot;   Copyright 2015 Aaron Clauset | Ports to C by  Huanshen.Wei\n&quot;);</p>
+<p class="MsoNormal">           printf(&quot;   Warning: This can be a very slow  calculation; please be patient.\n&quot;);</p>
+<p class="MsoNormal">           printf(&quot;   nodes, n = %i\n   edges, m = %i\n   reps      = %i\n&quot;,n,m,nreps);</p>
+<p class="MsoNormal">           cout &lt;&lt; &quot;   bootstrap of edges      = &quot; &lt;&lt; tstr[bstrap] &lt;&lt;  endl;</p>
+<p class="MsoNormal">           printf(&quot;   number of nodes to swap = %i\n&quot;,nr);</p>
+<p class="MsoNormal">           printf(&quot;   steps between samples   = %i\n&quot;,s_rate);</p>
+<p class="MsoNormal">           printf(&quot;   target sample count     = %i\n&quot;,n_samp);            </p>
+<p class="MsoNormal">              printf(&quot;   burn-in step            = %i\n&quot;, Tb);</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">       printf(&quot;\nPress  any key to start!\n&quot;); getchar();</p>
+<p class="MsoNormal">       </p>
+<p class="MsoNormal">       prho  = (double*) malloc(sizeof(double) * nreps);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;reps; i++) prho[i] = 0.0;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       pi  = (double**) malloc(sizeof(double*) * n);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) pi[i] = (double*) malloc(sizeof(double) * nreps);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">              for  (int j=0; j&lt;nreps; j++)</p>
+<p class="MsoNormal">                     pi[i][j]  = 0.0;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       piu  = (double**) malloc(sizeof(double*) * n);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) piu[i] = (double*) malloc(sizeof(double) * nreps);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">              for  (int j=0; j&lt;nreps; j++)</p>
+<p class="MsoNormal">                     piu[i][j]  = 0.0;</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">int dfs(int** arr, int n, int* visited, int  type, int i){</p>
+<p class="MsoNormal">       visited[i]  = type;</p>
+<p class="MsoNormal">       int  tt = 1;</p>
+<p class="MsoNormal">       for  (int j=0; j&lt;n; j++)</p>
+<p class="MsoNormal">              if  ((i != j) &amp;&amp; (arr[i][j] || arr[j][i]) &amp;&amp; (!visited[j])){</p>
+<p class="MsoNormal">                     visited[j]  = type; </p>
+<p class="MsoNormal">                     tt  += dfs(arr,n,visited,type,j);</p>
+<p class="MsoNormal">              }</p>
+<p class="MsoNormal">       return  tt;</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">int SplitDetect(int** arr, int n){</p>
+<p class="MsoNormal">       int*  visited;</p>
+<p class="MsoNormal">       visited  = (int*) malloc(sizeof(int) * n);</p>
+<p class="MsoNormal">       memset(visited,  0, sizeof(int) * n);</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       int  temp = 0;</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++){</p>
+<p class="MsoNormal">              if  (!visited[i]){</p>
+<p class="MsoNormal">                     temp++;</p>
+<p class="MsoNormal">                     dfs(arr,n,visited,temp,i);</p>
+<p class="MsoNormal">              } </p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       free(visited);</p>
+<p class="MsoNormal">       visited  = NULL;</p>
+<p class="MsoNormal">       return  (temp);</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">void PrintAdj(int** arr, int a, int b){</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;a; i++){</p>
+<p class="MsoNormal">              for  (int j=0; j&lt;b; j++)</p>
+<p class="MsoNormal">                     printf(&quot;%d  &quot;, arr[i][j]);</p>
+<p class="MsoNormal">              printf(&quot;\n&quot;);</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">       printf(&quot;\n&quot;);</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">void swap(int &amp;a, int &amp;b){</p>
+<p class="MsoNormal">       a  = a ^ b;</p>
+<p class="MsoNormal">       b  = a ^ b;</p>
+<p class="MsoNormal">       a  = a ^ b;</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">int ScoreCalc(int** arr, int n){</p>
+<p class="MsoNormal">       int  sum = 0;</p>
+<p class="MsoNormal">       for  (int i=1; i&lt;n; i++)</p>
+<p class="MsoNormal">              for  (int j=0; j&lt;i; j++)</p>
+<p class="MsoNormal">                     sum  += arr[i][j];</p>
+<p class="MsoNormal">       return(sum);</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">void mvrsample(){</p>
+<p class="MsoNormal">       int  n;                                   //  number of vertices</p>
+<p class="MsoNormal">       int  m;                                  //  number of edges</p>
+<p class="MsoNormal">       int**  A = NULL;                   //  AdjacentMatrix of network</p>
+<p class="MsoNormal">       int  names[1300];           // names of the  nodes</p>
+<p class="MsoNormal">       int  nr;                                 //  size of a rotation</p>
+<p class="MsoNormal">       bool  bstrap;                 // boostrap the  edges?</p>
+<p class="MsoNormal">       int  nreps;                     // number of  repititions of sampler to run</p>
+<p class="MsoNormal">       int  s_rate;                            // take  sample every s_rate steps</p>
+<p class="MsoNormal">       int  n_samp;                         // number  of samples to store</p>
+<p class="MsoNormal">       int  Tb;                                 //  burn-in steps before sampling</p>
+<p class="MsoNormal">       bool  nowarn = false;    // default: don't  display warnings</p>
+<p class="MsoNormal">       bool  quiet = false;        // default: display  messages</p>
+<p class="MsoNormal">       double  *prho = NULL;        // output: fraction  of edges that violate MVR (by rep)</p>
+<p class="MsoNormal">       double  **pi = NULL;          // output: mean of ranks across MVR samples (by rep)</p>
+<p class="MsoNormal">       double  **piu = NULL;        // output: std of ranks across MVR samples (by rep)</p>
+<p class="MsoNormal">       </p>
+<p class="MsoNormal">       Input(n,m,names,bstrap,nr,nreps,s_rate,n_samp,Tb,nowarn,quiet,A,prho,pi,piu);</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       tic();</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       int**  B;</p>
+<p class="MsoNormal">       B  = (int**) malloc(sizeof(int*) * n);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) B[i] = (int*) malloc(sizeof(int) * n);</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       int*  kout; kout = (int*) malloc(sizeof(int) * n);</p>
+<p class="MsoNormal">       int*  I;  I = (int*) malloc(sizeof(int) * n);</p>
+<p class="MsoNormal">       int*  h;  h = (int*) malloc(sizeof(int) * n);</p>
+<p class="MsoNormal">       </p>
+<p class="MsoNormal">       int**  F;</p>
+<p class="MsoNormal">       F  = (int**) malloc(sizeof(int*) * n);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) F[i] = (int*) malloc(sizeof(int) * n);</p>
+<p class="MsoNormal">    </p>
+<p class="MsoNormal">     double** rs = (double**) malloc(sizeof(double*) * n);      // stored samples</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) rs[i] = (double*) malloc(sizeof(double) * n_samp);</p>
+<p class="MsoNormal">       </p>
+<p class="MsoNormal">       int*  pr = (int*) malloc(sizeof(int) * nr);</p>
+<p class="MsoNormal">       srand((unsigned)time(NULL));  // random number generator</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       //  int ttm = m;</p>
+<p class="MsoNormal">       //  int mtemp = int(m * 5.044 / (m / double(n)));</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       for  (int ijk=1; ijk&lt;=nreps; ijk++){</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              //  m = ttm;</p>
+<p class="MsoNormal">           // 1. if necessary, bootstrap the set of  edges by sampling them</p>
+<p class="MsoNormal">           //     uniformly at random with replacement. turning this feature off</p>
+<p class="MsoNormal">           //     will reduce the sampler's ability to accurately estimate the</p>
+<p class="MsoNormal">           //     uncertainty of the MVR score.</p>
+<p class="MsoNormal">              if  (bstrap){</p>
+<p class="MsoNormal">                     int  stemp = 0;</p>
+<p class="MsoNormal">                     int*  u; </p>
+<p class="MsoNormal">                     int*  v;</p>
+<p class="MsoNormal">                     u  = (int*) malloc(sizeof(int) * m);</p>
+<p class="MsoNormal">                     v  = (int*) malloc(sizeof(int) * m);</p>
+<p class="MsoNormal">                     for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                            for  (int j=0; j&lt;n; j++){</p>
+<p class="MsoNormal">                                   if  (A[i][j]){</p>
+<p class="MsoNormal">                                          for  (int k=0; k&lt;A[i][j]; k++){</p>
+<p class="MsoNormal">                                                 stemp++;</p>
+<p class="MsoNormal">                                                 u[stemp-1]  = i;</p>
+<p class="MsoNormal">                                                 v[stemp-1]  = j;</p>
+<p class="MsoNormal">                                          }</p>
+<p class="MsoNormal">                                   }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">                            }      </p>
+<p class="MsoNormal">                     for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                            for  (int j=0; j&lt;n; j++)</p>
+<p class="MsoNormal">                                   B[i][j]  = 0;</p>
+<p class="MsoNormal">                     int  ntemp = 0;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">                     //  printf(&quot;real edges are %d\n&quot;, mtemp);</p>
+<p class="MsoNormal">                     for  (int i=0; i&lt;m; i++){</p>
+<p class="MsoNormal">                            ntemp  = rand() % m;</p>
+<p class="MsoNormal">                            B[u[ntemp]][v[ntemp]]  ++;</p>
+<p class="MsoNormal">                     }</p>
+<p class="MsoNormal">              }</p>
+<p class="MsoNormal">              //  1b. don't bootstrap the edges</p>
+<p class="MsoNormal">              else{</p>
+<p class="MsoNormal">                     for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                            for  (int j=0; j&lt;n; j++)</p>
+<p class="MsoNormal">                                   B[i][j]  = A[i][j];</p>
+<p class="MsoNormal">              }</p>
+<p class="MsoNormal">              //  m = mtemp;</p>
+<p class="MsoNormal">              printf(&quot;Seperated  components = %d\n&quot;,SplitDetect(B,n));</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              int  temp = SplitDetect(B,n);</p>
+<p class="MsoNormal">              if  (temp &gt; 0) printf(&quot;reps %d:The network splits into %5d part!\n&quot;,  ijk, temp);</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              //  2a. initialize the ranking out-degree, in decreasing order</p>
+<p class="MsoNormal">              memset(kout,  0, sizeof(int) * n);</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                     for  (int j=0; j&lt;n; j++)</p>
+<p class="MsoNormal">                            kout[i]  += A[i][j];</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++) I[i] = i;</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                     for  (int j=i+1; j&lt;n; j++)</p>
+<p class="MsoNormal">                            if  (kout[i] &lt; kout[j]){</p>
+<p class="MsoNormal">                                   swap(kout[i],kout[j]);</p>
+<p class="MsoNormal">                                   swap(I[i],I[j]);</p>
+<p class="MsoNormal">                            }</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++) </p>
+<p class="MsoNormal">                     h[I[i]]  = i;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              //  2b. initialize the MVR score</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                     for  (int j=0; j&lt;n; j++)</p>
+<p class="MsoNormal">                            F[h[i]][h[j]]  = B[i][j];</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              int  score = ScoreCalc(F,n);</p>
+<p class="MsoNormal">              if  (!quiet) printf(&quot;[rep=%d][t=%8d] violations = %4i (%4.2f%%)\tconverging:  %d\t(%4.2fm done)\n&quot;,ijk,1,score,100*score/double(m),Tb,toc()/60.0);</p>
+<p class="MsoNormal">              int  mins = score;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              //  2c. initialize the zero-temperature MCMC sampler</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                     for  (int j=0; j&lt;n_samp; j++)</p>
+<p class="MsoNormal">                            rs[i][j]  = 0.0;</p>
+<p class="MsoNormal">           int k = 1;                 // index of sample</p>
+<p class="MsoNormal">           int T = Tb+n_samp*s_rate;  // total runtimes needed</p>
+<p class="MsoNormal">           bool f_stop = 0;                   // stop flag</p>
+<p class="MsoNormal">           int cnt     = 0;                           //  neutral counter</p>
+<p class="MsoNormal">           int t       = 1;                           //  time</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              //  3. Run the zero-temperature MCMC to sample the minimum violation</p>
+<p class="MsoNormal">           //     rankings. The proposal step of the MCMC chooses a uniformly random</p>
+<p class="MsoNormal">           //     group of vertices of size r and then tries rotating them to create</p>
+<p class="MsoNormal">           //     a new ordering. If that ordering is no worse than the current </p>
+<p class="MsoNormal">           //     ordering, it accepts the move (Metropolis-Hastings rule) and</p>
+<p class="MsoNormal">           //     repeats. Otherwise, it discards that proposal, and chooses a new</p>
+<p class="MsoNormal">           //     one. The MCMC runs for Tb &quot;burn in&quot; steps before beginning the </p>
+<p class="MsoNormal">           //     sampling of MVRs. Some information is written to stdout as the</p>
+<p class="MsoNormal">           //     MCMC progresses.</p>
+<p class="MsoNormal">           while (true){</p>
+<p class="MsoNormal">                  t++;</p>
+<p class="MsoNormal">                  // 3a. check stopping criteria</p>
+<p class="MsoNormal">                if (t &gt; T) f_stop = 1;</p>
+<p class="MsoNormal">                if (f_stop &gt; 0) break;</p>
+<p class="MsoNormal">               // 3b. choose r positions to swap</p>
+<p class="MsoNormal">               int r = 0, temp;</p>
+<p class="MsoNormal">               while (r &lt; nr){</p>
+<p class="MsoNormal">                      while  (true){</p>
+<p class="MsoNormal">                             temp  = rand() % n;</p>
+<p class="MsoNormal">                             bool  flag = 1;</p>
+<p class="MsoNormal">                             for  (int pos=0; pos&lt;r; pos++) </p>
+<p class="MsoNormal">                                    if  (pr[pos] == temp){</p>
+<p class="MsoNormal">                                           flag = 0;</p>
+<p class="MsoNormal">                                           break;</p>
+<p class="MsoNormal">                             }</p>
+<p class="MsoNormal">                             if  (flag) break;</p>
+<p class="MsoNormal">                      } </p>
+<p class="MsoNormal">                      pr[r]  = temp;</p>
+<p class="MsoNormal">                      r++;</p>
+<p class="MsoNormal">               }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">               // 3c.&amp; 3d. &quot;rotate&quot; them  &amp; tabulate proposed block matrix</p>
+<p class="MsoNormal">               int a, b, delta = 0;</p>
+<p class="MsoNormal">               for (int i=0; i&lt;nr-1; i++){</p>
+<p class="MsoNormal">                      a  = h[pr[i]]; b = h[pr[i+1]];</p>
+<p class="MsoNormal">                      if  (a &gt; b) swap(a,b);</p>
+<p class="MsoNormal">                      for  (int j=a+1; j&lt;b; j++) delta += F[a][j] - F[b][j] + F[j][b] - F[j][a];</p>
+<p class="MsoNormal">                      delta += F[a][b] - F[b][a];</p>
+<p class="MsoNormal">                      for (int j=0; j&lt;n; j++) swap(F[a][j],F[b][j]);                           </p>
+<p class="MsoNormal">                      for (int j=0; j&lt;n; j++)  swap(F[j][a],F[j][b]);</p>
+<p class="MsoNormal">                      swap(h[pr[i]],h[pr[i+1]]);</p>
+<p class="MsoNormal">               }</p>
+<p class="MsoNormal">               // 3e. compute F2's score </p>
+<p class="MsoNormal">               int tt = score;</p>
+<p class="MsoNormal">               score = tt + delta;</p>
+<p class="MsoNormal">               if (score &lt;= mins){</p>
+<p class="MsoNormal">                      if  (score &lt; mins){</p>
+<p class="MsoNormal">                             mins  = score;</p>
+<p class="MsoNormal">                             if  (!quiet &amp;&amp; (t &gt;= Tb))</p>
+<p class="MsoNormal">                                    printf(&quot;[rep=%d][t=%8d]  violations = %4d (%4.2f%%)\tfound a better MVR; restarting  sampling\n&quot;,ijk,t,score,100*score/double(m));</p>
+<p class="MsoNormal">                             if  (t &gt; Tb){</p>
+<p class="MsoNormal">                                    k  = 1;</p>
+<p class="MsoNormal">                                    cnt  = 0;</p>
+<p class="MsoNormal">                                    t  = Tb + 1;</p>
+<p class="MsoNormal">                             }</p>
+<p class="MsoNormal">                      }</p>
+<p class="MsoNormal">                      cnt++;</p>
+<p class="MsoNormal">               }</p>
+<p class="MsoNormal">               else{</p>
+<p class="MsoNormal">                      //  reverse rotation</p>
+<p class="MsoNormal">                      for (int i = nr - 1; i&gt;0; i--){</p>
+<p class="MsoNormal">                             a  = h[pr[i]]; b = h[pr[i-1]];</p>
+<p class="MsoNormal">                             for (int j=0; j&lt;n; j++)  swap(F[a][j],F[b][j]);</p>
+<p class="MsoNormal">                             for (int j=0; j&lt;n; j++)  swap(F[j][a],F[j][b]);</p>
+<p class="MsoNormal">                             swap(h[pr[i]],h[pr[i-1]]);</p>
+<p class="MsoNormal">                      }</p>
+<p class="MsoNormal">                      score = tt;</p>
+<p class="MsoNormal">               }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">               // sampling to record the rankings</p>
+<p class="MsoNormal">               if ((t &gt; Tb) &amp;&amp; (t % s_rate  == 0)){</p>
+<p class="MsoNormal">                      for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">                             rs[i][k]  = h[i];</p>
+<p class="MsoNormal">                      k++;</p>
+<p class="MsoNormal">                      cnt  = 0;</p>
+<p class="MsoNormal">               }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">               // 3f. update the user on the progress  (stdout)</p>
+<p class="MsoNormal">               if (t % 1000 == 0){</p>
+<p class="MsoNormal">                      if  (!quiet){</p>
+<p class="MsoNormal">                       if (t &lt;= Tb)</p>
+<p class="MsoNormal">                            printf(&quot;[rep=%i][t=%8i] violations = %4i (%4.2f%%)\tconverging:  %i\t(%4.2fm done | %4.2fm to  go)\n&quot;,ijk,t,score,100*score/double(m),Tb-t,toc()/60.0,((T*nreps)/(t+(ijk-1)*t-1))*(toc()/60.0));</p>
+<p class="MsoNormal">                       else</p>
+<p class="MsoNormal">                            printf(&quot;[rep=%i][t=%8i] violations = %4i (%4.2f%%)\tsamples: %i  (%4.2f%%)\t(%4.2fm done | %4.2fm to  go)\n&quot;,ijk,t,score,100*score/double(m),k,100*k/double(n_samp),toc()/60.0,((T*nreps)/(t+(ijk-1)*t-1))*(toc()/60.0));</p>
+<p class="MsoNormal">                      }</p>
+<p class="MsoNormal">               }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">               // 3g. recheck stopping criteria</p>
+<p class="MsoNormal">               if (t &gt; T) f_stop = 1; </p>
+<p class="MsoNormal">               if (f_stop &gt; 0) break; </p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">           }</p>
+<p class="MsoNormal">                  </p>
+<p class="MsoNormal">              //  store the results of this rep</p>
+<p class="MsoNormal">              prho[ijk  - 1] = mins/double(m);</p>
+<p class="MsoNormal">              </p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++){</p>
+<p class="MsoNormal">                     double  sum = 0;</p>
+<p class="MsoNormal">                     for  (int j=0; j&lt;n_samp; j++)</p>
+<p class="MsoNormal">                            sum  += rs[i][j];</p>
+<p class="MsoNormal">                     pi[i][ijk  - 1] = sum / double(n_samp);</p>
+<p class="MsoNormal">              }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">              for  (int i=0; i&lt;n; i++){</p>
+<p class="MsoNormal">                     double  sum = 0;</p>
+<p class="MsoNormal">                     for  (int j=0; j&lt;n_samp; j++)</p>
+<p class="MsoNormal">                            sum  += (rs[i][j] - pi[i][ijk - 1]) * (rs[i][j] - pi[i][ijk - 1]) / double(n_samp);</p>
+<p class="MsoNormal">                     piu[i][ijk  - 1] = sqrt(sum);</p>
+<p class="MsoNormal">              }</p>
+<p class="MsoNormal">       }      </p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       //  compute the mean results and return them</p>
+<p class="MsoNormal">       double*  ranks; ranks = (double*) malloc(sizeof(double) * n);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++){</p>
+<p class="MsoNormal">              double  sum = 0;</p>
+<p class="MsoNormal">              for  (int j=0; j&lt;nreps; j++)</p>
+<p class="MsoNormal">                     sum  += pi[i][j];</p>
+<p class="MsoNormal">              ranks[i]  = sum / double(nreps);</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) I[i] = i;</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">              for  (int j=i+1; j&lt;n; j++)</p>
+<p class="MsoNormal">                     if  (ranks[i] &gt; ranks[j]){</p>
+<p class="MsoNormal">                            double  c; c = ranks[i]; ranks[i] = ranks[j]; ranks[j] = c;</p>
+<p class="MsoNormal">                            swap(I[i],I[j]);</p>
+<p class="MsoNormal">                     }</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++) </p>
+<p class="MsoNormal">              h[I[i]]  = i;</p>
+<p class="MsoNormal">       //  the reordered adjacency matrix</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++)</p>
+<p class="MsoNormal">              for  (int j=0; j&lt;n; j++)</p>
+<p class="MsoNormal">                     F[h[i]][h[j]]  = B[i][j];</p>
+<p class="MsoNormal">       //  fraction of edges that violate the ranking</p>
+<p class="MsoNormal">       double  rho = ScoreCalc(F,n);</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       //  print the results to .csv files</p>
+<p class="MsoNormal">       ofstream  outFile0(&quot;mvrsample_output_prho.csv&quot;, ios::out);</p>
+<p class="MsoNormal">       outFile0  &lt;&lt; &quot;rho&quot; &lt;&lt; ',' &lt;&lt; rho/double(m) &lt;&lt; endl;</p>
+<p class="MsoNormal">       outFile0  &lt;&lt; prho[0];</p>
+<p class="MsoNormal">       for  (int i=1; i&lt;nreps; i++)</p>
+<p class="MsoNormal">              outFile0  &lt;&lt; ',' &lt;&lt; prho[i];</p>
+<p class="MsoNormal">       outFile0  &lt;&lt; endl;</p>
+<p class="MsoNormal">       outFile0.close();</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       ofstream  outFile1(&quot;mvrsample_output_ranks.csv&quot;, ios::out);</p>
+<p class="MsoNormal">       outFile1  &lt;&lt; I[0] + 1 &lt;&lt; ',' &lt;&lt; ranks[0] &lt;&lt; endl;</p>
+<p class="MsoNormal">       for  (int i=1; i&lt;n; i++)</p>
+<p class="MsoNormal">              outFile1  &lt;&lt; I[i] + 1 &lt;&lt; ',' &lt;&lt; ranks[i] &lt;&lt; endl;</p>
+<p class="MsoNormal">       outFile1.close();</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       ofstream  outFile2(&quot;mvrsample_output_pi.csv&quot;, ios::out);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++){</p>
+<p class="MsoNormal">              outFile2  &lt;&lt; pi[i][0];</p>
+<p class="MsoNormal">              for  (int j=1; j&lt;nreps; j++)</p>
+<p class="MsoNormal">                     outFile2  &lt;&lt; ',' &lt;&lt; pi[i][j];</p>
+<p class="MsoNormal">              outFile2  &lt;&lt; endl;</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">       outFile2.close();</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">       ofstream  outFile3(&quot;mvrsample_output_piu.csv&quot;, ios::out);</p>
+<p class="MsoNormal">       for  (int i=0; i&lt;n; i++){</p>
+<p class="MsoNormal">              outFile3  &lt;&lt; piu[i][0];</p>
+<p class="MsoNormal">              for  (int j=1; j&lt;nreps; j++)</p>
+<p class="MsoNormal">                     outFile3  &lt;&lt; ',' &lt;&lt; piu[i][j];</p>
+<p class="MsoNormal">              outFile3  &lt;&lt; endl;</p>
+<p class="MsoNormal">       }</p>
+<p class="MsoNormal">       outFile3.close();</p>
+<p class="MsoNormal">}</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">int main(){</p>
+<p class="MsoNormal">       mvrsample();</p>
+<p class="MsoNormal">       return  0;</p>
+<p class="MsoNormal">}</p>
+</body>
+</html>

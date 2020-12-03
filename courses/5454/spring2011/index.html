@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Design and Analysis of Algorithms (CSCI 5454, Fall 2011)</title>
+	<link rel="stylesheet" href="../../styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-t" href="http://www.santafe.edu/~aaronc/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b><big>Design and Analysis of Algorithms<br/>CSCI 5454, Spring 2011</big></b><br/>
+<!--<img src="http://www.santafe.edu/~aaronc/hierarchy/hierarchy_ex_sm.jpg" width="200" height="313" align="right">-->
+Time: Monday and Wednesday, 4:00pm - 5:15pm<br/>
+Room: <a href="http://www.cs.colorado.edu/department/maps/eccr1b.html">ECCR 1B51</a><br/><br/>
+Instructor: Aaron Clauset<br/>
+Office: <a href="http://www.cs.colorado.edu/department/maps/ecot7.html">ECOT 743</a><br/>
+Office hours: Tuesday, 1:30-3:00pm<br/>
+Email: <a href="http://www.cs.colorado.edu/cgi-bin/em?id=aaron_clauset">look it up</a><br/>
+<a href="csci5454_spring2011_syllabus.pdf">Syllabus</a>
+</p>
+
+<p><b><a href="#Description">Description</a></b><br/>
+<b><a href="#CourseWork">Course work and grading</a></b><br/>
+<b><a href="#Crowdsource">Crowd-sourced lectures</a></b><br/>
+<b><a href="#Schedule">Schedule and lecture notes</a></b><br/>
+<b><a href="#Schedule">Problem sets</a></b><br/>
+<!--<b><a href="#Readings">Supplemental readings</a></b><br/>-->
+</p>
+
+<p><b><big><a name="Description">Description</a></big></b><br/>
+Algorithms are the heart of computer science, and their essential nature is 
+to automate some aspect of the collecting, organizing and processing of 
+information. Today, information of all kinds is increasingly available 
+in enormous quantities. However, our ability to make sense of all this 
+information, to manage, organize and search it, and to use it for practical 
+purposes, e.g., self-driving cars, adaptive computation, search algorithms 
+for the Internet or for social networks, artificial intelligence, and many 
+scientific applications, relies on the design of efficient algorithms, that 
+is, algorithms that are fast, use little memory and provide guarantees on 
+their performance.
+<br/><br/>
+
+This graduate-level course will cover a selection of topics related to 
+algorithm design and analysis. Topics will include divide and conquer 
+algorithms, greedy algorithms, graph algorithms, algorithms for social 
+networks, computational biology, optimization algorithms, randomized data 
+structures and their analysis. We will not cover any of these topics 
+exhaustively. Rather, the focus will be on algorithmic thinking, efficient 
+solutions to practical problems and understanding algorithm performance. 
+Advanced topics will cover a selection of modern algorithms, many of which 
+come from real-world applications.
+</p>
+
+
+<p><b><big>Prerequisites</big></b><br/>
+
+CSCI 2270 (Computer Science 2: Data Structures), calculus and discrete 
+mathematics, or equivalent. I assume you are already familiar with basic 
+asymoptotic analysis (Big-O, etc.) and can solve recurrence relations. The 
+ability to quickly and correctly implement basic algorithms is essential. (If 
+you are not confident on this point, you should not take the course.)
+If you don't have the necessary background, please see me. There will also 
+be a brief survey at the beginning of the semester to help me get an idea of 
+the class's preparation.
+</p>
+
+<p><b><big>Text</big></b><br/>
+Required:<br/>
+<a href="http://www.amazon.com/Introduction-Algorithms-Third-Thomas-Cormen/dp/0262033844/">Introduction to Algorithms (3rd ed.)</a>, by Thomas H. Cormen, 
+Charles E. Leiserson, Ronald L. Rivest and Clifford Stein ("CLRS"; available 
+at the CU Bookstore).
+<br/><br/>
+Optional:<br/>
+<a href="http://www.amazon.com/Algorithm-Design-Jon-Kleinberg/dp/0321295358">Algorithm Design</a>, by J. Kleinberg and E. Tardos, and<br/> 
+<a href="http://www.amazon.com/Algorithms-Sanjoy-Dasgupta/dp/0073523402">Algorithms</a>, by S. Dasgupta, C. Papadimitriou and U. Vazirani
+
+<p><b><big><a name="CourseWork">Course work and grading</a></big></b><br/>
+Attendance to the lectures is required.
+<br/><br/>
+The first half of the course will be lecture and problem-set driven. The five 
+problem sets will each have some mathematical and some programming problems. 
+Programming problems can be done in any reasonable imperative language (C++, 
+Java, Python, etc.), and run-able source code must be submitted for each 
+solution. Unless specifically allowed, all parts of all algorithms and data 
+structures must be implemented from scratch (that is, no libraries; if you use 
+Python or another modern language, be sure you are not accidentally invoking 
+non-trivial libraries; garbage collection features are okay). For the 
+mathematical problems, you should assume a RAM model of computation.
+<br/><br/>
+
+Problem sets will be due three weeks after they are assigned. Solutions must 
+be in PDF format (e.g., typeset using 
+<a href="http://en.wikipedia.org/wiki/LaTeX">LaTeX</a>), 
+should include all necessary details for me to follow the logic, and should be 
+submitted via email by 11:59pm the day they are due. No late assignments will 
+be accepted.  Collaboration is allowed on the problem sets, but you may not 
+copy (in any way) from your collaborators and you must respect University 
+academic policies at all times. That is, you may discuss the problems 
+verbally, but you must write up your solutions separately. If you do
+work with someone, you must list and describe the extent of your collaboration 
+in your solutions (a footnote is fine). Copying from any source in any way, 
+including the Web but especially from another student (past or present), is 
+strictly forbidden. If you are unsure about whether something is permitted, 
+please see me before the assignment is due.
+<br/><br/>
+<a name="Crowdsource">The</a> 
+second half of the class will revolve around crowd-sourced lectures on 
+more advanced topics and additional problem sets. For the lectures, students 
+will form small groups (of 2) and give a full-length (75 minute) technical 
+lecture that (i) motivates the problem the algorithm solves, (ii) describes 
+the algorithm in appropriate detail (at least at the pseudocode level), (iii) 
+analyzes its performance in appropriate detail and (iv) describes interesting 
+extensions of the technique. 
+Each team will also submit their lecture notes, in PDF via email by 11:59pm 
+the day they give their lecture. No late submissions will be accepted.
+The lecture and the lecture notes are one of the major deliverables of the 
+class and I expect students to spend a significant amount of time outside of 
+class preparing this material. Students should form their own groups by 
+February 7th and email me, by February 14th, their team's preferences in the 
+form of a complete ranking of all 11 topics. Assignments to topics will be 
+made using a matching algorithm. (The number of topics and the precise 
+schedule may change slightly during the semester depending on the number of 
+students in the class.) The grade for the lecture will be partly determined by 
+the in-class presentation and partly by the quality of the lecture notes.
+<br/><br/>
+
+There are no written examinations in this class. The lecture should be viewed 
+as a kind of oral examination.
+<br/><br/>
+
+Most of my lectures will have an accompanying reading assignment, typically 
+taken from the textbook. Details of the readings will be given in the lecture notes, or posted here.
+<br/><br/>
+
+The grade for the course will be 20% attendance, 30% crowd-sourced lecture, 
+50% problem sets.
+
+<!--<p><b><big><a name="Crowdsource">Crowd-source Lecture Topics</a></big></b><br/>
+Students are free to choose any one of these topics for their crowd-sourced 
+lecture: DNA sequence alignment, algorithmic game theory, Byzantine agreement, 
+algorithms for statistical forecasting, expectation-maximization, 
+linear programming, solvers for Satisfiability, min-max algorithms for 
+2-player games. -->
+
+
+
+<!--<p><b><big>Class Project</big></b><br/>
+The assignment is to implement, from scratch, one of the algorithms presented 
+in class, analyze it and conduct thorough numerical experiments to demonstrate 
+the correctness of the analysis, the correctness of the implementation, and 
+the failure modes under usual or pathological inputs. Students will work 
+independently, will turn in their code and a 10-page writeup of their results 
+at the end of the semester.<br/><br/>
+
+Project proposals are due, via email, on February 28th; these should include 
+two paragraphs, one describing the motivation of the algorithm and the other 
+describing the algorithm's solution to the problem it solves. The final 
+writeup (in PDF) is due by email on April 29 (last day of classes). -->
+
+<p><b><big><a name="Schedule">Tentative Schedule</a></big></b><br/>
+Week  1: Overview, why algorithms? 
+(<a href="csci5454_2011_L0.pdf">Lecture 0</a>)
+<br/>
+Week  2: Divide and conquer, Quicksort 
+(<a href="csci5454_2011_L1.pdf">Lecture 1</a> and <a href="csci5454_2011_L2.pdf">Lecture 2</a>)
+<br/>
+Week  3: Randomized data structures, Skip lists and Hash tables (<a href="csci5454_2011_L3.pdf">Lecture 3</a> and <a href="csci5454_2011_L4.pdf">Lecture 4</a>)
+<br/>
+Week  4: Greedy algorithms (<a href="csci5454_2011_L5.pdf">Lecture 5</a>)
+<br/>
+Week  5: Graph algorithms, Search trees and Shortest-paths (<a href="csci5454_2011_L6.pdf">Lecture 6</a> and <a href="csci5454_2011_L7.pdf">Lecture 7</a>)
+<br/>
+Week  6: Minimum spanning trees, Graph clustering (<a href="csci5454_2011_L8.pdf">Lecture 8</a> and <a href="csci5454_2011_L9.pdf">Lecture 9</a>)
+<br/>
+Week  7: Network flow (<a href="csci5454_2011_L10.pdf">Lecture 10</a>)
+<br/>
+Week  8: Phylogenies, parsimony and consensus trees (<a href="csci5454_2011_L11.pdf">Lecture 11</a> and <a href="csci5454_2011_L12.pdf">Lecture 12</a>)
+<br/>
+Week  9: Optimization (<a href="csci5454_2011_L13.pdf">Lecture 13</a>)
+<br/>
+Week 10: Crowd-source lectures:<br/> (i) stable matchings (<a href="csci5454_2011_L14.pdf">Lecture 14</a>) and
+(ii) disjoint sets and union find (<a href="csci5454_2011_L15.pdf">Lecture 15</a>)
+<br/>
+Week 11: Spring Break
+<br/>
+Week 12: Crowd-source lectures:<br/> (i) multiple sequence alignment  (<a href="csci5454_2011_L16.pdf">Lecture 16</a>) and 
+(ii) Byzantine agreement (<a href="csci5454_2011_L17.pdf">Lecture 17</a>)
+<br/>
+Week 13: Crowd-source lectures:<br/> (i) linear programming/simplex algorithm (<a href="csci5454_2011_L18.pdf">Lecture 18</a>) and 
+(ii) guest lecture
+<br/>
+Week 14: Crowd-source lectures:<br/> (i) expectation-maximization (<a href="csci5454_2011_L19.pdf">Lecture 19</a>) and 
+(ii) fair division algorithms (<a href="csci5454_2011_L20.pdf">Lecture 20</a>)
+<br/>
+Week 15: Crowd-source lectures:<br/> (i) approximation algorithms (<a href="csci5454_2011_L21.pdf">Lecture 21</a>) and 
+(ii) link prediction in social networks (<a href="csci5454_2011_L22.pdf">Lecture 22</a>)
+<br/>
+Week 16: Crowd-source lectures:<br/> (i) Sudoku and latin square solvers (<a href="csci5454_2011_L23.pdf">Lecture 23</a>) and 
+(ii) PageRank algorithm (<a href="csci5454_2011_L24.pdf">Lecture 24</a>)
+
+<p><b><big><a name="ProblemSets">Problem Sets</a></big></b><br/>
+<b>Problem set 1</b> (assigned January 12; due February 1)<br/>
+
+<b>Problem set 2</b> (assigned February 2; due February 22)<br/>
+
+<b>Problem set 3</b> (assigned February 23; due March 15)<br/>
+
+<b>Problem set 4</b> (assigned March 16; due April 5)<br/>
+
+<b>Problem set 5</b> (assigned April 8; due April 26)
+
+<p><b><big>Readings</big></b><br/>
+Week 3: <a href="readings/Pugh_SkipLists_ProbabilisticAlternativeToBalancedTrees.pdf">William Pugh, Skip Lists: A Probabilistic Alternative To Balanced Trees</a>
+
+<!--
+<p><b><big><a name="Readings">Supplemental Readings</a></big></b>
+<p>Week  1: <br/>
+<p>Week  2: <br/>
+<p>Week  3: <br/>
+<p>Week  4: <br/>
+<p>Week  5: <br/>
+<p>Week  6: <br/>
+<p>Week  7: <br/>
+<p>Week  8: <br/>
+<p>Week  9: <br/>
+-->
+
+<!--
+<p><b><big>Resources</big></b><br/>
+<a href="http://www.amazon.com/Networks-Introduction-Mark-Newman/dp/0199206651">Networks: An Introduction</a> (by <a href="http://www-personal.umich.edu/~mejn/">Mark Newman</a>)<br/>
+<a href="http://cscs.umich.edu/~crshalizi/notebooks/learning-inference-induction.html">Machine Learning, Statistical Inference and Induction Notebook</a> (by <a href="http://cscs.umich.edu/~crshalizi/">Cosma Shalizi</a>)<br/>
+<a href="http://cscs.umich.edu/~crshalizi/notebooks/power-laws.html">Power Law distributions, etc. Notebook</a> (by <a href="http://cscs.umich.edu/~crshalizi/">Cosma Shalizi</a>)<br/>
+<a href="http://www.stat.cmu.edu/~cshalizi/757/process.html">Some Advice on Process for 
+[Research Projects]</a><br/>
+<a href="http://www.cytoscape.org/">Cytoscape</a>, network 
+visualization software<br/>
+<a href="http://www.yworks.com/en/products_yed_about.html">yEd Graph Editor</a>, network 
+visualization software<br/>
+<a href="http://www.research.att.com/projects/IV_GRAPHVIZ/index.html">Graphviz</a>, 
+network visualization software</br>
+-->
+
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../../research.htm">Research</a><br>
+<a href="../../teaching.htm">Teaching</a><br>
+<a href="../../aclauset-cv.pdf">Vitae</a><br>
+<a href="http://www.cs.unm.edu/~aaron/blog/">Blog</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../../aboutme.htm">About Me</a><br>
+<a href="http://www.flickr.com/photos/aaronclauset/">Photos</a><br>
+<a href="../../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2000-2011, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>
