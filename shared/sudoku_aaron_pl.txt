@@ -1,0 +1,417 @@
+:- module(_,_).
+% -- UNM CS 550, Fall 2006, with Prof. Hermenegildo
+% -- Aaron Clauset (aaron@cs.unm.edu)
+% -- Class Project
+% -- Presented (Thursday) November 30th
+% -- Submitted (Sunday)   December 10th
+% -- Prolog version
+
+:- use_module(library(lists)).
+
+% --------------------------------------------------------------
+
+% Main function calls. sudoku1/1 returns the first solution it finds,
+% while the more general sudoku/1 returns all solutions.
+%
+% The function works by first deriving the set of symbols that each
+% row / col / blk must satisfy and then searches for a solution
+% that satisfies each set of constraints. The search space is
+% exponentially large, so for puzzles with a large (>25) number of
+% variables, the running time can be quite long.
+
+sudoku1(P) :-	get_vars(P,V),
+		check_rows(V,P),
+		check_cols(V,P),
+		check_blks(V,P),
+		nl,
+		length(V,N), _B = round(sqrt(N)),
+		print_pretty(N,_B,_B,N,_B,P).
+
+sudoku(P) :-	get_vars(P,V),
+		check_rows(V,P),
+		check_cols(V,P),
+		check_blks(V,P),
+		nl,
+		length(V,N), _B = round(sqrt(N)),
+		print_pretty(N,_B,_B,N,_B,P),
+		fail.
+
+sudoku_noprint(P) :-	get_vars(P,V),
+		check_rows(V,P),
+		check_cols(V,P),
+		check_blks(V,P).
+
+print_pretty(_,_,_,_,_,[]) :- nl.
+print_pretty(C,_,A,N,SqrtN,R) :- C =:= 0, A > 1, A1 = A - 1, C1 = N,
+				    nl, print_pretty(C1,SqrtN,A1,N,SqrtN,R).
+print_pretty(C,_,A,N,SqrtN,R) :- C =:= 0, A =:= 1, C1 = N,
+				    nl, nl, print_pretty(C1,SqrtN,SqrtN,N,SqrtN,R).
+print_pretty(C,B,A,N,SqrtN,[H|T]) :- C > 0, B =:= 1, C1 = C - 1, 
+					 write(H), write('   '), print_pretty(C1,SqrtN,A,N,SqrtN,T).
+print_pretty(C,B,A,N,SqrtN,[H|T]) :- C > 0, B > 1,
+					C1 = C - 1, B1 = B - 1,
+					write(H), write(' '), print_pretty(C1,B1,A,N,SqrtN,T).
+% Here's a highly under constrained 4x4 puzzle
+%
+% 1 _   _ _
+% _ _   _ 1
+%
+% _ _   1 _
+% _ 1   _ _
+%
+% ?- sudoku([1,_A,_B,_C,_D,_E,_F,1,_G,_H,1,_J,_K,1,_L,_M]).
+% 1 2   3 4
+% 3 4   2 1
+% 
+% 4 3   1 2
+% 2 1   4 3
+%
+% We can use the noprint version to ask how many unique
+% puzzles satisfy our given constraints. Using the above 
+% example again, we have:
+% 
+% ?- findall(X,sudoku_noprint([1,_X,_,_,_,_,_,1,_,_,1,_,_,1,_,_]),_L),length(_L,N).
+% 
+% N = 18 ? ;
+% 
+% no
+
+% Here is a partially completed 9x9 puzzles (modified from the 
+% DailyLobo on Nov 20th), where only the first and fifth blocks
+% are unspecified.
+% 
+% ?- sudoku([_,_,_,5,3,1,9,7,2,_,_,_,6,7,2,1,8,4,_,_,_,8,9,4,6,3,5,2,7,3,_,_,_,5,1,6,8,5,9,_,_,_,2,4,3,4,6,1,_,_,_,7,9,8,1,8,6,7,5,3,4,2,9,3,2,4,9,1,6,8,5,7,5,9,7,2,4,8,3,6,1]).
+% 
+% 6 4 8   5 3 1   9 7 2   
+% 9 3 5   6 7 2   1 8 4   
+% 7 1 2   8 9 4   6 3 5   
+% 
+% 2 7 3   4 8 9   5 1 6   
+% 8 5 9   1 6 7   2 4 3   
+% 4 6 1   3 2 5   7 9 8   
+% 
+% 1 8 6   7 5 3   4 2 9   
+% 3 2 4   9 1 6   8 5 7   
+% 5 9 7   2 4 8   3 6 1   
+% 
+% no
+%
+% This one is from the DailyLobo on Nov 21st. The first and 
+% second columns are unspecified, so there should be at least
+% two solutions. Solver finds four.
+% 
+% ?- sudoku([_,_,4,9,6,8,5,7,2,_,_,6,4,5,7,1,3,8,_,_,7,3,1,2,6,4,9,_,_,9,8,3,6,4,2,1,_,_,1,5,2,9,7,8,6,_,_,8,7,4,1,3,9,5,_,_,5,2,9,4,8,1,3,_,_,2,6,8,3,9,5,7,_,_,3,1,7,5,2,6,4]).
+% 
+% 1 3 4   9 6 8   5 7 2   
+% 2 9 6   4 5 7   1 3 8   
+% 8 5 7   3 1 2   6 4 9   
+% 
+% 5 7 9   8 3 6   4 2 1   
+% 3 4 1   5 2 9   7 8 6   
+% 6 2 8   7 4 1   3 9 5   
+% 
+% 7 6 5   2 9 4   8 1 3   
+% 4 1 2   6 8 3   9 5 7   
+% 9 8 3   1 7 5   2 6 4   
+% 
+% 
+% 1 3 4   9 6 8   5 7 2   
+% 9 2 6   4 5 7   1 3 8   
+% 5 8 7   3 1 2   6 4 9   
+% 
+% 7 5 9   8 3 6   4 2 1   
+% 3 4 1   5 2 9   7 8 6   
+% 2 6 8   7 4 1   3 9 5   
+% 
+% 6 7 5   2 9 4   8 1 3   
+% 4 1 2   6 8 3   9 5 7   
+% 8 9 3   1 7 5   2 6 4   
+% 
+% 
+% 3 1 4   9 6 8   5 7 2   
+% 2 9 6   4 5 7   1 3 8   
+% 8 5 7   3 1 2   6 4 9   
+% 
+% 5 7 9   8 3 6   4 2 1   
+% 4 3 1   5 2 9   7 8 6   
+% 6 2 8   7 4 1   3 9 5   
+% 
+% 7 6 5   2 9 4   8 1 3   
+% 1 4 2   6 8 3   9 5 7   
+% 9 8 3   1 7 5   2 6 4   
+% 
+% 
+% 3 1 4   9 6 8   5 7 2   
+% 9 2 6   4 5 7   1 3 8   
+% 5 8 7   3 1 2   6 4 9   
+% 
+% 7 5 9   8 3 6   4 2 1   
+% 4 3 1   5 2 9   7 8 6   
+% 2 6 8   7 4 1   3 9 5   
+% 
+% 6 7 5   2 9 4   8 1 3   
+% 1 4 2   6 8 3   9 5 7   
+% 8 9 3   1 7 5   2 6 4   
+% 
+% no
+% 
+% If we remove the first column of each block, how many
+% unique solutions are there? (This takes too long...)
+% 
+% ?- findall(X,sudoku_noprint([_X,3,4,_,6,8,_,7,2,_,2,6,_,5,7,_,3,8,_,8,7,_,1,2,_,4,9,_,5,9,_,3,6,_,2,1,_,4,1,_,2,9,_,8,6,_,6,8,_,4,1,_,9,5,_,7,5,_,9,4,_,1,3,_,1,2,_,8,3,_,5,7,_,9,3,_,7,5,_,6,4]),_L),length(_L,N).
+% 
+%
+% For the 9x9 puzzles, it seems to be able to handle up to 
+% about 25 unknowns before it takes longer than my patience
+% allows. I tried running it on one with 45 unknowns, but after
+% more than 12 hours of running, I stopped it. The 4x4 puzzles,
+% with <25 unknowns in all situations, always run quite quickly.
+
+% Here's an "easy" 16x16 puzzle from online.
+% 
+% 10 16  9 13   11  7  5 14    6 15 12  1    8  4  3  2
+% 12  7  3  5   16  4  8  1   11  2 13  9    6 14 10 15
+% 15 14 11  8    2  3 12  6   10  5  4 16    9  1 13  7
+%  2  4  6  1    9 10 13 15    7  3 14  8   11 12  5 16
+% 
+%  7 11 10  2   15  5  3 13   14 16  9  6    1  8 12  4
+%  1  8 16  4    7  9 10 12    2 11  5  3   13 15  6 14
+% 14  5 13  6    4 16  1 11   15  8  7 12    2 10  9  3
+%  3  9 15 12    6  8 14  2    1  4 10 13   16 11  7  5
+% 
+%  4  3  5 16   12  1 11  8    9 13  6 15    7  2 14 10
+%  6 10  8 15   13  2 16  7   12 14 11  5    4  3  1  9
+% 11 12  2  7    5 14  4  9    8  1  3 10   15 13 16  6
+% 13  1 14  9    3  6 15 10    4  7 16  2   12  5  8 11
+% 
+%  5  2  1 10   14 11  7 16   13  9  8  4    3  6 15 12
+%  9 15 12  3   10 13  2  5   16  6  1 11   14  7  4  8
+%  8  6  4 14    1 15  9  3    5 12  2  7   10 16 11 13
+% 16 13  7 11    8 12  6  4    3 10 15 14    5  9  2  1
+% 
+% If we delete just the first block, the solver is quite slow
+% on this, i.e., doesn't finish in reasonable amount of time.
+%
+% ?- sudoku([_,_,_,_,11,7,5,14,6,15,12,1,8,4,3,2,_,_,_,_,16,4,8,1,11,2,13,9,6,14,10,15,_,_,_,_,2,3,12,6,10,5,4,16,9,1,13,7,_,_,_,_,9,10,13,15,7,3,14,8,11,12,5,16,7,11,10,2,15,5,3,13,14,16,9,6,1,8,12,4,1,8,16,4,7,9,10,12,2,11,5,3,13,15,6,14,14,5,13,6,4,16,1,11,15,8,7,12,2,10,9,3,3,9,15,12,6,8,14,2,1,4,10,13,16,11,7,5,4,3,5,16,12,1,11,8,9,13,6,15,7,2,14,10,6,10,8,15,13,2,16,7,12,14,11,5,4,3,1,9,11,12,2,7,5,14,4,9,8,1,3,10,15,13,16,6,13,1,14,9,3,6,15,10,4,7,16,2,12,5,8,11,5,2,1,10,14,11,7,16,13,9,8,4,3,6,15,12,9,15,12,3,10,13,2,5,16,6,1,11,14,7,4,8,8,6,4,14,1,15,9,3,5,12,2,7,10,16,11,13,16,13,7,11,8,12,6,4,3,10,15,14,5,9,2,1]).
+% 
+
+
+% --------------------------------------------------------------
+
+check_rows(_,[]).
+check_rows(V,S) :- length(V,N), grab_rows(V,N,N,S).
+
+% grab_rows/4 takes the sudoku instance (a list), extracts each 
+% row and then checks to see if it is a permutation of the symbol
+% list V. grab_cols/4 and grab_blks/4 work similarly.
+
+grab_rows(_,N,_,[])  :- N =:= 0.
+grab_rows(V,N,Len,S) :-	N > 0, build_row(Len,S,Srest,Row),
+			permutation(V,Row), N1 = N - 1,
+			grab_rows(V,N1,Len,Srest).
+
+build_row(Len,T,T,[]) :- Len =:= 0.
+build_row(Len,[H|T],Srest,[H|R]) :- Len > 0, Len1 = Len - 1,
+				    build_row(Len1,T,Srest,R).
+
+% Trivial examples of build_row/4 working as desired.
+% 
+% ?- build_row(4,[1,2,3,4,2,3,4,1,3,4,1,2,4,1,2,3],Srest,Row).
+% 
+% Row = [1,2,3,4],
+% Srest = [2,3,4,1,3,4,1,2,4,1,2,3] ? ;
+% 
+% no
+% ?- build_row(4,[4,1,2,3],Srest,Row).
+% 
+% Row = [4,1,2,3],
+% Srest = [] ? ;
+% 
+% no
+
+% If grab_rows/4 works correctly, then the following command would
+% return N = (4!)! = 6.204484017e+23 . So, it's not surprising that
+% ciao falls over at this request.
+% 
+% ?- findall(X,grab_rows([1,2,3,4],4,4,X),_L),length(_L,N).
+% % realloc: Undefined error: 0
+% {ERROR: Memory allocation failed}
+% { Execution aborted }
+%
+% But, here are the first few of these results, which are clearly
+% the permutations of the rows of the 4x4 puzzle, as desired.
+% 
+% ?- grab_rows([1,2,3,4],4,4,X).
+% 
+% X = [1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4] ? ;
+% 
+% X = [1,2,3,4,1,2,3,4,1,2,3,4,1,2,4,3] ? ;
+% 
+% X = [1,2,3,4,1,2,3,4,1,2,3,4,1,3,2,4] ? ;
+% 
+% X = [1,2,3,4,1,2,3,4,1,2,3,4,1,3,4,2] ? ;
+% 
+% X = [1,2,3,4,1,2,3,4,1,2,3,4,1,4,2,3] ? ;
+% 
+% X = [1,2,3,4,1,2,3,4,1,2,3,4,1,4,3,2] ? 
+% 
+% yes
+
+check_cols(_,[]).
+check_cols(V,S) :- length(V,N), grab_cols(V,N,N,S).
+
+grab_cols(_,N,_,_)  :- N =:= 0.
+grab_cols(V,N,Len,S) :-	N > 0, build_col(N,Len,Len,S,Col),
+			permutation(V,Col), N1 = N - 1,
+			grab_cols(V,N1,Len,S).
+
+build_col(Oset,Spcr,Len,[_|T],R) :- Oset > 1, Oset1 = Oset - 1,
+					  build_col(Oset1,Spcr,Len,T,R).
+build_col(Oset,Spcr,Len,[H|T],[H|R]) :-  Oset =:= 1,
+						Len1 = Len - 1, Oset1 = Spcr,
+						build_col(Oset1,Spcr,Len1,T,R).
+build_col(Oset,_,Len,_,[]) :- Oset =:= 1, Len =:= 0, !.
+build_col(_,_,_,[],[]).
+
+% grab_cols/4 can certainly complete partially solved constraints
+% 
+% ?- grab_cols([1,2,3,4],4,4,[X,Y,3,4,2,Z,4,W,3,4,1,2,4,1,2,3]).
+% 
+% W = 1,
+% X = 1,
+% Y = 2,
+% Z = 3 ? ;
+% 
+% W = 1,
+% X = 1,
+% Y = 3,
+% Z = 2 ? ;
+% 
+% no
+
+check_blks(_,[]).
+check_blks(V,S) :- length(V,N), grab_blks(V,N,N,S).
+
+grab_blks(_,N,_,_)  :- N =:= 0.
+grab_blks(V,N,Len,S) :- N > 0, _B is round(sqrt(Len)),
+			_K is _B*(N - floor((N-1)/_B)*_B - 1) + 1 + _B*Len*floor((N-1)/_B),
+			build_blk(_K,_B,Len,_B,Len,S,Blk),
+			permutation(V,Blk), N1 = N - 1,
+			grab_blks(V,N1,Len,S).
+
+build_blk(Oset,Tset,Len,SqrtN,N,[_|T],B) :- Oset > 1, Oset1 = Oset - 1,
+						   build_blk(Oset1,Tset,Len,SqrtN,N,T,B).
+build_blk(Oset,Tset,Len,SqrtN,N,[H|T],[H|B]) :- Oset =:= 1, Tset > 0,
+							Tset1 = Tset - 1, Len1 = Len - 1, 
+							build_blk(Oset,Tset1,Len1,SqrtN,N,T,B), !.
+build_blk(Oset,Tset,Len,SqrtN,N,[_|T],B) :- Oset =:= 1, Tset =:= 0,
+						   Oset1 = N - (SqrtN), Tset1 = SqrtN,
+						   build_blk(Oset1,Tset1,Len,SqrtN,N,T,B).
+build_blk(Oset,_,Len,_,_,_,[]) :- Oset =:= 1, Len =:= 0, !.
+
+% check_blks/2 works as desired
+% test1
+% 1 4   3 2
+% 2 3   4 1
+%
+% 3 2   1 4
+% 4 1   2 3
+%
+% ?- check_blks([1,2,3,4],[1,4,3,2,2,3,4,1,3,2,1,4,4,1,3,2]).
+% 
+% yes
+% 
+% test 2 
+% 1 2   3 4
+% 2 3   4 1
+%
+% 3 4   1 2
+% 4 1   2 3
+% ?- check_blks([1,2,3,4],[1,2,3,4,2,3,4,1,3,4,1,2,4,1,2,3]).
+% 
+% no
+% 
+% test 3
+% 1 W   3 2
+% 2 3   X 1
+% 
+% 3 2   1 Y
+% X 1   2 3
+% 
+% ?- check_blks([1,2,3,4],[1,W,3,2,2,3,X,1,3,2,1,Y,Z,1,2,3]).
+% 
+% W = 4,
+% X = 4,
+% Y = 4,
+% Z = 4 ? ;
+% 
+% no
+%
+% test 4 : fix the 1s, but let the others vary
+%  1 Z1   Y1 X1
+% X2 Y2   Z2  1
+% 
+% Y3 X3    1 Z3
+% Z4  1   X4 Y4
+%
+% How many boards are there with this arrangement of 1s?
+%
+% ?- findall(X1,check_blks([1,2,3,4],[1,Z1,Y1,X1,X2,Y2,Z2,1,Y3,X3,1,Z3,Z4,1,X4,Y4]),_L),length(_L,N).
+% 
+% N = 1296 ? ;
+% 
+% no
+% 
+% Cool.
+
+% --------------------------------------------------------------
+
+% These predicates derive the set of symbols that must appear in 
+% each row / col / blk.
+
+get_vars(S,V) :- length(S,N2), int_sqrt(N,N2),
+		 make_vars(N,L1), qsort(L1,V).
+
+int_sqrt(A,B) :- A is round(sqrt(B)).
+
+make_vars(1,[1]).
+make_vars(N,[N|T]) :- N > 0, N1 is N-1, make_vars(N1,T).
+
+% Here's a trivial example on a 4x4 board:
+% 
+% ?- get_vars([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],V).
+% 
+% V = [1,2,3,4] ? ;
+% 
+% no
+
+% --------------------------------------------------------------
+
+% The main engine of a sudoku solver is the permutation/2 predicate,
+% which tests whether a candidate list L1 is a permutation of the
+% source list T. The sudoku solver functions by searching for 
+% permutations L1 that simultaneously satisfy the sudoku constraints,
+% i.e., the row, column and block occurrences. It suffices to use 
+% the permutation function given in 3examples.pl.
+
+permutation([], []).
+permutation([H|T], [H1|T1]) :- select_el(H1, [H|T], R), permutation(R, T1). 
+
+select_el(H, [H|T], T).
+select_el(H1, [H|T], [H|T1]) :- select_el(H1, T, T1).
+
+
+% --------------------------------------------------------------
+% Quicksort (from 3examples.pl)
+
+qsort([],[]).
+qsort([X|L],R) :-
+	partition(L,X,L1,L2), qsort(L2,R2), qsort(L1,R1), append(R1,[X|R2],R).
+
+partition([],_B,[],[]).
+partition([E|R],C,[E|Left1],Right):- E <  C, partition(R,C,Left1,Right).
+partition([E|R],C,Left,[E|Right1]):- E >= C, partition(R,C,Left,Right1).
+
+
+% --------------------------------------------------------------
+
