@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Network Analysis and Modeling (CSCI 5352)</title>
+	<link rel="stylesheet" href="../../styles.css" type="text/css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T327YEKYTN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-T327YEKYTN');
+</script>
+</head>
+
+<body>
+
+<!-- Main container -->
+
+<div id="container">
+
+<!-- Banner object -->
+
+<a id="header-img-t" href="https://aaronclauset.github.io/">&nbsp;</a>
+
+<!-- Center Object -->
+<div id="center">
+
+<div class="content">
+<p><b><big>Network Analysis and Modeling<br/>CSCI 5352, Fall 2022</big></b><br/>
+<img src="https://aaronclauset.github.io/hierarchy/hierarchy_ex_sm.jpg" width="200" height="313" align="right">
+Time: Tuesday and Thursday, 11:00am - 12:15pm<br/>
+Room: ECCS 1B14<br/><br/>
+Instructor: Aaron Clauset<br/>
+Office: <a href="https://aaronclauset.github.io/courses/ECES_118B_location.png">ECES 118B</a><br/>
+Office hours: Thursday, 1:30-2:30pm<br/>
+Email: zzilm.xozfhvg@xlolizwl.vwf (<a href="http://rumkin.com/tools/cipher/atbash.php">an Atbash cipher</a>) <br/>
+<a href="csci5352_F22_syllabus_public.pdf">Syllabus</a>
+</p>
+
+<p><b><a href="#Description">Description</a></b><br/>
+<b><a href="#CourseWork">Course structure</a></b><br/>
+<b><a href="#Schedule">Schedule and lecture notes</a></b><br/>
+<b><a href="#ProblemSets">Problem sets</a></b><br/>
+<b><a href="#Readings">Supplemental readings</a></b><br/>
+</p>
+
+<p><b><big><a name="Description">Description</a></big></b><br/>
+Network science is a thriving and increasingly important cross-disciplinary 
+domain that focuses on the representation, analysis and modeling of complex 
+social, biological and technological systems as networks or graphs. Modern 
+data sets often include some kind of network. Nodes can have locations, 
+directions, memory, demographic characteristics, content, and preferences. 
+Edges can have lengths, directions, capacities, costs, durations, and types. 
+And, these variables and the network structure itself can vary, with edges and 
+nodes appearing, disappearing and changing their characteristics over time. 
+Capturing, modeling and understanding networks and rich data requires 
+understanding both the mathematics of networks and the computational tools for 
+identifying and explaining the patterns they contain.
+<br/><br/>
+
+This graduate-level course will examine modern techniques for analyzing and 
+modeling the structure and dynamics of complex networks. The focus will be on 
+statistical algorithms and methods, and both lectures and assignments will 
+emphasize model interpretability and understanding the processes that 
+generate real data. Applications will be drawn from computational biology and 
+computational social science. No biological or social science training is 
+required. (Note: this is not a scientific computing course, but there will be 
+plenty of computing for science.)
+</p>
+
+<p><b><big>Prerequisites</big></b><br/>
+Recommended: CSCI 3104 (undergraduate algorithms) and APPM 3570 (applied 
+probability), or equivalent preparation.<br/><br/>
+
+Note: An adequate mathematical and programming background is mandatory. The 
+concepts and techniques covered in this course depend heavily on basic 
+statistics (distributions, Monte Carlo techniques), scientific programming, 
+and calculus (integration and differentiation). Students without sufficient 
+preparation will struggle to keep up with the lectures and assignments. 
+Students without proper preparation may audit the course.
+</p>
+
+<p><b><big>Text</big></b><br/>
+Required (available at the CU Bookstore):<br/>
+<a href="http://www.amazon.com/Networks-Introduction-Mark-Newman/dp/0199206651">Networks: An Introduction</a> by M.E.J. Newman<br/><br/>
+
+
+Supplementary (optional):<br/>
+1. <a href="http://www.stat.cmu.edu/~larry/all-of-statistics/index.html">All of Statistics</a> by L. Wasserman <br/>
+2. <a href="http://www.nrbook.com/nr3/">Numerical Recipes</a><br/> 
+3. <a href="http://www.amazon.com/Networks-Crowds-Markets-Reasoning-Connected/dp/0521195330/">Networks, Crowds and Markets</a> by D. Easley and J. Kleinberg<br/>
+4. <a href="http://www.amazon.com/Experimental-Knowledge-Science-Conceptual-Foundations/dp/0226511987/">Error and the Growth of Experimental Knowledge</a> by D.G. Mayo<br/>
+5. <a href="http://www.amazon.com/Pattern-Recognition-Learning-Information-Statistics/dp/0387310738">Pattern Recognition and Machine Learning</a> by C.M. Bishop
+
+<p><b><big><a name="CourseWork">Course structure</a></big></b><br/>
+
+<p>Learning Objectives:
+<ul>
+<li> develop network intuition, and understand how to reason about network phenomena
+<li> understand network representations
+<li> learn principles and methods for describing and clustering network data
+<li> learn to predict missing network information
+<li> understand how to conduct and interpret numerical network experiments
+<li> analyze and model real-world network data
+</ul>
+</p>
+
+<p>Overview:
+<ul>
+<li> lectures 2 times a week, some guest lectures and some class discussions
+<li> problem sets (6 total) due every 2 weeks throughout the semester
+<li> a class project, presentation, and final report
+<li> this will be a challenging and fun course; plan accordingly	
+</ul>
+</p>
+
+<p>See the syllabus for more detail on the structure and requirements of the class.</p>
+
+<p><b><big><a name="Schedule">Tentative Schedule</a></big></b><br/>
+Week 1 : Fundamentals of networks (<a href="csci5352_F22_L0.pdf">Lecture 0</a> and <a href="csci5352_F22_L1.pdf">Lecture 1</a>)
+<br/>
+Week 2 : Network representations and summary statistics (<a href="csci5352_F22_L2.pdf">Lecture 2</a>)
+<br/>
+Week 3 : Random graphs with homogeneous degrees (<a href="csci5352_F22_L3.pdf">Lecture 3</a>)
+<br/>
+Week 4 : Random graphs with heterogeneous degrees (<a href="csci5352_F22_L4.pdf">Lecture 4</a>)
+<br/>
+Week 5 : Network prediction: node attributes (<a href="csci5352_F22_L5.pdf">Lecture 5</a>)
+<br/>
+Week 6 : Network prediction: missing links (<a href="csci5352_F22_L6.pdf">Lecture 6</a>)
+<br/>
+Week 7 : Community structure and mixing patterns (<a href="csci5352_F22_L7.pdf">Lecture 7</a>)
+<br/>
+Week 8 : Community structure models (<a href="csci5352_F22_L8.pdf">Lecture 8</a>)
+<br/>
+Week 9 : Spreading processes and cascades <a href="csci5352_F22_L9.pdf">Lecture 9</a>
+<br/>
+Week 10 : Spreading processes with structure (<a href="csci5352_F22_L10.pdf">Lecture 10</a>)
+<br/>
+Week 11 : Sampling network data (<a href="csci5352_F22_L11a.pdf">Lecture 11a</a>) and <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modeling network growth (<a href="csci5352_F22_L11b.pdf">Lecture 11b</a>)
+<br/>
+Week 12 : Ranking in networks (<a href="csci5352_F22_L12a.pdf">Lecture 12</a>)
+<br/>
+Week 13 : Ethics and Networks (<a href="csci5352_F22_L13.pdf">Lecture 13</a>)
+<br/>
+Week 14 : Fall break
+<br/>
+Weeks 15-16 : Project presentations and Wrap up<br/>
+
+
+<!-- <p><b><big><a name="ProblemSets">Problem Sets</a></big></b><br/>
+   <b>Problem set 1 <a href="csci5352_F21_PS1.pdf">Problem set 1</a></b> </p>
+<p><b>Problem set 2</a></b> </p>
+<p><b>Problem set 3</a></b> </p>
+<p><b>Problem set 4</a></b> </p>
+<p><b>Problem set 5</a></b> </p>
+<p><b>Problem set 6</b>     </p>
+-->
+
+<p><b><big><a name="Readings">Supplemental Readings</a></big></b>
+
+<p>Week  1: <br/>
+<ul>
+ <li> C.T. Butts, "<a href="https://science.sciencemag.org/content/325/5939/414">Revisiting the foundations of network analysis</a>." <i>Science</i> <b>325</b>, 414-416 (2009).
+ <li> G. Shmueli, "<a href="https://projecteuclid.org/journals/statistical-science/volume-25/issue-3/To-Explain-or-to-Predict/10.1214/10-STS330.full">To explain or to predict?</a>" <i>Statistical Science</i> <b>25</b>, 289-310 (2010).
+</ul></p>
+
+<p>Week 2: <br/>
+<ul>
+ <li> M.E.J. Newman, "<a href="readings/Newman_03_StructureFunctionofNets_review.pdf">The structure and function of complex networks</a>." <i>SIAM Review</i> <b>45</b>, 167-256 (2003).
+ <li> A. Clauset, C.R. Shalizi and M.E.J. Newman, "<a href="readings/Clauset_Shalizi_Newman_09_PowerlawDistributionsInEmpiricalData.pdf">Power-law distributions in empirical data</a>." <i>SIAM Review</i> <b>51</b>(4), 661-703 (2009).
+</ul></p>
+
+<p>Weeks 3-4: <br/>
+<ul>
+ <li> E. A. Hobson et al., "<a href="https://onlinelibrary.wiley.com/doi/10.1111/brv.12775">A guide to choosing and implementing reference models for social network analysis</a>."
+ <i>Biological Reviews</i> (2021).
+ <li> D. R. Farine, "<a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12772">A guide to null models for animal social network analysis</a>." <i>Methods in Ecology and Evolution</i> <b>8</b>, 1309–1320 (2017).
+ <li> B.K. Fosdick et al., "<a href="https://arxiv.org/abs/1608.00607">Configuring random graph models with fixed degree Sequences</a>."
+ <i>SIAM Review</i> <b>60</b>, 315–355 (2018).
+ <li> D.S. Callaway et al., "<a href="readings/Callaway_etal_01_AreRandomlyGrownGraphsReallyRandom%3F.pdf">Are randomly grown graphs really random?</a>"
+<i>Physical Review E</i> <b>64</b>, 041902 (2001).
+ <li> B. Karrer and M.E.J. Newman, "<a href="https://arxiv.org/abs/1005.1659">Random graphs containing arbitrary distributions of subgraphs</a>." <i>Physical Review E</i> <b>82</b>, 066118 (2010).
+ <li> K. Van Koevering, A R. Benson and J. Kleinberg, "<a href="https://arxiv.org/abs/2102.12604">Random graphs with prescribed k-core sequences: a new null model for network analysis</a>." <i>Proc. Web Conference 2021</i>, 367–378 (2021).
+</ul></p>
+
+<p>Week 5: <br/>
+<ul>
+ <li> M.E.J. Newman, "<a href="http://arxiv.org/abs/cond-mat/0209450">Mixing patterns in networks</a>." <i>Physical Review E</i> <b>67</b>, 026126 (2003).
+ <li> A.J. Kavran and A. Clauset, "<a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04075-x">Denoising large-scale biological data using network filters</a>." <i>BMC Bioinformatics</i> <b>22</b>, 157 (2021).
+ <li> J. Jia and A.R. Benson, "<a href="https://arxiv.org/abs/2101.07730">A unifying generative model for graph learning algorithms: label propagation, graph convolutions, and combinations</a>." <i>SIAM Journal on Mathematics of Data Science</i> <b>4</b>(1) 100-125 (2022).
+ <li> Z. Huang, A. Silva, and A. Singh, "<a href="https://cs.rice.edu/~al110/pubs/kdd21.pdf">A broader picture of random-walk based graph embedding</a>." <i>KDD</i>, 685-695 (2021)
+ <li> J. Moore and J. Neville, "<a href="https://ojs.aaai.org/index.php/AAAI/article/view/10868/10727">Deep collective inference</a>." <i>AAAI</i> 2364-2372 (2017).
+</ul></p>
+	
+<p>Week 6: <br/>
+<ul>
+ <li> D. Liben-Nowell and J. Kleinberg, "<a href="https://www.cs.cornell.edu/home/kleinber/link-pred.pdf">The link prediction problem for social networks</a>." <i>J. Amer. Soc. Info. Sci. and Tech.</i> <b>58</b>(7), 1019-1031 (2007).
+ <li> A. Clauset, C. Moore, and M.E.J. Newman, "<a href="http://arxiv.org/abs/0811.0484">Hierarchical structure and the prediction of missing links in networks</a>." <i>Nature</i> <b>453</b>, 98 - 101 (2008).
+ <li> A. Ghasemian et al., "<a href="https://www.pnas.org/content/117/38/23393">Stacking models for nearly optimal link prediction in complex networks</a>." <i>Proc. Natl. Acad. Sci. USA</i> <b>117</b>, 23393-23400 (2020).
+ <li> T. Zhou, "<a href="https://arxiv.org/abs/2102.11472">Progresses and challenges in link prediction</a>." Preprint, arxiv:2102.11472 (2021).
+ <li> F.P. Santos, Y. Lelkes, and S.A. Levin, "<a href="https://www.pnas.org/content/117/38/23393">Link recommendation algorithms and dynamics of polarization in online social networks</a>." <i>Proc. Natl. Acad. Sci. USA</i> <b>118</b>, e2102141118 (2021).
+</ul></p>
+
+<p>Week  7: <br/>
+<ul>
+ <li> M. McPherson, L. Smith-Lovin and J.M. Cook, "<a href="readings/McPherson_Smith-Lovin_Cook_01_BirdsOfAFeature_HomophilyInSocialNetworks.pdf">Birds of a Feather: Homophily in Social Networks</a>." <i>Annual Reviews of Sociology</i> <b>27</b>, 415-444 (2001).
+ <li> L. Peel, J.-C. Delvenne, and R. Lambiotte, "<a href="https://arxiv.org/abs/1708.01236">Multiscale mixing patterns in networks</a>." <i>Proc. Natl. Acad. Sci. USA</i>, <b>115</b>(16) 4057-4062 (2018).
+ <li> A. Clauset, M.E.J. Newman and C. Moore, "<a href="readings/Clauset_Newman_Moore_04_FindingCommunityStructureInVeryLargeNetworks.pdf">Finding community structure in very large networks</a>." <i>Physical Review E</i> <b>70</b>, 066111 (2004).
+ <li> B.H. Good, Y.-A. de Montjoye and A. Clauset, "<a href="readings/Good_Montjoye_Clauset_10_PerformanceOfModularityMaximizationInPracticalContexts.pdf">Performance of modularity maximization in practical contexts</a>."  <i>Physical Review E</i> <b>81</b>, 046106 (2010).
+</ul></p>
+
+<p>Week 8: <br/>
+<ul>
+ <li> L. Peel, D.B. Larremore and A. Clauset, "<a href="https://arxiv.org/abs/1608.05878">The ground truth about metadata and community detection in networks</a>." <i>Science Advances</i> <b>3</b>(5), e1602548 (2017).
+ <li> A. Decelle, et al., "<a href="https://arxiv.org/abs/1109.3041">Asymptotic analysis of the stochastic block model for modular networks and its algorithmic applications</a>." <i>Physical Review E</i> <b>84</b>, 066106 (2011).
+ <li> B. Karrer and M.E.J. Newman, "<a href="http://arxiv.org/abs/1008.3926">Stochastic blockmodels and community structure in networks</a>." <i>Physical Review E</i> <b>83</b>, 016107 (2011).
+ <li> E.M. Airoldi, et al., "<a href="https://jmlr.csail.mit.edu/papers/volume9/airoldi08a/airoldi08a.pdf">Mixed membership stochastic blockmodels</a>." <i>J. Machine Learning Research</i> <b>9</b>, 1981-2014 (2008).
+ <li> T.P. Peixoto, "<a href="https://arxiv.org/abs/1310.4378">Efficient Monte Carlo and greedy heuristic for the inference of stochastic block models</a>." <i>Physical Review E</i> <b>89</b>, 012804 (2014)
+ <li> M.E.J. Newman and A. Clauset, "<a href="https://arxiv.org/abs/1507.04001">Structure and inference in annotated networks</a>." <i>Nature Communications</i> <b>7</b>, 11863 (2016).
+ <li> T.P. Peixoto, "<a href="https://arxiv.org/abs/1708.01432">Nonparametric weighted stochastic block models</a>." <i>Physical Review E</i> <b>97</b>, 012306 (2018).
+</ul></p>
+
+<p>Week 9: <br/>
+<ul>
+ <li> R. Pastor-Satorras et al., "<a href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925">Epidemic processes in complex networks</a>." <i>Reviews of Modern Physics</i> <b>87</b>, 925 (2015).
+ <li> P.S. Dodds, <a href="https://arxiv.org/abs/1708.09697">Slightly generalized Generalized Contagion: Unifying simple models of biological and social spreading</a>. Preprint, arXiv:1708.09697 (2017).
+ <li> D.J. Watts and P.S. Dodds, "<a href="https://www.uvm.edu/pdodds/research/papers/others/2007/watts2007a.pdf">Influentials, Networks, and Public Opinion Formation</a>." <i>J. Consumer Research</i> <b>34</b>, 441-458 (2007).
+ <li> S. Goel et al., "<a href="readings/Goel_etal_2015_StructuralViralityOfOnlineDiffusion.pdf">The Structural Virality of Online Diffusion</a>." <i>Management Science</i> <b>62</b>(1), 180-196 (2015).
+ <li> J.L. Juul and J. Ugander, "<a href="https://www.pnas.org/content/118/46/e2100786118">Comparing information diffusion mechanisms by matching on cascade size</a>." <i>Proc. Natl. Acad. Sci. USA</i> <b>118</b>, e2100786118 (2021).
+ <li> A.C. Morgan et al., "<a href="https://epjdatascience.springeropen.com/articles/10.1140/epjds/s13688-018-0166-4">Prestige drives epistemic inequality in the diffusion of scientific ideas</a>." <i>EPJ Data Science</i> <b>7</b>, 40 (2018).
+</ul></p>
+
+<p>Week 10: <br/>
+<ul>
+ <li> E. Yong, <a href="https://www.theatlantic.com/science/archive/2020/01/how-fast-and-far-will-new-coronavirus-spread/605632/">The Deceptively Simple Number Sparking Coronavirus Fears</a>, <i>The Atlantic</i>, 28 January 2020.
+ <li> J. Bedson et al., <a href="https://www.nature.com/articles/s41562-021-01136-2">A review and agenda for integrated disease models including social and behavioural factors</a>. <i>Nature Human Behavior</i> <b>5</b>, 834–846 (2021).
+ <li> L.A. Meyers et al., <a href="https://www.sciencedirect.com/science/article/pii/S0022519304003510">Network theory and SARS: predicting outbreak diversity.</a> <i>J. Theoretical Biology</i> <b>232</b>(1), 71-81 (2005).
+ <li> S.M. Kissler et al., <a href="https://www.medrxiv.org/content/10.1101/2020.03.04.20031112v1.full">Projecting the transmission dynamics of SARS-CoV-2 through the post-pandemic period</a>. Preprint, medRxiv DOI:10.1101/2020.03.04.20031112 (2020).
+ <li> D.H. Morris et al., <a href="https://arxiv.org/abs/2004.02209">Optimal, near-optimal, and robust epidemic control</a>. <i>Communications Physics</i> <b>4</b>, 78 (2021).
+ <li> D.J. Watts et al., <a href="https://www.pnas.org/content/102/32/11157">Multiscale, resurgent epidemics in a hierarchical metapopulation model</a>. <i>Proc. Natl. Acad. Sci. USA</i> <b>102</b>(32) 11157-11162 (2005).
+ <li> D. Brockmann and D. Helbing, <a href="http://rocs.hu-berlin.de/papers/brockmann_2013.pdf">The hidden geometry of complex, network-driven contagion phenomena</a>. <i>Science</i> <b>342</b>, 1337-1342 (2013).
+</ul></p>
+
+<p>Week 11: <br/>
+<ul>
+ <li>P. Orbanz, "<a href="https://arxiv.org/abs/1710.04217">Subsampling large graphs and invariance in networks</a>." Preprint, arxiv:1710.04217 (2017).
+ <li>A.C. Thomas and J.K. Blitztein, "<a href="https://arxiv.org/abs/1101.0788">Valued Ties Tell Fewer Lies: Why not to dichotomize network edges with thresholds</a>." Preprint, arXiv:1101.0788 (2011).
+ <li>N.K. Ahmed et al., "<a href="https://arxiv.org/abs/1403.3909">Graph Sample and Hold: A Framework for Big-Graph Analytics</a>." Proc. KDD (2014).
+ <li>B. Ribeiro and D. Towsley, "<a href="https://www.cs.purdue.edu/homes/ribeirob/pdf/Ribeiro_SamplingGraphsCDC12.pdf">On the Estimation Accuracy of Degree Distributions from Graph Sampling</a>." <i>IEEE Conference on Decision and Control</i> (2012).
+ <li>J. Blumenstock et al., "<a href="readings/Blumenstock_Cadamuro_On_2015_PredictingPovertyAndWealthFromMobilePhoneMetadata.pdf">Predicting poverty and wealth from mobile phone metadata.</a>" <i>Science</i> <b>350</b>(6264), 1073-1076 (2015).
+</ul></p>
+
+<p>Week 12: <br/>
+<ul>
+ <li> S. Borgati, "<a href="readings/Borgatti_2005_CentralityAndNetworkFlow.pdf">Centrality and network flow</a>." <i>Social Networks</i> <b>110</b>, 5802-5805 (2013).
+ <li> B. Ball and M.E.J. Newman, "<a href="http://arxiv.org/abs/1205.6822">Friendship networks and social status</a>." <i>Network Science</i> <b>1</b>, 16-30 (2013).
+ <li> A. Clauset, S. Arbesman and D.B. Larremore, "<a href="https://advances.sciencemag.org/content/1/1/e1400005">Systematic inequality and hierarchy in faculty hiring networks</a>." <i>Science Advances</i> <b>1</b>(1), e1400005 (2015).
+ <li> C. De Bacco, D.B. Larremore and C. Moore, "<a href="https://advances.sciencemag.org/content/4/7/eaar8260">A physical model for efficient ranking in networks</a>." <i>Science Advances</i> <b>4</b>(7), eaar8260 (2018).
+ <li> K. Tsukida and M.R. Gupta, "<a href="http://mayagupta.org/publications/PairedComparisonTutorialTsukidaGupta.pdf">How to analyze paired comparison data</a>." UWEE Technical Report, Number UWEETR-2011-0004 (2011).
+ <li> S. Ragain and J. Ugander, "<a href="https://web.stanford.edu/~jugander/papers/nips16-pcmc.pdf">Pairwise choice Markov chains</a>." <i>Advances in Neural Information Processing Systems</i> (NeurIPS) 29 (2016)
+</ul></p>
+
+<p>Week 13: <br/>
+<ul>
+ <li> M. Kosinski, D. Stillwell, and T. Graepel, "<a href="https://www.pnas.org/content/110/15/5802">Private traits and attributes are predictable from digital records of human behavior</a>." <i>Proc. Natl. Acad. Sci. USA</i> <b>27</b>, 55-71 (2005).
+ <li> A. Birhane et al. "<a href="https://arxiv.org/abs/2106.15590">The Values Encoded in Machine Learning Research</a>." Preprint, arXiv:2106.15590 (2021).
+ <li> E. Zheleva and L. Getoor, "<a href="https://dl.acm.org/doi/abs/10.1145/1526709.1526781">To join or not to join: the illusion of privacy in social networks with mixed public and private user profiles</a>." <i>Proc. WWW</i>, 531–540 (2009).
+ <li> P. Tubaro et al., "<a href="https://www.sciencedirect.com/science/article/pii/S0378873320301003">Social network analysis: New ethical approaches through collective reflexivity.</a>" <i>Social Networks</i> <b>67</b>, 1-8 (2021).
+ <li> A.E. Marwick and d. boyd, "<a href="https://tiara.org/wp-content/uploads/2018/05/Marwick_boyd_Networked_Privacy_NMS.pdf">Networked privacy: How teenagers negotiate context in social media</a>." <i>new media & society</i> <b>16</b>(7), 1051-1067 (2014).
+</ul></p>
+
+
+
+
+<!--
+<p>Week 8: <br/>
+<ul>
+ <li>T. P. Peixoto, "<a href="https://arxiv.org/abs/1310.4377">Hierarchical block structures and high-resolution model selection in large networks</a>." <i>Phys. Rev. X</i> <b>4</b>, 011047 (2014).
+ <li>T. P. Peixoto, "<a href="https://arxiv.org/abs/1610.02703">Nonparametric Bayesian inference of the microcanonical stochastic block model</a>." <i>Phys. Rev. E</i> <b>95</b> 012317 (2017).
+</ul></p>
+
+<p>Week 10: <br/>
+<ul>
+ <li>R. Milo et al., "<a href="readings/Milo_etal_2002_NetworkMotifs_SimpleBuildingBlocksOfComplexNetworks.pdf">Network Motifs: Simple Buildling Blocks of Complex Neteworks</a>" <i>Science</i> <b>298</b>, 824-827 (2002).
+ <li>M. Middendorf et al., "<a href="readings/Middendorf_etal_2005_InferringNetworkMechanisms_DrosophilaMelanogasterPPIN.pdf">Inferring network mechanisms: The Drosophila melanogaster protein interaction netework</a>" <i>Proc. Natl. Acad. Sci. USA</i> <b>102</b>(9), 3192-3197 (2005).
+<li> B. Karrer and M.E.J. Newman, "<a href="http://arxiv.org/abs/1005.1659">Random graphs containing arbitrary distributions of subgraphs</a>."
+<i>Physical Review E</i> <b>82</b>, 066118 (2010).
+<li> T. E. Gorochowski, C. S. Grierson, and M. di Bernardo, "<a href="http://advances.sciencemag.org/content/4/3/eaap9751.full">Organization of feed-forward loop motifs reveals architectural principles in natural and engineered networks</a>."
+<i>Science Advances</i> <b>4</b>(3), eaap9751 (2018).
+</ul></p>
+
+
+<p>Week 11: <br/>
+<ul>
+ <li> S. Milgram, "<a href="readings/Milgram_1967_TheSmallWorldProblem.pdf">The Small-World Problem</a>." <i>Psychology Today</i> <b>1</b>(1), 61-67 (1967).
+ <li> D. Watts and S. Strogatz, "<a href="readings/Watts_Strogatz_1998_CollectiveDynamicsOfSmallWorldNetworks.pdf">Collective dynamics of 'small-world' networks</a>." <i>Nature</i> <b>393</b>, 440-442 (1998).
+ <li> J. Kleinberg, "<a href="readings/Kleinberg_2000_TheSmallWorldPhenomenon_AnAlgorithmicPerspective.pdf">The Small-World Phenomenon, an Algorithmic Perspective</a>." <i>Proc. 32nd ACM Symposium on Theory of Computing</i> (2000).
+ <li> D. Liben-Nowell et al., "<a href="readings/Liben-Nowell_etal_2005_GeographicRoutingInSocialNetworks.pdf">Geographic routing in social networks</a>." <i>PNAS</i> <b>102</b>(33), 11623-11628 (2005).
+ <li> M. Barthelemy, "<a href="https://arxiv.org/abs/1010.0302">Spatial Networks</a>." <i>Physics Reports</i> <b>499</b>, 11-101 (2011).
+</ul></p>
+
+
+<p>Week  12: <br/>
+<ul>
+ <li> S. Redner, "<a href="readings/Redner_05_CitationStatisticsFrom110YearsOfPhysicalReview.pdf">Citation statistics from 110 years of <i>Physical Review</i></a>."
+<i>Physics Today</i> <b>58</b>, 49-54 (2005).
+ <li> M.E.J. Newman, "<a href="readings/Newman_09_FirstMoverAdvantageInScientificPublication.pdf">The first-mover advantage in scientific publication</a>."
+<i>European Physics Letters</i> <b>86</b>, 68001 (2009).
+ <li> A. Vazquez, A. Flammini, A. Maritan, and A. Vespignani, 
+"<a href="http://arxiv.org/abs/cond-mat/0108043">Modeling of protein interaction networks</a>." <i>Complexus</i> <b>1</b>, 38-44 (2003).
+</ul></p>
+
+-->
+	
+<!--
+<p>Week  12: <br/>
+<ul>
+ <li> P. Holme and J. Saramaki, "<a href="https://arxiv.org/abs/1108.1780">Temporal Networks</a>." <i>Phys. Rep.</i> <b>519</b>, 97-125 (2012).
+ <li> D. Kempe, J. Kleinberg and A. Kumar, "<a href="http://www-bcf.usc.edu/~dkempe/publications/time.pdf">Connectivity and Inference Problems for Temporal Networks</a>." <i>Journal of Computer and System Sciences</i> <b>64</b> (2002).
+</ul></p>
+
+<p>Week  13: <br/>
+<ul>
+ <li> M. Kivela et al., "<a href="https://arxiv.org/abs/1309.7233">Multilayer Networks</a>." <i>J. Complex Networks</i> <b>2</b>(3), 203-271 (2014).
+ <li> P.J. Mucha et al., "<a href="https://people.maths.ox.ac.uk/porterm/papers/multislice.pdf">Community Structure in Time-Dependent, Multiscale, and Multiplex Networks.</a>" <i>Science</i> <b>328</b>, 876-878 (2010).
+ <li> J.G. Restrepo, E. Ott, and B.R. Hunt, "<a href="https://arxiv.org/abs/cond-mat/0411202">Onset of synchronization in large networks of coupled oscillators</a>." <i>Physical Review E</i> <b>71</b>(3), 036151 (2005)
+</ul></p>
+-->
+
+<p><b><big>Network Tools</big></b><br/>
+<a href="http://networkx.lanl.gov/index.html">NetworkX</a>, network analysis package (Python)</br>
+<a href="http://igraph.org">igraph</a>, network analysis tools (Python, C++, R)<br/>
+<a href="http://graph-tool.skewed.de">graph-tool</a>, network analysis and visualization software (Python, C++)</br>
+<a href="https://microsoft.github.io/graspologic/latest/index.html">graspologic</a>, latent community and spatial network analysis (Python)</br>
+<a href="http://nodexlgraphgallery.org">NodeXL</a>, network analysis and visualization software<br/>
+
+<p><b><big>Network Visualization</big></b><br/>
+<a href="http://www.cytoscape.org/">Cytoscape</a>, network visualization software<br/>
+<a href="https://cosmograph.app">CosmoGraph.app</a>, in-browser, larger network visualization<br/>
+<a href="http://www.yworks.com/en/products_yed_about.html">yEd Graph Editor</a>, network visualization software<br/>
+<a href="https://www.graphviz.org">Graphviz</a>, network visualization software</br>
+<a href="https://gephi.org">Gephi</a>, network visualization software</br>
+<a href="http://graph-tool.skewed.de">graph-tool</a>, network analysis and visualization software</br>
+<a href="https://webwebpage.github.io">webweb</a>, network visualization tool joining Matlab and d3<br/>
+<a href="http://muxviz.net">MuxViz</a>, multilayer analysis and visualization platform<br/>
+
+
+<p><b><big>Network Data Sets</big></b><br/>
+<a href="https://icon.colorado.edu">The Colorado Index of Complex Networks</a> (ICON; more than 698 network data sets)<br/>
+<a href="https://networks.skewed.de">Netzschleuder</a> (network catalogue, repository and centrifuge; more than 278 network data sets)<br/>
+<a href="http://www.census.gov/dataviz/visualizations/stem/stem-html/">US Census Education-Employment network</a> (social, bipartite, weighted)<br/>
+<!-- <a href="http://www-personal.umich.edu/~mejn/netdata/">Mark Newman's network data sets</a> (social, biological, technological)<br/>
+<a href="http://snap.stanford.edu/data/index.html">Stanford Network Analysis Project repository</a> (social and online networks)<br/>
+<a href="http://konect.uni-koblenz.de">KONECT, The Koblenz Network Collection</a> (social, biological, online networks)<br/>
+<a href="https://www.nceas.ucsb.edu/interactionweb/resources.html">Interaction Web DataBase</a> (ecological networks)<br/>
+<a href="http://openconnecto.me/data/public/graphs/">Open Connectome database</a> (brain networks)<br/>
+<a href="http://www.stats.ox.ac.uk/~snijders/siena/Lazega_lawyers_data.htm">Lazega lawyers network</a> (social)<br/>
+<a href="http://journals.aps.org/datasets">APS Physical Review bibliographic network</a> (informational, directed, acyclic)<br/>
+<a href="http://www.imdb.com/interfaces">Internet Movie Database</a> (social, bipartite, temporal)<br/>
+<a href="http://en.wikipedia.org/wiki/Wikipedia:Database_download#English-language_Wikipedia">Wikipedia</a> (informational, temporal, big) -->
+<br/>
+
+<p><b><big>Other Courses on Networks</big></b><br/>
+<a href="http://www-personal.umich.edu/~mejn/courses/2015/cscs535/index.html">Network Theory</a> (University of Michigan)<br/>
+<a href="https://www.cs.purdue.edu/homes/neville/courses/ST598T.html">Statistical Network Analysis</a> (Purdue University)<br/>
+<a href="https://courses.cit.cornell.edu/info2040_2015fa/">Networks</a> (Cornell University)<br/>
+<a href="http://networksatharvard.com">Networks</a> (Harvard University)<br/>
+<a href="https://www.coursera.org/course/networksonline">Social and Economic Networks: Models and Analysis</a> (Coursera / Stanford)<br/>
+<a href="https://www.coursera.org/course/sna">Social Network Analysis</a> (Coursera / University of Michigan)<br/>
+<a href="http://web.stanford.edu/class/cs224w/">Social and Information Network Analysis</a> (Stanford)<br/>
+<a href="https://sites.google.com/a/yale.edu/462-562-graphs-and-networks/">Graphs and Networks</a> (Yale)<br/>
+<a href="http://www.cs.yale.edu/homes/spielman/561/">Spectral Graph Theory</a> (Yale)<br/>
+<a href="http://web.stanford.edu/~jugander/mse334/">The Structure of Social Data</a> (Stanford)</br>
+
+<p><b><big>Resources</big></b><br/>
+<a href="http://www.latex-project.org/">LaTeX (general)</a> and <a href="http://pages.uoregon.edu/koch/texshop/">TeXShop (Mac)</a><br/>
+<a href="http://oit.colorado.edu/software-hardware/site-licenses/matlab">Matlab license for CU staff</a> (includes student employees)<br/>
+<a href="http://oit.colorado.edu/software-hardware/site-licenses/mathematica">Mathematica license for CU students</a><br/>
+<a href="http://www.scipy.org/NumPy_for_Matlab_Users">NumPy/SciPy libraries for Python</a> (similar to Matlab)<br/>
+<a href="http://www.gnu.org/software/octave/">GNU Octave</a> (similar to Matlab)<br/>
+<a href="http://www.wolframalpha.com/">Wolfram Alpha</a> (Web interface for simple integration and differentiation)<br/>
+<a href="http://textbooks.opensuny.org/introduction-to-the-modeling-and-analysis-of-complex-systems/">Introduction to the Modeling and Analysis of Complex Systems</a>, by <a href="http://bingweb.binghamton.edu/~sayama/">Hiroki Sayama</a> (free online textbook)<br/>
+
+<p><b><big>Things Worth Reading</big></b><br/>
+<a href="http://arxiv.org/abs/1210.3781">Everything you wanted to know about Data Analysis and Fitting but were afraid to ask</a>, by Peter Young<br/>
+<a href="http://bactra.org/notebooks/learning-inference-induction.html">Machine Learning, Statistical Inference and Induction Notebook</a> (by <a href="http://bactra.org/">Cosma Shalizi</a>)<br/>
+<a href="http://bactra.org/notebooks/power-laws.html">Power Law distributions, etc. Notebook</a> (by <a href="http://bactra.org">Cosma Shalizi</a>)<br/>
+<a href="http://www.refsmmat.com/statistics/">Statistics Done Wrong, The woefully complete guide</a> (by <a href="http://www.refsmmat.com">Alex Reinhart</a>)<br/>
+<a href="http://www.stat.cmu.edu/~cshalizi/757/process.html">Some Advice on Process for 
+[Research Projects]</a><br/>
+
+
+
+</div>
+
+<!-- After main content -->
+
+</div>
+
+<!-- Right-side Gutter -->
+
+<div id="right">
+<div class="sidebar">
+
+<div id="sidebar-cat">
+
+<h2>Professional</h2> <ul> <li>
+<a href="../../research.htm">Research</a><br>
+<a href="../../labgroup.htm">Lab Group</a><br>
+<a href="../../datacode.htm">Data and Code</a><br>
+<a href="../../teaching.htm">Teaching</a><br>
+<a href="../../aclauset-cv.pdf">Vitae</a><br>
+<a href="https://aaronclauset.github.io/blog/">Blog</a><br>
+<a href="https://bsky.app/profile/aaronclauset.bsky.social">Bluesky</a></br>
+<a rel="me" href="https://fediscience.org/@aaronclauset">Mastodon</a><br>
+</li> </ul>
+
+</div>
+
+<div id="sidebar-cat">
+
+<h2>Personal</h2> <ul> <li>
+<a href="../../aboutme.htm">About Me</a><br>
+<a href="../../contact.htm">Contact</a><br>
+</li> </ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="footer"> <p> Copyright 2013-2024, Aaron Clauset</p> </div>
+
+<div style="clear: both;">&#160;</div>
+
+</div>
+
+
+</body>
+</html>
