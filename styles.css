@@ -67,7 +67,7 @@ h1, h2, h3 {
 	display: block;
 	background: #ffffff url(images/aaron5.jpg) no-repeat;
 	background-position: 0px 18px;
-	padding: 0px;
+	padding: 5px;
 	height: 152px; 
 	width: 152px;
 }
