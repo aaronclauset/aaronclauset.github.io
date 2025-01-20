@@ -65,11 +65,11 @@ h1, h2, h3 {
 #center-right {
 	float: right;
 	display: block;
-	background: #ffffff url(images/aaron3.jpg) no-repeat;
+	background: #ffffff url(images/aaron5.jpg) no-repeat;
 	background-position: 0px 18px;
 	padding: 0px;
 	height: 152px; 
-	width: 154px;
+	width: 152px;
 }
 
 #footer {
